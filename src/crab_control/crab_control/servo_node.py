@@ -36,7 +36,6 @@ ADDR_PRESENT_POSITION = 132
 PROTOCOL_VERSION = 2.0  # Default Protocol version of DYNAMIXEL X series.
 
 # Default settings
-DXL_ID = 1  # Dynamixel ID : 1
 BAUDRATE = 1000000  # Dynamixel default baudrate : 57600
 DEVICE_NAME = '/dev/ttyUSB0'  # Check which port is being used on your controller
 
@@ -45,7 +44,8 @@ TORQUE_DISABLE = 0  # Value for disabling the torque
 # 4096 pulses per revolution
 POSITION_CONTROL = 3  # Value 4 for Extended position control mode, 3 for normal position control
 
-
+# Amount of servos to init on the bus
+NUM_SERVOS = 4
 
 class ReadWriteNode(Node):
 
@@ -65,17 +65,18 @@ class ReadWriteNode(Node):
             return
         self.get_logger().info('Succeeded to set the baudrate.')
 
-        self.setup_dynamixel(DXL_ID)
-        qos = QoSProfile(depth=10)
+        for i in range(1, NUM_SERVOS+1):
+            self.setup_dynamixel(i)
+            qos = QoSProfile(depth=10)
 
-        self.subscription = self.create_subscription(
-            SetPosition,
-            'set_position',
-            self.set_position_callback,
-            qos
-        )
+            self.subscription = self.create_subscription(
+                SetPosition,
+                f'servo{i}/set_position',
+                self.set_position_callback,
+                qos
+            )
 
-        self.srv = self.create_service(GetPosition, 'get_position', self.get_position_callback)
+            self.srv = self.create_service(GetPosition, f'servo{i}/set_position', self.get_position_callback)
 
     def setup_dynamixel(self, dxl_id):
         dxl_comm_result, dxl_error = self.packet_handler.write1ByteTxRx(
