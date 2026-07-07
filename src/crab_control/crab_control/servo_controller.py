@@ -10,87 +10,79 @@ class MinimalPublisher(Node):
 
     def __init__(self):
         super().__init__('servo_controller')
+        self.publisher_1 = self.create_publisher(SetPosition, 'servo1/set_position', 10)
+        self.publisher_2 = self.create_publisher(SetPosition, 'servo2/set_position', 10)
+        self.publisher_3 = self.create_publisher(SetPosition, 'servo3/set_position', 10)
+        self.publisher_4 = self.create_publisher(SetPosition, 'servo4/set_position', 10)
+        timer_period = 0.01  # seconds
+        self.timer = self.create_timer(timer_period, self.timer_callback)
 
-        self.publisher_ = self.create_publisher(
-            SetPosition,
-            'servo/set_position',
-            10
-        )
-
-        self.position_sub = self.create_subscription(
-        Int32MultiArray,
-        'servo/get_position',
-        self.position_callback,
-        10
-        )
-
-        self.current_positions = [0, 0]
-
-        self.timer = self.create_timer(0.001, self.timer_callback)
-
-        self.start_time = time.time()
-
-        self.position = 2048
-        self.position2 = 2048
-        self.counter = 0
-
-    def position_callback(self, msg):
-        self.current_positions = list(msg.data)
-
-        # Encoder value of servo 1
-        encoder1 = self.current_positions[0]
-
-        # Encoder value of servo 2
-        encoder2 = self.current_positions[1]
-
-        self.get_logger().info(
-            f"Servo1: {encoder1}, Servo2: {encoder2}"
-    )
-        
-    
-
+        self.servo_1_position = 2048
+        self.servo_2_position = 0
+        self.servo_3_position = 0
+        self.servo_4_position = 900
+        self.decreasing = True
+        self.increasing = True
 
     def timer_callback(self):
+        msg_1 = SetPosition()
+        msg_2 = SetPosition()
+        msg_3 = SetPosition()
+        msg_4 = SetPosition()
 
-        frequency = 0.4
-        amplitude = 60.0
+        msg_1.id = 1
+        msg_2.id = 2
+        msg_3.id = 3
+        msg_4.id = 4
 
-        counts_per_degree = 4096 / 360
-        center = 2048
-
-        t = time.time() - self.start_time
-
-        angle = amplitude * math.sin(2 * math.pi * frequency * t)
-
-        position = int(center + angle * counts_per_degree)
-        position = max(0, min(4095, position))
-
-        msg = SetPosition()
-        msg.id = 1
-        msg.position = position
-
-        enc = self.current_positions[0]
-
+        msg_1.position = self.servo_1_position
+        msg_2.position = self.servo_2_position
+        msg_3.position = self.servo_3_position
+        msg_4.position = self.servo_4_position
         
+        self.publisher_1.publish(msg_1)
+        self.publisher_2.publish(msg_2)
+        self.publisher_3.publish(msg_3)
+        self.publisher_4.publish(msg_4)
 
-        if enc > 2648:
-            self.counter = 1
-
-        if self.counter == 1:
-            self.position2 = 3048
-
-        if enc < 1448:
-            self.counter = 0
-            self.position2 = 2048
-
-        msg2 = SetPosition()
-        msg2.id = 2
-        msg2.position = self.position2
-
-        self.publisher_.publish(msg)
-        self.publisher_.publish(msg2)
+        self.servo_1_position = self.servo_back(self.servo_1_position, 1500, 2048)
+        self.servo_2_position = self.servo_movement(self.servo_2_position, 1000, 0)
+        
+        self.servo_3_position = self.servo_movement(self.servo_3_position, 1500, 0)
+        self.servo_4_position = self.servo_movement(self.servo_4_position, 1000, 900)
+        # self.get_logger().info('Publishing: "%d"' % self.servo_1_position)
 
 
+
+
+    def servo_movement(self, servo_position=0, steps=1000, start=0):
+
+        if servo_position >= steps + start:
+            self.increasing = False
+        elif servo_position <= start:
+            self.increasing = True
+        
+        if self.increasing:
+            servo_position += 3
+        else:
+            servo_position -= 5
+        
+        return servo_position
+    
+    def servo_back(self, servo_position=0, steps=1000, start=0):
+
+        if servo_position <= start - steps:
+            self.decreasing = False
+        elif servo_position >= start:
+            self.decreasing = True
+        
+        if self.decreasing:
+            servo_position -= 5
+        else:
+            servo_position += 3
+        
+        return servo_position
+        
 
 def main(args=None):
     rclpy.init(args=args)
