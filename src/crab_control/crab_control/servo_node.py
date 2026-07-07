@@ -31,6 +31,12 @@ ADDR_OPERATING_MODE = 11 # Control table address is different in Dynamixel model
 ADDR_TORQUE_ENABLE = 64
 ADDR_GOAL_POSITION = 116
 ADDR_PRESENT_POSITION = 132
+ADDR_PROFILE_ACCELERATION = 108
+ADDR_PROFILE_VELOCITY = 112
+
+
+PROFILE_ACCELERATION = 120
+PROFILE_VELOCITY = 250
 
 # Protocol version
 PROTOCOL_VERSION = 2.0  # Default Protocol version of DYNAMIXEL X series.
@@ -86,6 +92,28 @@ class ReadWriteNode(Node):
                                     {self.packet_handler.getTxRxResult(dxl_comm_result)}')
         else:
             self.get_logger().info('Succeeded to set Position Control Mode.')
+
+
+
+        dxl_comm_result, dxl_error = self.packet_handler.write4ByteTxRx(
+            self.port_handler, dxl_id, ADDR_PROFILE_ACCELERATION, PROFILE_ACCELERATION
+        )
+        if dxl_comm_result != COMM_SUCCESS:
+            self.get_logger().error(f'Failed to set Profile Acceleration: \
+                                    {self.packet_handler.getTxRxResult(dxl_comm_result)}')
+        else:
+            self.get_logger().info('Succeeded to set Profile Acceleration.')
+
+        dxl_comm_result, dxl_error = self.packet_handler.write4ByteTxRx(
+            self.port_handler, dxl_id, ADDR_PROFILE_VELOCITY, PROFILE_VELOCITY
+        )
+        if dxl_comm_result != COMM_SUCCESS:
+            self.get_logger().error(f'Failed to set Profile Velocity: \
+                                    {self.packet_handler.getTxRxResult(dxl_comm_result)}')
+        else:
+            self.get_logger().info('Succeeded to set Profile Velocity.')
+
+
 
         dxl_comm_result, dxl_error = self.packet_handler.write1ByteTxRx(
             self.port_handler, dxl_id, ADDR_TORQUE_ENABLE, TORQUE_ENABLE
