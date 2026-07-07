@@ -21,7 +21,9 @@ from dynamixel_sdk import COMM_SUCCESS
 from dynamixel_sdk import PacketHandler
 from dynamixel_sdk import PortHandler
 from dynamixel_sdk_custom_interfaces.msg import SetPosition
-from dynamixel_sdk_custom_interfaces.srv import GetPosition
+from dynamixel_sdk import *
+from std_msgs.msg import Int32MultiArray
+
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSProfile
@@ -43,14 +45,20 @@ TORQUE_ENABLE = 1  # Value for enabling the torque
 TORQUE_DISABLE = 0  # Value for disabling the torque
 # 4096 pulses per revolution
 POSITION_CONTROL = 3  # Value 4 for Extended position control mode, 3 for normal position control
+DATA_LENGTH_4BYTE = 4
 
-# Amount of servos to init on the bus
+# Amount of servos to init on the bus (MAX 4)
 NUM_SERVOS = 2
 
 class ReadWriteNode(Node):
     def __init__(self):
         super().__init__('read_write_node')
 
+        # List of servo goals and positions
+        self.servo_goals = [0,0]
+        self.servo_positions = [0,0]
+
+        
         self.port_handler = PortHandler(DEVICE_NAME)
         self.packet_handler = PacketHandler(PROTOCOL_VERSION)
 
@@ -64,18 +72,28 @@ class ReadWriteNode(Node):
             return
         self.get_logger().info('Succeeded to set the baudrate.')
 
+        # Create group sync read and write objects
+        self.groupSyncWrite = GroupSyncWrite(self.port_handler, self.packet_handler, ADDR_GOAL_POSITION, DATA_LENGTH_4BYTE)
+        self.groupSyncRead = GroupSyncRead(self.port_handler, self.packet_handler, ADDR_PRESENT_POSITION, DATA_LENGTH_4BYTE)
+
+        # Setup N Servos (4 Max for this project)
         for i in range(1, NUM_SERVOS+1):
             self.setup_dynamixel(i)
-            qos = QoSProfile(depth=10)
+        
+        for dxl_id in range(1, NUM_SERVOS + 1):
+            if not self.groupSyncRead.addParam(dxl_id):
+                self.get_logger().error(f"Failed to add servo {dxl_id} to GroupSyncRead")
 
-            self.subscription = self.create_subscription(
-                SetPosition,
-                f'servo{i}/set_position',
-                self.set_position_callback,
-                qos
-            )
-
-            self.srv = self.create_service(GetPosition, f'servo{i}/set_position', self.get_position_callback)
+        # Setup the subscriber for servo goals along with the service to get feedback
+        qos = QoSProfile(depth=10)
+        self.subscription = self.create_subscription(
+            SetPosition,
+            f'servo/set_position',
+            self.set_position_callback,
+            qos
+        )
+        self.publisher = self.create_publisher(Int32MultiArray, f'servo/get_position', qos)
+        self.timer = self.create_timer(0.25, self.get_position_callback)
 
     def setup_dynamixel(self, dxl_id):
         dxl_comm_result, dxl_error = self.packet_handler.write1ByteTxRx(
@@ -96,36 +114,44 @@ class ReadWriteNode(Node):
         else:
             self.get_logger().info('Succeeded to enable torque.')
 
+    def group_sync_write(self, goals):
+        # Package goals
+        for idx, goal in enumerate(goals):
+                param_goal_position = [
+                    DXL_LOBYTE(DXL_LOWORD(goal)),
+                    DXL_HIBYTE(DXL_LOWORD(goal)),
+                    DXL_LOBYTE(DXL_HIWORD(goal)),
+                    DXL_HIBYTE(DXL_HIWORD(goal))
+                ]
+                dxl_addparam_result = self.groupSyncWrite.addParam(idx+1, param_goal_position)
+                if not dxl_addparam_result:
+                    self.get_logger().error("[ID:%03d] groupSyncWrite addparam failed" % (idx+1))
+        # Send Goals
+        dxl_comm_result = self.groupSyncWrite.txPacket()
+        if dxl_comm_result != COMM_SUCCESS:
+            self.get_logger().error("%s" % self.packet_handler.getTxRxResult(dxl_comm_result))
+        self.groupSyncWrite.clearParam()
+    
     def set_position_callback(self, msg):
-        goal_position = msg.position
+        # Update goal array
+        self.servo_goals[msg.id-1] = msg.position
+        # Send out the array
+        self.group_sync_write(self.servo_goals)
+    
 
-        dxl_comm_result, dxl_error = self.packet_handler.write4ByteTxRx(
-            self.port_handler, msg.id, ADDR_GOAL_POSITION, goal_position
-        )
-
+    def get_position_callback(self):
+        
+        msg = Int32MultiArray()
+        dxl_comm_result = self.groupSyncRead.txRxPacket()
         if dxl_comm_result != COMM_SUCCESS:
-            self.get_logger().error(f'Error: \
-                                    {self.packet_handler.getTxRxResult(dxl_comm_result)}')
-        elif dxl_error != 0:
-            self.get_logger().error(f'Error: {self.packet_handler.getRxPacketError(dxl_error)}')
-        else:
-            self.get_logger().info(f'Set [ID: {msg.id}] [Goal Position: {msg.position}]')
+            self.get_logger().error("%s" % self.packet_handler.getTxRxResult(dxl_comm_result))
+        
+        for idx, position in enumerate(self.servo_positions):
+            self.servo_positions[idx] = self.groupSyncRead.getData(idx+1, ADDR_PRESENT_POSITION, DATA_LENGTH_4BYTE)
+        
+        msg.data = self.servo_positions
+        self.publisher.publish(msg)
 
-    def get_position_callback(self, request, response):
-        dxl_present_position, dxl_comm_result, dxl_error = self.packet_handler.read4ByteTxRx(
-            self.port_handler, request.id, ADDR_PRESENT_POSITION
-        )
-
-        if dxl_comm_result != COMM_SUCCESS:
-            self.get_logger().error(f'Error: {self.packet_handler.getTxRxResult(dxl_comm_result)}')
-        elif dxl_error != 0:
-            self.get_logger().error(f'Error: {self.packet_handler.getRxPacketError(dxl_error)}')
-        else:
-            self.get_logger().info(f'Get [ID: {request.id}] \
-                                   [Present Position: {dxl_present_position}]')
-
-        response.position = dxl_present_position
-        return response
 
     def __del__(self):
         self.packet_handler.write1ByteTxRx(self.port_handler,
