@@ -14,13 +14,11 @@ class MinimalPublisher(Node):
     def timer_callback(self):
         msg = SetPosition()
         msg.id = 1
-        msg.position = self.i
+        msg.position = 2048
         self.publisher_.publish(msg)
         msg.id = 2
         self.publisher_.publish(msg)
-        self.i += 50
-        if self.i >= 4095:
-            self.i = 0
+        
 
 
 def main(args=None):
