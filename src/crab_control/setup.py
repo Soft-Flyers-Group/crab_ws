@@ -26,7 +26,7 @@ setup(
         'console_scripts': [
             'servo_node = crab_control.servo_node:main',
             'servo_controller = crab_control.servo_controller:main',
-            'servo_node_sync = crab_control.servo_node_sync:main'
+            'load_cell_node = crab_control.load_cell_node:main'
         ],
     },
 )
