@@ -96,9 +96,7 @@ class ReadWriteNode(Node):
             self.set_position_callback,
             qos
         )
-        self.publisher = self.create_publisher(Int32MultiArray, 'servo/get_position', qos)
         self.timer = self.create_timer(0.25, self.get_position_callback)
-
         self.pospub = self.create_publisher(ServoData, '/servo/position_data', qos)
         self.encpub = self.create_publisher(ServoData, '/servo/encoder_data', qos)
         
@@ -158,15 +156,16 @@ class ReadWriteNode(Node):
         self.group_sync_write(self.servo_goals)
         
         # Publish current servo commands
-        msg = ServoData()
-        msg.header.stamp = self.get_clock().now().to_msg()
-        msg.data = self.servo_goals
-        self.pospub.publish(msg)
+        log = ServoData()
+        log.header.stamp = self.get_clock().now().to_msg()
+        log.data = self.servo_goals
+        self.pospub.publish(log)
     
 
     def get_position_callback(self):
         
         msg = ServoData()
+        
         dxl_comm_result = self.groupSyncRead.txRxPacket()
         if dxl_comm_result != COMM_SUCCESS:
             self.get_logger().error("%s" % self.packet_handler.getTxRxResult(dxl_comm_result))

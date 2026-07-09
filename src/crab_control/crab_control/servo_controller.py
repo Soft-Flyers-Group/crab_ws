@@ -26,7 +26,7 @@ class MinimalPublisher(Node):
         # Initialization of subscriber to encoder values
         self.subscription = self.create_subscription(
             Int32MultiArray,
-            '/servo/get_position',
+            '/servo/encoder_data',
             self.listener_callback,
             10)
         self.subscription
