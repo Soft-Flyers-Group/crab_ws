@@ -15,7 +15,7 @@ import numpy as np
 # CONFIG
 # =====================================================
 
-BAG_PATH = "/home/odinroast/crab_ws/adya_gait3_both.bag"
+BAG_PATH = "/home/odinroast/crab_ws/adya_gait2.bag"
 
 LOAD_TOPIC = "/load_cell_data"
 CMD_TOPIC = "/servo/position_data"
