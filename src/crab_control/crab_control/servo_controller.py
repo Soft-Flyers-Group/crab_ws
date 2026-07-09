@@ -6,7 +6,7 @@ from std_msgs.msg import Int32MultiArray
 import numpy as np
 import time
 from dynamixel_sdk_custom_interfaces.msg import SetPosition
-from std_msgs.msg import Int32MultiArray
+from crab_interfaces.msg import ServoData
 import math
 import time
 
@@ -25,7 +25,7 @@ class MinimalPublisher(Node):
         
         # Initialization of subscriber to encoder values
         self.subscription = self.create_subscription(
-            Int32MultiArray,
+            ServoData,
             '/servo/encoder_data',
             self.listener_callback,
             10)
