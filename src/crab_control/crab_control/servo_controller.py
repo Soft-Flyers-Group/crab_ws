@@ -10,7 +10,6 @@ from crab_interfaces.msg import ServoData
 import math
 import time
 
-
 class MinimalPublisher(Node):
 
     def __init__(self):
@@ -21,8 +20,6 @@ class MinimalPublisher(Node):
         timer_period = 0.02  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
-
-        
         # Initialization of subscriber to encoder values
         self.subscription = self.create_subscription(
             ServoData,
@@ -88,7 +85,6 @@ class MinimalPublisher(Node):
         # self.servo_1_position = self.fourier_servo_move(self.servo_1_position, 500, math.pi, 1200)
         
         # self.servo_1_position = self.fourier_servo_move(self.servo_1_position, 500, math.pi, 2048)
-
 
         # CURRENT SERVO MOVEMENT CODE
         FLAP_RANGE = 600
