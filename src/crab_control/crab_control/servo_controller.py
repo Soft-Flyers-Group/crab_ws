@@ -32,8 +32,8 @@ class MinimalPublisher(Node):
         self.start_time = time.time()
 
         # Initial Servo positions
-        self.servo_1_init = 2100
-        self.servo_2_init = 1638
+        self.servo_1_init = 2000
+        self.servo_2_init = 3000
         self.servo_3_init = 2048
         self.servo_4_init = 2048
 
@@ -87,14 +87,14 @@ class MinimalPublisher(Node):
         # self.servo_1_position = self.fourier_servo_move(self.servo_1_position, 500, math.pi, 2048)
 
         # CURRENT SERVO MOVEMENT CODE
-        FLAP_RANGE = 600
+        FLAP_RANGE = 500
 
         self.servo_1_position = self.fourier_servo_move(self.servo_1_position, FLAP_RANGE, math.pi, self.servo_1_init)
 
-        if self.latest_positions[0] > self.servo_1_init + FLAP_RANGE - 150:
+        if self.latest_positions[0] > self.servo_1_init + FLAP_RANGE - 200:
             self.servo_2_position = 2000
-        if self.latest_positions[0] < self.servo_1_init - FLAP_RANGE + 150:
-            self.servo_2_position = 1000
+        if self.latest_positions[0] < self.servo_1_init - FLAP_RANGE + 200:
+            self.servo_2_position = 3000
         
         self.get_logger().info('Publishing: "%s"' % str(self.latest_positions))
 

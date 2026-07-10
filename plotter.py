@@ -10,7 +10,7 @@ from crab_interfaces.msg import LoadCell, ServoData
 
 # ---------------- CONFIG ----------------
 
-BAG_PATH = "/home/odinroast/crab_ws/adya_gait2.bag"
+BAG_PATH = "/home/odinroast/crab_ws/adya_gait.bag"
 
 TOPICS = {
     "/load_cell_data": LoadCell,
