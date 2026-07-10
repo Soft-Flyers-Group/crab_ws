@@ -11,5 +11,5 @@ ros2 run crab_control servo_node
 ros2 run crab_control servo_controller
 
 Repeat the steps above for every new bag
-
+source install/setup.badh
 run python3 plotter.py to graph a bag, and change bagpath inside the python file for different bags

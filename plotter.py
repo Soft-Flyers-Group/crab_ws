@@ -1,333 +1,211 @@
 #!/usr/bin/env python3
 
-import rosbag2_py
-
-from rclpy.serialization import deserialize_message
-
-from crab_interfaces.msg import LoadCell
-from crab_interfaces.msg import ServoData
-
-import matplotlib.pyplot as plt
 import numpy as np
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
+import rosbag2_py
+from rclpy.serialization import deserialize_message
+from crab_interfaces.msg import LoadCell, ServoData
 
-# =====================================================
-# CONFIG
-# =====================================================
+# ---------------- CONFIG ----------------
 
 BAG_PATH = "/home/odinroast/crab_ws/adya_gait2.bag"
 
-LOAD_TOPIC = "/load_cell_data"
-CMD_TOPIC = "/servo/position_data"
-ENC_TOPIC = "/servo/encoder_data"
+TOPICS = {
+    "/load_cell_data": LoadCell,
+    "/servo/position_data": ServoData,
+    "/servo/encoder_data": ServoData,
+}
 
+# ---------------- Helpers ----------------
 
-# =====================================================
-# Helpers
-# =====================================================
-
-def stamp_to_seconds(stamp):
+def stamp_to_sec(stamp):
     return stamp.sec + stamp.nanosec * 1e-9
 
-
 def normalize_time(t):
-    if len(t) == 0:
-        return t
+    return t - t[0] if len(t) else t
 
-    return t - t[0]
-
-
-# =====================================================
-# Read bag
-# =====================================================
+# ---------------- Read bag ----------------
 
 def read_bag():
-
-    storage_options = rosbag2_py.StorageOptions(
-        uri=BAG_PATH,
-        storage_id="mcap"
-    )
-
-    converter_options = rosbag2_py.ConverterOptions(
-        input_serialization_format="cdr",
-        output_serialization_format="cdr"
-    )
-
 
     reader = rosbag2_py.SequentialReader()
 
     reader.open(
-        storage_options,
-        converter_options
+        rosbag2_py.StorageOptions(
+            uri=BAG_PATH,
+            storage_id="mcap"
+        ),
+        rosbag2_py.ConverterOptions("cdr", "cdr")
     )
 
-
-    load_times = []
-    load_data = []
-
-    cmd_times = []
-    cmd_data = []
-
-    enc_times = []
-    enc_data = []
-
+    data = {
+        "load_t": [],
+        "load": [],
+        "cmd_t": [],
+        "cmd": [],
+        "enc_t": [],
+        "enc": [],
+    }
 
     while reader.has_next():
 
-        topic, data, _ = reader.read_next()
+        topic, raw, _ = reader.read_next()
+        msg = deserialize_message(raw, TOPICS[topic])
 
+        t = stamp_to_sec(msg.header.stamp)
 
-        if topic == LOAD_TOPIC:
+        if topic == "/load_cell_data":
 
-            msg = deserialize_message(
-                data,
-                LoadCell
-            )
+            mat = np.array(msg.data, dtype=np.float32)
+            mat = mat.reshape(msg.rows, msg.cols)
 
-            load_times.append(
-                stamp_to_seconds(msg.header.stamp)
-            )
+            data["load_t"].append(t)
+            data["load"].append(mat)
 
+        elif topic == "/servo/position_data":
 
-            matrix = np.array(
-                msg.data,
-                dtype=np.float32
-            )
+            data["cmd_t"].append(t)
+            data["cmd"].append(msg.data)
 
+        elif topic == "/servo/encoder_data":
 
-            matrix = matrix.reshape(
-                msg.rows,
-                msg.cols
-            )
-
-
-            # matrix is 20x6
-            load_data.append(matrix)
-
-
-
-        elif topic == CMD_TOPIC:
-
-            msg = deserialize_message(
-                data,
-                ServoData
-            )
-
-
-            cmd_times.append(
-                stamp_to_seconds(msg.header.stamp)
-            )
-
-            cmd_data.append(
-                msg.data
-            )
-
-
-
-        elif topic == ENC_TOPIC:
-
-            msg = deserialize_message(
-                data,
-                ServoData
-            )
-
-
-            enc_times.append(
-                stamp_to_seconds(msg.header.stamp)
-            )
-
-            enc_data.append(
-                msg.data
-            )
-
-
+            data["enc_t"].append(t)
+            data["enc"].append(msg.data)
 
     return (
-        np.array(load_times),
-        np.array(load_data),
-
-        np.array(cmd_times),
-        np.array(cmd_data),
-
-        np.array(enc_times),
-        np.array(enc_data)
+        normalize_time(np.array(data["load_t"])),
+        np.array(data["load"]),
+        normalize_time(np.array(data["cmd_t"])),
+        np.array(data["cmd"]),
+        normalize_time(np.array(data["enc_t"])),
+        np.array(data["enc"]),
     )
 
-
-
-# =====================================================
-# Main
-# =====================================================
+# ---------------- Main ----------------
 
 def main():
 
-    (
-        load_t,
-        load_data,
+    load_t, load, cmd_t, cmd, enc_t, enc = read_bag()
 
-        cmd_t,
-        cmd_data,
+    print(load.shape)
+    print(cmd.shape)
+    print(enc.shape)
 
-        enc_t,
-        enc_data
-
-    ) = read_bag()
-
-
-
-    load_t = normalize_time(load_t)
-    cmd_t = normalize_time(cmd_t)
-    enc_t = normalize_time(enc_t)
-
-
-
-    print("======================")
-    print("Loaded bag")
-    print("======================")
-
-    print(
-        "Load cell shape:",
-        load_data.shape
-    )
-
-    print(
-        "Command shape:",
-        cmd_data.shape
-    )
-
-    print(
-        "Encoder shape:",
-        enc_data.shape
-    )
-
-
-
-    # =================================================
-    # Load Cell Plot
-    # =================================================
-
-    if len(load_data):
-
-        #
-        # load_data shape:
-        #
-        # samples x 20 x 6
-        #
-        # The DAQ duplicates the same wrench
-        # 20 times.
-        #
-        # Pick one row.
-        #
-
-        wrench = load_data[:,0,:]
-
-
-        names = [
-            "Fx",
-            "Fy",
-            "Fz",
-            "Tx",
-            "Ty",
-            "Tz"
-        ]
-
-
-        plt.figure(
-            figsize=(14,7)
+    fig = make_subplots(
+        rows=2,
+        cols=1,
+        shared_xaxes=True,
+        vertical_spacing=0.07,
+        subplot_titles=(
+            "Load Cell Forces/Torques",
+            "Servo Commands & Encoders"
         )
+    )
 
+    # ---------- Load Cell ----------
+
+    if len(load):
+
+        wrench = load[:, 0, :]
+
+        labels = ["Fx", "Fy", "Fz", "Tx", "Ty", "Tz"]
+        colors = ["red", "green", "blue", "orange", "purple", "black"]
 
         for i in range(6):
 
-            plt.plot(
-                load_t,
-                wrench[:,i],
-                label=names[i]
+            fig.add_trace(
+                go.Scattergl(
+                    x=load_t,
+                    y=wrench[:, i],
+                    mode="lines",
+                    name=labels[i],
+                    line=dict(color=colors[i], width=2),
+                ),
+                row=1,
+                col=1,
             )
 
+    # ---------- Servo Data ----------
 
-        plt.title(
-            "Load Cell Wrench"
-        )
+    servo_colors = [
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c",
+        "#d62728",
+        "#9467bd",
+        "#8c564b",
+        "#e377c2",
+        "#7f7f7f",
+    ]
 
-        plt.xlabel(
-            "Time (s)"
-        )
+    if len(cmd):
 
-        plt.ylabel(
-            "Measurement"
-        )
+        n = cmd.shape[1]
 
-        plt.grid()
-        plt.legend()
+        for i in range(n):
 
+            c = servo_colors[i % len(servo_colors)]
 
-
-    # =================================================
-    # Servo command + encoder
-    # =================================================
-
-    if len(cmd_data) or len(enc_data):
-
-        plt.figure(
-            figsize=(14,7)
-        )
-
-
-        if len(cmd_data):
-
-            cmd_data = np.array(
-                cmd_data
+            fig.add_trace(
+                go.Scattergl(
+                    x=cmd_t,
+                    y=cmd[:, i],
+                    mode="lines",
+                    name=f"S{i+1} Cmd",
+                    line=dict(color=c),
+                ),
+                row=2,
+                col=1,
             )
 
+    if len(enc):
 
-            for i in range(cmd_data.shape[1]):
+        n = enc.shape[1]
 
-                plt.plot(
-                    cmd_t,
-                    cmd_data[:,i],
-                    label=f"Servo {i+1} command"
-                )
+        for i in range(n):
 
+            c = servo_colors[i % len(servo_colors)]
 
-
-        if len(enc_data):
-
-            enc_data = np.array(
-                enc_data
+            fig.add_trace(
+                go.Scattergl(
+                    x=enc_t,
+                    y=enc[:, i],
+                    mode="lines",
+                    name=f"S{i+1} Enc",
+                    line=dict(color=c, dash="dash"),
+                ),
+                row=2,
+                col=1,
             )
 
+    # ---------- Layout ----------
 
-            for i in range(enc_data.shape[1]):
+    fig.update_layout(
+        title="ROS Bag Viewer",
+        template="plotly_white",
+        hovermode="x unified",
+        height=900,
+        legend=dict(
+            orientation="h",
+            y=1.02,
+            x=0
+        ),
+    )
 
-                plt.plot(
-                    enc_t,
-                    enc_data[:,i],
-                    "--",
-                    label=f"Servo {i+1} encoder"
-                )
+    fig.update_xaxes(
+        title="Time (s)",
+        rangeslider_visible=True,
+        row=2,
+        col=1,
+    )
 
+    fig.update_yaxes(title="Force / Torque", row=1, col=1)
+    fig.update_yaxes(title="Servo Position", row=2, col=1)
 
-
-        plt.title(
-            "Servo Command vs Encoder"
-        )
-
-        plt.xlabel(
-            "Time (s)"
-        )
-
-        plt.ylabel(
-            "Position"
-        )
-
-        plt.grid()
-        plt.legend()
-
-
-
-    plt.show()
-
+    fig.write_html("rosbag_plot.html", auto_open=False)
+    fig.show()
 
 
 if __name__ == "__main__":
