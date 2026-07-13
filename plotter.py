@@ -9,7 +9,7 @@ from rclpy.serialization import deserialize_message
 from crab_interfaces.msg import LoadCell, ServoData
 
 # ---------------- CONFIG ----------------
-
+# Change to your usename
 BAG_PATH = "/home/odinroast/crab_ws/adya_gait2.bag"
 
 TOPICS = {
