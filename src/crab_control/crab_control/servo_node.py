@@ -96,7 +96,7 @@ class ReadWriteNode(Node):
             self.set_position_callback,
             qos
         )
-        self.timer = self.create_timer(0.25, self.get_position_callback)
+        self.timer = self.create_timer(0.05, self.get_position_callback)
         self.pospub = self.create_publisher(ServoData, '/servo/position_data', qos)
         self.encpub = self.create_publisher(ServoData, '/servo/encoder_data', qos)
         
