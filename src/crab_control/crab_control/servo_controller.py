@@ -43,8 +43,12 @@ class MinimalPublisher(Node):
 =======
 >>>>>>> 2ef349f (rebase and merge off main. built but not run)
 
+<<<<<<< HEAD
 
         self.latest_positions = [0, 0, 0, 0]
+=======
+        self.latest_positions = [0, 0]
+>>>>>>> d261325 (refined code after rebase with data collected)
 
         # Variables for linear servo movement
         self.decreasing = True
@@ -63,8 +67,8 @@ class MinimalPublisher(Node):
         # -----------------------------
         frequency = 0.5          # Hz
 
-        roll_amplitude = 75      # degrees
-        yaw_power = 85           # degrees during power stroke
+        roll_amplitude = 50      # degrees
+        yaw_power = 45           # degrees during power stroke
         yaw_recovery = 5         # degrees during recovery
 
         power_fraction = 0.7    # portion of cycle spent pushing
@@ -72,7 +76,7 @@ class MinimalPublisher(Node):
         counts_per_degree = 4096 / 360
 
         roll_center = 2048
-        yaw_center = 1650
+        yaw_center = 1000
 
         # Time since startup
         t = time.time() - self.start_time
@@ -82,16 +86,11 @@ class MinimalPublisher(Node):
         u = (t % period) / period
 
 
-        # -----------------------------
-        # ROLL (Servo 1)
-        # Sea turtle style:
-        # slow power stroke
-        # fast recovery stroke
-        # -----------------------------
+
         if u < power_fraction:
 
             # Power stroke:
-            # -amplitude -> +amplitude
+            # -amplitude to +amplitude
             s = u / power_fraction
 
             roll_angle = (
