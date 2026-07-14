@@ -34,16 +34,15 @@ class MinimalPublisher(Node):
         self.position = 2048.0
         self.position2 = 2048
         self.counter = 0
+<<<<<<< HEAD
         # Initial Servo positions
         self.servo_1_init = 1990
         self.servo_2_init = 1950
         self.servo_3_init = 1900
         self.servo_4_init = 1900
+=======
+>>>>>>> 2ef349f (rebase and merge off main. built but not run)
 
-        self.servo_1_position = self.servo_1_init
-        self.servo_2_position = self.servo_2_init
-        self.servo_3_position = self.servo_3_init
-        self.servo_4_position = self.servo_4_init
 
         self.latest_positions = [0, 0, 0, 0]
 

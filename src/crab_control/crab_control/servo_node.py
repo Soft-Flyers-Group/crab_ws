@@ -50,8 +50,13 @@ POSITION_CONTROL = 3  # Value 4 for Extended position control mode, 3 for normal
 DATA_LENGTH_4BYTE = 4
 
 # Amount of servos to init on the bus (MAX 4)
+<<<<<<< HEAD
 NUM_SERVOS = 4
 HOMING_OFFSET = 410
+=======
+NUM_SERVOS = 2
+HOMING_OFFSET = -1000
+>>>>>>> 2ef349f (rebase and merge off main. built but not run)
 
 
 class ReadWriteNode(Node):
