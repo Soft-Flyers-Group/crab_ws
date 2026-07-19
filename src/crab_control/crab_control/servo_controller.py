@@ -32,17 +32,17 @@ class MinimalPublisher(Node):
         self.start_time = time.time()
 
         # Initial Servo positions
-        self.servo_1_init = 2100
-        self.servo_2_init = 1638
-        self.servo_3_init = 2048
-        self.servo_4_init = 2048
+        self.servo_1_init = 1990
+        self.servo_2_init = 1950
+        self.servo_3_init = 1900
+        self.servo_4_init = 1900
 
         self.servo_1_position = self.servo_1_init
         self.servo_2_position = self.servo_2_init
         self.servo_3_position = self.servo_3_init
         self.servo_4_position = self.servo_4_init
 
-        self.latest_positions = [0, 0]
+        self.latest_positions = [0, 0, 0, 0]
 
         # Variables for linear servo movement
         self.decreasing = True
@@ -74,8 +74,8 @@ class MinimalPublisher(Node):
         
         self.publisher_.publish(msg_1)
         self.publisher_.publish(msg_2)
-        # self.publisher_.publish(msg_3)
-        # self.publisher_.publish(msg_4)
+        self.publisher_.publish(msg_3)
+        self.publisher_.publish(msg_4)
         
         # Old servo movement commands
         # self.servo_3_position = self.linear_servo_move(self.servo_3_position, 1500, 0)
@@ -87,37 +87,57 @@ class MinimalPublisher(Node):
         # self.servo_1_position = self.fourier_servo_move(self.servo_1_position, 500, math.pi, 2048)
 
         # CURRENT SERVO MOVEMENT CODE
-        FLAP_RANGE = 600
+        FLAP_RANGE = 500
+        self.servo_1_position = self.slowfast_servo_move(self.servo_1_position, FLAP_RANGE, 1.4 * math.pi, self.servo_1_init)
+        self.servo_3_position = self.slowfast_servo_move(self.servo_3_position, FLAP_RANGE, 1.4 * math.pi, self.servo_3_init, -1)
 
-        self.servo_1_position = self.fourier_servo_move(self.servo_1_position, FLAP_RANGE, math.pi, self.servo_1_init)
+        # self.servo_2_position = self.sin_servo_move(self.servo_2_position, 500, math.pi/2, self.servo_2_init - 500)
+        # self.servo_4_position = self.sin_servo_move(self.servo_4_position, 500, math.pi/2, self.servo_4_init + 500, -1)
+
 
         if self.latest_positions[0] > self.servo_1_init + FLAP_RANGE - 150:
-            self.servo_2_position = 2000
+            self.servo_2_position = self.servo_2_init - 1000
         if self.latest_positions[0] < self.servo_1_init - FLAP_RANGE + 150:
-            self.servo_2_position = 1000
+            self.servo_2_position = self.servo_2_init
+
+        if self.latest_positions[2] > self.servo_3_init + FLAP_RANGE - 150:
+            self.servo_4_position = self.servo_4_init
+        if self.latest_positions[2] < self.servo_3_init - FLAP_RANGE + 150:
+            self.servo_4_position = self.servo_4_init + 1000
         
-        self.get_logger().info('Publishing: "%s"' % str(self.latest_positions))
+        # self.get_logger().info('Publishing: "%s"' % str(self.latest_positions))
+
+
+    # using the sum of sin functions to move back fast and forward slowly
+    def slowfast_servo_move(self, servo_position=0, amp=1000, omega=math.pi, offset=2048, direction=1):
+        elapsed_time = time.time() - self.start_time
+
+        n = np.arange(1, 100)
+        sin_series = amp * np.sin(n * elapsed_time * omega) / n
+        servo_position = round(np.sum(sin_series)/5) * 5 * direction + offset
+
+        return servo_position
 
     # using Fourier series to define servo movement emulating piecewise on-off
-    def fourier_servo_move(self, servo_position=0,amp=1000, omega=math.pi, offset=2048):
+    def fourier_servo_move(self, servo_position=0,amp=1000, omega=math.pi, offset=2048, direction=1):
 
         elapsed_time = time.time() - self.start_time
 
-        n = np.arange(1, 100) # creates array [1, 2, ... a]
+        n = np.arange(1, 300) # creates array [1, 2, ... a]
         signs = (-1) ** (n + 1)
 
         # calculates terms of fourier series
-        fourier_series = signs * 4 / math.pi * amp * np.cos((2*n - 1) * omega * elapsed_time) / n
-        servo_position = round(np.sum(fourier_series)/5) * 5 + offset
+        fourier_series = signs * 4 / math.pi * amp * np.cos((2*n - 1) * omega * elapsed_time) / (2 * n + 1)
+        servo_position = round(np.sum(fourier_series)/5) * 5 * direction + offset
 
         return servo_position
 
     # using a sinusoidal function to define back and forth servo movement
-    def sin_servo_move(self, servo_position=0, amp=1000, omega=math.pi, offset=2048):
+    def sin_servo_move(self, servo_position=0, amp=1000, omega=math.pi, offset=2048, direction=1):
         
         elapsed_time = time.time() - self.start_time
 
-        servo_position = round(amp * math.cos(omega * elapsed_time) + offset)
+        servo_position = round(direction * amp * math.cos(omega * elapsed_time) + offset)
 
         return servo_position
     
