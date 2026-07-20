@@ -31,7 +31,8 @@ setup(
             'servo_node = crab_control.servo_node:main',
             'servo_controller = crab_control.servo_controller:main',
             'load_cell_node = crab_control.load_cell_node:main',
-            'imu_node = crab_control.imu_node:main'
+            'imu_node = crab_control.imu_node:main',
+            'camera_node = crab_control.camera_node:main',
         ],
     },
 )
