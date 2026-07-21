@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from pathlib import Path
+
 import numpy as np
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -14,8 +16,12 @@ from crab_interfaces.msg import LoadCell, ServoData
 BAG_PATH = "/home/odinroast/crab_ws/adya_gait2.bag"
 =======
 
+<<<<<<< HEAD
 BAG_PATH = "/home/vmookim/crab_ws/experiment_01.bag"
 >>>>>>> d261325 (refined code after rebase with data collected)
+=======
+BAG_DIR = Path("/home/vmookim/crab_ws")
+>>>>>>> a5d4e2a (working code)
 
 TOPICS = {
     "/load_cell_data": LoadCell,
@@ -25,24 +31,28 @@ TOPICS = {
 
 # ---------------- Helpers ----------------
 
+
 def stamp_to_sec(stamp):
     return stamp.sec + stamp.nanosec * 1e-9
+
 
 def normalize_time(t):
     return t - t[0] if len(t) else t
 
+
 # ---------------- Read bag ----------------
 
-def read_bag():
+
+def read_bag(bag_path):
 
     reader = rosbag2_py.SequentialReader()
 
     reader.open(
         rosbag2_py.StorageOptions(
-            uri=BAG_PATH,
-            storage_id="mcap"
+            uri=str(bag_path),
+            storage_id="mcap",
         ),
-        rosbag2_py.ConverterOptions("cdr", "cdr")
+        rosbag2_py.ConverterOptions("cdr", "cdr"),
     )
 
     data = {
@@ -57,6 +67,10 @@ def read_bag():
     while reader.has_next():
 
         topic, raw, _ = reader.read_next()
+
+        if topic not in TOPICS:
+            continue
+
         msg = deserialize_message(raw, TOPICS[topic])
 
         t = stamp_to_sec(msg.header.stamp)
@@ -88,15 +102,18 @@ def read_bag():
         np.array(data["enc"]),
     )
 
-# ---------------- Main ----------------
 
-def main():
+# ---------------- Plot one bag ----------------
 
-    load_t, load, cmd_t, cmd, enc_t, enc = read_bag()
 
-    print(load.shape)
-    print(cmd.shape)
-    print(enc.shape)
+def plot_bag(bag_path):
+
+    load_t, load, cmd_t, cmd, enc_t, enc = read_bag(bag_path)
+
+    print(f"\nProcessing {bag_path.name}")
+    print("Load:", load.shape)
+    print("Cmd :", cmd.shape)
+    print("Enc :", enc.shape)
 
     fig = make_subplots(
         rows=2,
@@ -105,8 +122,8 @@ def main():
         vertical_spacing=0.07,
         subplot_titles=(
             "Load Cell Forces/Torques",
-            "Servo Commands & Encoders"
-        )
+            "Servo Commands & Encoders",
+        ),
     )
 
     # ---------- Load Cell ----------
@@ -188,14 +205,14 @@ def main():
     # ---------- Layout ----------
 
     fig.update_layout(
-        title="ROS Bag Viewer",
+        title=f"ROS Bag Viewer - {bag_path.name}",
         template="plotly_white",
         hovermode="x unified",
         height=900,
         legend=dict(
             orientation="h",
             y=1.02,
-            x=0
+            x=0,
         ),
     )
 
@@ -209,8 +226,30 @@ def main():
     fig.update_yaxes(title="Force / Torque", row=1, col=1)
     fig.update_yaxes(title="Servo Position", row=2, col=1)
 
-    fig.write_html("rosbag_plot.html", auto_open=False)
-    fig.show()
+    out_file = bag_path / "rosbag_plot.html"
+    fig.write_html(str(out_file), auto_open=False)
+
+    print(f"Saved {out_file}")
+
+
+# ---------------- Main ----------------
+
+
+def main():
+
+    bag_paths = sorted(BAG_DIR.glob("*.bag"))
+
+    if not bag_paths:
+        print(f"No .bag directories found in {BAG_DIR}")
+        return
+
+    print(f"Found {len(bag_paths)} bag(s)")
+
+    for bag in bag_paths:
+        try:
+            plot_bag(bag)
+        except Exception as e:
+            print(f"Failed to process {bag.name}: {e}")
 
 
 if __name__ == "__main__":

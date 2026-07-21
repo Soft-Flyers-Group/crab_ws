@@ -65,9 +65,9 @@ class MinimalPublisher(Node):
         # -----------------------------
         # Motion parameters
         # -----------------------------
-        frequency = 0.5          # Hz
+        frequency = 0.75          # Hz
 
-        roll_amplitude = 50      # degrees
+        roll_amplitude = 75      # degrees
         yaw_power = 45           # degrees during power stroke
         yaw_recovery = 5         # degrees during recovery
 
