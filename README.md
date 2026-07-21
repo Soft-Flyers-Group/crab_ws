@@ -22,3 +22,8 @@ sudo apt-get install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgst
 
 Then run: 
 gst-launch-1.0 -v udpsrc port=5600 !     "application/x-rtp, media=(string)video, clock-rate=(int)90000, encoding-name=(string)JPEG, payload=(int)26" !     rtpjpegdepay ! jpegdec ! videoconvert ! autovideosink
+
+Camera Calibration:
+ssh -Y crabbot@ip 
+source install/setup.bash
+ros2 launch crab_control camera_callibration.launch.py
