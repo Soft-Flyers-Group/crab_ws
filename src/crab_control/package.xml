@@ -18,6 +18,8 @@
   <depend>cv_bridge</depend>
   <depend>rclpy</depend>
   <depend>camera_info_manager_py</depend>
+  <depend>apriltag_ros</depend>
+
 
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
