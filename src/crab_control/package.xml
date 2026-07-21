@@ -14,9 +14,14 @@
   <depend>std_srvs</depend>
   <depend>dynamixel_interfaces</depend>
   <depend>crab_interfaces</depend>
+  <depend>sensor_msgs</depend>
+  <depend>cv_bridge</depend>
+  <depend>rclpy</depend>
+  <depend>camera_info_manager_py</depend>
 
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
+  <exec_depend>camera_calibration</exec_depend>
   
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
