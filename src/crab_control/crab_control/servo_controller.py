@@ -34,21 +34,8 @@ class MinimalPublisher(Node):
         self.position = 2048.0
         self.position2 = 2048
         self.counter = 0
-<<<<<<< HEAD
-        # Initial Servo positions
-        self.servo_1_init = 1990
-        self.servo_2_init = 1950
-        self.servo_3_init = 1900
-        self.servo_4_init = 1900
-=======
->>>>>>> 2ef349f (rebase and merge off main. built but not run)
 
-<<<<<<< HEAD
-
-        self.latest_positions = [0, 0, 0, 0]
-=======
         self.latest_positions = [0, 0]
->>>>>>> d261325 (refined code after rebase with data collected)
 
         # Variables for linear servo movement
         self.decreasing = True

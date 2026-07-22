@@ -1,7 +1,4 @@
 from launch import LaunchDescription
-<<<<<<< HEAD
-from launch.actions import ExecuteProcess, DeclareLaunchArgument, TimerAction
-=======
 from launch.actions import (
     ExecuteProcess,
     DeclareLaunchArgument,
@@ -10,7 +7,6 @@ from launch.actions import (
     OpaqueFunction,
 )
 from launch.event_handlers import OnProcessStart
->>>>>>> d261325 (refined code after rebase with data collected)
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
@@ -54,9 +50,6 @@ def generate_launch_description():
             default_value="test_bag"
         ),
 
-<<<<<<< HEAD
-        # Start immediately
-=======
         bag_record,
 
         RegisterEventHandler(
@@ -73,42 +66,12 @@ def generate_launch_description():
             )
         ),
 
->>>>>>> d261325 (refined code after rebase with data collected)
         Node(
             package="crab_control",
             executable="load_cell_node",
             output="screen"
         ),
 
-<<<<<<< HEAD
-        # Wait 5 seconds, then start everything else
-        TimerAction(
-            period=5.0,
-            actions=[
-                ExecuteProcess(
-                    cmd=[
-                        'ros2', 'bag', 'record',
-                        '-o', bag_name,
-                        '/load_cell_data',
-                        '/servo/encoder_data',
-                        '/servo/position_data'
-                    ],
-                    output='screen'
-                ),
-
-                Node(
-                    package='crab_control',
-                    executable='servo_node',
-                    output='screen'
-                ),
-
-                Node(
-                    package='crab_control',
-                    executable='servo_controller',
-                    output='screen'
-                ),
-            ]
-=======
         Node(
             package="crab_control",
             executable="servo_node",
@@ -119,6 +82,5 @@ def generate_launch_description():
             package="crab_control",
             executable="servo_controller",
             output="screen"
->>>>>>> d261325 (refined code after rebase with data collected)
         ),
     ])

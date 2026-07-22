@@ -11,17 +11,8 @@ from rclpy.serialization import deserialize_message
 from crab_interfaces.msg import LoadCell, ServoData
 
 # ---------------- CONFIG ----------------
-<<<<<<< HEAD
-# Change to your usename
-BAG_PATH = "/home/odinroast/crab_ws/adya_gait2.bag"
-=======
 
-<<<<<<< HEAD
-BAG_PATH = "/home/vmookim/crab_ws/experiment_01.bag"
->>>>>>> d261325 (refined code after rebase with data collected)
-=======
 BAG_DIR = Path("/home/vmookim/crab_ws")
->>>>>>> a5d4e2a (working code)
 
 TOPICS = {
     "/load_cell_data": LoadCell,
