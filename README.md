@@ -26,4 +26,9 @@ gst-launch-1.0 -v udpsrc port=5600 !     "application/x-rtp, media=(string)video
 Camera Calibration:
 ssh -Y crabbot@ip 
 source install/setup.bash
-ros2 launch crab_control camera_callibration.launch.py
+ros2 launch crab_control camera_calibration.launch.py
+
+April tag detection:
+source install/setup.bash
+ros2 launch crab_control april_tag.launch.py
+ros2 topic echo /detections
