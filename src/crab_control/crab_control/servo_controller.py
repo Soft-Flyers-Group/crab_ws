@@ -90,14 +90,16 @@ class MinimalPublisher(Node):
         if u < power_fraction:
             s = u / power_fraction
             roll_angle = -roll_amplitude * math.cos(math.pi * s)
+            roll_angle2 = -roll_amplitude * math.cos(math.pi * s + 0.5*math.pi)
             yaw_angle  = yaw_power
         else:
             s = (u - power_fraction) / (1 - power_fraction)
             roll_angle = roll_amplitude * math.cos(math.pi * s)
+            roll_angle2 = roll_amplitude * math.cos(math.pi * s + 0.5*math.pi)
             yaw_angle  = yaw_recovery
 
         # Both flippers run identically
-        return roll_angle, yaw_angle, roll_angle, yaw_angle, roll_center, yaw_center
+        return roll_angle, yaw_angle, roll_angle2, yaw_angle, roll_center, yaw_center
 
     def gait_strafe_left(self):
         # power_fraction=0.5, yaw sinusoidal — primary force: SIDE
@@ -176,8 +178,6 @@ class MinimalPublisher(Node):
         pos_2 = int(yaw_center  + yaw_a  * counts_per_degree)
         pos_3 = int(roll_center + roll_b * counts_per_degree)
         pos_4 = int(yaw_center  + yaw_b  * counts_per_degree)
-
-        if self.current_gait == "gait_forward":  pos_3 =  4096 - pos_3
 
         # Clamp to safe range
         pos_1 = max(0, min(4095, pos_1))
