@@ -97,7 +97,7 @@ class MinimalPublisher(Node):
             yaw_angle  = yaw_recovery
 
         # Both flippers run identically
-        return roll_angle, yaw_angle, roll_angle, yaw_angle, roll_center, yaw_center
+        return roll_angle, yaw_angle, roll_angle, 180-yaw_angle, roll_center, yaw_center
 
     def gait_strafe_left(self):
         # power_fraction=0.5, yaw sinusoidal — primary force: SIDE
