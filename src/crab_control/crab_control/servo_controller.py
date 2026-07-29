@@ -7,8 +7,10 @@ import numpy as np
 import time
 from dynamixel_sdk_custom_interfaces.msg import SetPosition
 from crab_interfaces.msg import ServoData
+from apriltag_msgs.msg import AprilTagDetectionArray
 import math
 import time
+
 
 class MinimalPublisher(Node):
 
@@ -21,19 +23,25 @@ class MinimalPublisher(Node):
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
         # Initialization of subscriber to encoder values
-        self.subscription = self.create_subscription(
+        self.encoder_sub = self.create_subscription(
             ServoData,
             '/servo/encoder_data',
-            self.listener_callback,
+            self.encoder_callback,
             10)
-        self.subscription
+        
+        # Subscription to april tag detection data
+        self.tag_sub = self.create_subscription(
+            AprilTagDetectionArray,
+            '/detections',
+            self.tag_callback,
+            10)
 
         # Time tracker
         self.start_time = time.time()
 
         # Initial Servo positions
-        self.servo_1_init = 1990
-        self.servo_2_init = 1950
+        self.servo_1_init = 2500
+        self.servo_2_init = 2000
         self.servo_3_init = 1900
         self.servo_4_init = 1900
 
@@ -42,17 +50,49 @@ class MinimalPublisher(Node):
         self.servo_3_position = self.servo_3_init
         self.servo_4_position = self.servo_4_init
 
-        self.latest_positions = [0, 0, 0, 0]
+        self.latest_positions = [0, 0, 0, 0] # change for 4 servos
+
+        # initialization for april tag detection values
+        self.tag_id = 0
+        self.cx = 0
+        self.cy = 0
+        self.corners = [[0, 0, 0, 0], [0, 0, 0, 0]]
+        self.size_x = 0
+        self.size_y = 0
+        self.size = 0
 
         # Variables for linear servo movement
         self.decreasing = True
         self.increasing = True
 
 
+        # Error margin for april tag localization
+        self.error = 80
+
+
     # recieving encoder values and storing in class variable
-    def listener_callback(self, msg):
+    def encoder_callback(self, msg):
         # self.get_logger().info('I heard: "%s"' % str(msg.data))
         self.latest_positions = list(msg.data)
+
+    # receiving april tag detection data
+    def tag_callback(self, msg):
+        if not msg.detections:
+            return
+        
+        detection = msg.detections[0]
+
+        self.tag_id = detection.id
+        self.cx = detection.centre.x
+        self.cy = detection.centre.y
+        self.corners = np.array([
+            [c.x for c in detection.corners],
+            [c.y for c in detection.corners]
+        ])
+
+        self.size_x = self.corners[0][1] - self.corners[0][0]
+        self.size_y = self.corners[1][0] - self.corners[1][1]
+        self.size = np.sqrt(self.size_x ** 2 + self.size_y ** 2)
 
     def timer_callback(self):
 
@@ -74,38 +114,55 @@ class MinimalPublisher(Node):
         
         self.publisher_.publish(msg_1)
         self.publisher_.publish(msg_2)
-        self.publisher_.publish(msg_3)
-        self.publisher_.publish(msg_4)
+        self.publisher_.publish(msg_3) # change for 4 servos
+        self.publisher_.publish(msg_4) # change for 4 servos
         
-        # Old servo movement commands
-        # self.servo_3_position = self.linear_servo_move(self.servo_3_position, 1500, 0)
-        # self.servo_4_position = self.linear_servo_move(self.servo_4_position, 1000, 900)
-        
-        # self.servo_2_position = self.sin_servo_move(self.servo_2_position, 700, math.pi, 2048)
-        # self.servo_1_position = self.fourier_servo_move(self.servo_1_position, 500, math.pi, 1200)
-        
-        # self.servo_1_position = self.fourier_servo_move(self.servo_1_position, 500, math.pi, 2048)
 
         # CURRENT SERVO MOVEMENT CODE
-        FLAP_RANGE = 500
-        self.servo_1_position = self.nestedsin_servo_move(self.servo_1_position, FLAP_RANGE, 0.7, self.servo_1_init, 1, 3)
-        self.servo_3_position = self.slowfast_servo_move(self.servo_3_position, FLAP_RANGE, math.pi, self.servo_3_init, -1)
+        # FLAP_RANGE = 400
+        # self.servo_1_position = self.nestedsin_servo_move(self.servo_1_position, FLAP_RANGE, 0.7, self.servo_1_init, 1, 3)
+        # self.servo_3_position = self.nestedsin_servo_move(self.servo_3_position, FLAP_RANGE, 0.7, self.servo_3_init, -1, 3)
 
         # self.servo_2_position = self.sin_servo_move(self.servo_2_position, 500, math.pi/2, self.servo_2_init - 500)
         # self.servo_4_position = self.sin_servo_move(self.servo_4_position, 500, math.pi/2, self.servo_4_init + 500, -1)
 
 
-        if self.latest_positions[0] > self.servo_1_init + FLAP_RANGE - 150:
-            self.servo_2_position = self.servo_2_init - 1000
-        if self.latest_positions[0] < self.servo_1_init - FLAP_RANGE + 150:
-            self.servo_2_position = self.servo_2_init
-
+        # if self.latest_positions[0] > self.servo_1_init + FLAP_RANGE - 100:
+        #     self.servo_2_position = self.servo_2_init - 1000
+        # if self.latest_positions[0] < self.servo_1_init - FLAP_RANGE + 100:
+        #     self.servo_2_position = self.servo_2_init
+       # 
         # if self.latest_positions[2] > self.servo_3_init + FLAP_RANGE - 150:
         #     self.servo_4_position = self.servo_4_init
         # if self.latest_positions[2] < self.servo_3_init - FLAP_RANGE + 150:
         #     self.servo_4_position = self.servo_4_init + 1000
         
-        # self.get_logger().info('Publishing: "%s"' % str(self.latest_positions))
+        FLAP_RANGE = 300
+
+        if not (640 - self.error < self.cx < 640 + self.error):
+
+            if self.cx < 640:
+                direction = 1000
+            else:
+                direction = 0
+            
+            self.servo_1_position = self.sin_servo_move(self.servo_1_position, FLAP_RANGE, math.pi, self.servo_1_init, 1)
+            self.servo_3_position = self.sin_servo_move(self.servo_3_position, FLAP_RANGE, math.pi, self.servo_3_init, 1)
+
+            if self.latest_positions[0] > self.servo_1_init + FLAP_RANGE - 100:
+                self.servo_2_position = self.servo_2_init - 1000 + direction
+            if self.latest_positions[0] < self.servo_1_init - FLAP_RANGE + 100:
+                self.servo_2_position = self.servo_2_init - direction
+        
+            if self.latest_positions[2] > self.servo_3_init + FLAP_RANGE - 150:
+                self.servo_4_position = self.servo_4_init - 1000 + direction
+            if self.latest_positions[2] < self.servo_3_init - FLAP_RANGE + 150:
+                self.servo_4_position = self.servo_4_init - direction
+
+        
+
+        self.get_logger().info('Publishing: "%s"' % str(self.cx))
+
 
     # using the sum of sin functions to move back fast and forward slowly
     def nestedsin_servo_move(self, servo_position=0, amp=1000, omega=0.6, offset=2048, direction=1, speed=1):
@@ -113,7 +170,6 @@ class MinimalPublisher(Node):
         servo_position = round(direction * amp * math.sin(elapsed_time + omega * math.sin(elapsed_time))) + offset
         return servo_position
     
-    # using the sum of sin functions to move back fast and forward slowly
     def slowfast_servo_move(self, servo_position=0, amp=1000, omega=math.pi, offset=2048, direction=1):
         elapsed_time = time.time() - self.start_time
 
