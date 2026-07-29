@@ -50,7 +50,7 @@ POSITION_CONTROL = 3  # Value 4 for Extended position control mode, 3 for normal
 DATA_LENGTH_4BYTE = 4
 
 # Amount of servos to init on the bus (MAX 4)
-NUM_SERVOS = 2
+NUM_SERVOS = 4
 HOMING_OFFSET = 410
 
 
@@ -59,8 +59,8 @@ class ReadWriteNode(Node):
         super().__init__('read_write_node')
 
         # List of servo goals and positions
-        self.servo_goals = [0,0]
-        self.servo_positions = [0,0]
+        self.servo_goals = [0,0,0,0]
+        self.servo_positions = [0,0,0,0]
 
         
         self.port_handler = PortHandler(DEVICE_NAME)

@@ -44,4 +44,15 @@ def generate_launch_description():
             ],
         ),
 
+        Node(
+            package="crab_control",
+            executable="servo_node",
+            name="servo_node",
+        ),
+
+        Node(
+            package="crab_control",
+            executable="servo_controller",
+            name="servo_controller",
+        ),
     ])
