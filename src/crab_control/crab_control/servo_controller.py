@@ -120,42 +120,44 @@ class MinimalPublisher(Node):
 
         FLAP_RANGE = 300
 
-        if not (640 - self.error < self.cx < 640 + self.error):
+        if (self.size > 400):
 
-            if self.cx < 640:
-                direction = 1000
-            else:
-                direction = 0
+            if not (640 - self.error < self.cx < 640 + self.error):
+
+                if self.cx < 640:
+                    direction = 1000
+                else:
+                    direction = 0
+                
+                self.servo_1_position = self.sin_servo_move(self.servo_1_position, FLAP_RANGE, math.pi, self.servo_1_init, 1)
+                self.servo_3_position = self.sin_servo_move(self.servo_3_position, FLAP_RANGE, math.pi, self.servo_3_init, 1)
+
+                if self.latest_positions[0] > self.servo_1_init + FLAP_RANGE - 100:
+                    self.servo_2_position = self.servo_2_init - 1000 + direction
+                if self.latest_positions[0] < self.servo_1_init - FLAP_RANGE + 100:
+                    self.servo_2_position = self.servo_2_init - direction
             
-            self.servo_1_position = self.sin_servo_move(self.servo_1_position, FLAP_RANGE, math.pi, self.servo_1_init, 1)
-            self.servo_3_position = self.sin_servo_move(self.servo_3_position, FLAP_RANGE, math.pi, self.servo_3_init, 1)
+                if self.latest_positions[2] > self.servo_3_init + FLAP_RANGE - 150:
+                    self.servo_4_position = self.servo_4_init - 1000 + direction
+                if self.latest_positions[2] < self.servo_3_init - FLAP_RANGE + 150:
+                    self.servo_4_position = self.servo_4_init - direction
+            else:
+                self.servo_1_position = self.sin_servo_move(self.servo_1_position, FLAP_RANGE, math.pi, self.servo_1_init, 1)
+                self.servo_3_position = self.sin_servo_move(self.servo_3_position, FLAP_RANGE, math.pi, self.servo_3_init, -1)
 
-            if self.latest_positions[0] > self.servo_1_init + FLAP_RANGE - 100:
-                self.servo_2_position = self.servo_2_init - 1000 + direction
-            if self.latest_positions[0] < self.servo_1_init - FLAP_RANGE + 100:
-                self.servo_2_position = self.servo_2_init - direction
-        
-            if self.latest_positions[2] > self.servo_3_init + FLAP_RANGE - 150:
-                self.servo_4_position = self.servo_4_init - 1000 + direction
-            if self.latest_positions[2] < self.servo_3_init - FLAP_RANGE + 150:
-                self.servo_4_position = self.servo_4_init - direction
-        else:
-            self.servo_1_position = self.sin_servo_move(self.servo_1_position, FLAP_RANGE, math.pi, self.servo_1_init, 1)
-            self.servo_3_position = self.sin_servo_move(self.servo_3_position, FLAP_RANGE, math.pi, self.servo_3_init, -1)
-
-            if self.latest_positions[0] > self.servo_1_init + FLAP_RANGE - 100:
-                self.servo_2_position = self.servo_2_init - 1000
-            if self.latest_positions[0] < self.servo_1_init - FLAP_RANGE + 100:
-                self.servo_2_position = self.servo_2_init
-        
-            if self.latest_positions[2] > self.servo_3_init + FLAP_RANGE - 150:
-                self.servo_4_position = self.servo_4_init
-            if self.latest_positions[2] < self.servo_3_init - FLAP_RANGE + 150:
-                self.servo_4_position = self.servo_4_init - 1000
+                if self.latest_positions[0] > self.servo_1_init + FLAP_RANGE - 100:
+                    self.servo_2_position = self.servo_2_init - 1000
+                if self.latest_positions[0] < self.servo_1_init - FLAP_RANGE + 100:
+                    self.servo_2_position = self.servo_2_init
+            
+                if self.latest_positions[2] > self.servo_3_init + FLAP_RANGE - 150:
+                    self.servo_4_position = self.servo_4_init
+                if self.latest_positions[2] < self.servo_3_init - FLAP_RANGE + 150:
+                    self.servo_4_position = self.servo_4_init - 1000
 
         
 
-        self.get_logger().info('Publishing: "%s"' % str(self.cx))
+        self.get_logger().info('Publishing: "%s"' % str(self.size))
 
 
     # using the sum of sin functions to move back fast and forward slowly
