@@ -144,14 +144,14 @@ class MinimalPublisher(Node):
             self.servo_3_position = self.sin_servo_move(self.servo_3_position, FLAP_RANGE, math.pi, self.servo_3_init, -1)
 
             if self.latest_positions[0] > self.servo_1_init + FLAP_RANGE - 100:
-                self.servo_2_position = self.servo_2_init - 1000 + direction
+                self.servo_2_position = self.servo_2_init - 1000
             if self.latest_positions[0] < self.servo_1_init - FLAP_RANGE + 100:
-                self.servo_2_position = self.servo_2_init - direction
+                self.servo_2_position = self.servo_2_init
         
             if self.latest_positions[2] > self.servo_3_init + FLAP_RANGE - 150:
-                self.servo_4_position = self.servo_4_init - 1000 + direction
+                self.servo_4_position = self.servo_4_init
             if self.latest_positions[2] < self.servo_3_init - FLAP_RANGE + 150:
-                self.servo_4_position = self.servo_4_init - direction
+                self.servo_4_position = self.servo_4_init - 1000
 
         
 
