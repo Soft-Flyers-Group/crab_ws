@@ -120,7 +120,7 @@ class MinimalPublisher(Node):
 
         FLAP_RANGE = 300
 
-        if (self.size > 400):
+        if (self.size < 400):
 
             if not (640 - self.error < self.cx < 640 + self.error):
 
