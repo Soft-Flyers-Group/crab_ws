@@ -118,25 +118,6 @@ class MinimalPublisher(Node):
         self.publisher_.publish(msg_4) # change for 4 servos
         
 
-        # CURRENT SERVO MOVEMENT CODE
-        # FLAP_RANGE = 400
-        # self.servo_1_position = self.nestedsin_servo_move(self.servo_1_position, FLAP_RANGE, 0.7, self.servo_1_init, 1, 3)
-        # self.servo_3_position = self.nestedsin_servo_move(self.servo_3_position, FLAP_RANGE, 0.7, self.servo_3_init, -1, 3)
-
-        # self.servo_2_position = self.sin_servo_move(self.servo_2_position, 500, math.pi/2, self.servo_2_init - 500)
-        # self.servo_4_position = self.sin_servo_move(self.servo_4_position, 500, math.pi/2, self.servo_4_init + 500, -1)
-
-
-        # if self.latest_positions[0] > self.servo_1_init + FLAP_RANGE - 100:
-        #     self.servo_2_position = self.servo_2_init - 1000
-        # if self.latest_positions[0] < self.servo_1_init - FLAP_RANGE + 100:
-        #     self.servo_2_position = self.servo_2_init
-       # 
-        # if self.latest_positions[2] > self.servo_3_init + FLAP_RANGE - 150:
-        #     self.servo_4_position = self.servo_4_init
-        # if self.latest_positions[2] < self.servo_3_init - FLAP_RANGE + 150:
-        #     self.servo_4_position = self.servo_4_init + 1000
-        
         FLAP_RANGE = 300
 
         if not (640 - self.error < self.cx < 640 + self.error):
@@ -148,6 +129,19 @@ class MinimalPublisher(Node):
             
             self.servo_1_position = self.sin_servo_move(self.servo_1_position, FLAP_RANGE, math.pi, self.servo_1_init, 1)
             self.servo_3_position = self.sin_servo_move(self.servo_3_position, FLAP_RANGE, math.pi, self.servo_3_init, 1)
+
+            if self.latest_positions[0] > self.servo_1_init + FLAP_RANGE - 100:
+                self.servo_2_position = self.servo_2_init - 1000 + direction
+            if self.latest_positions[0] < self.servo_1_init - FLAP_RANGE + 100:
+                self.servo_2_position = self.servo_2_init - direction
+        
+            if self.latest_positions[2] > self.servo_3_init + FLAP_RANGE - 150:
+                self.servo_4_position = self.servo_4_init - 1000 + direction
+            if self.latest_positions[2] < self.servo_3_init - FLAP_RANGE + 150:
+                self.servo_4_position = self.servo_4_init - direction
+        else:
+            self.servo_1_position = self.sin_servo_move(self.servo_1_position, FLAP_RANGE, math.pi, self.servo_1_init, 1)
+            self.servo_3_position = self.sin_servo_move(self.servo_3_position, FLAP_RANGE, math.pi, self.servo_3_init, -1)
 
             if self.latest_positions[0] > self.servo_1_init + FLAP_RANGE - 100:
                 self.servo_2_position = self.servo_2_init - 1000 + direction
