@@ -1,233 +1,203 @@
-# imports
 import rclpy
 from rclpy.node import Node
 import math
-from std_msgs.msg import Int32MultiArray
+from std_msgs.msg import Int32MultiArray, String
 import numpy as np
 import time
 from dynamixel_sdk_custom_interfaces.msg import SetPosition
 from crab_interfaces.msg import ServoData
-from apriltag_msgs.msg import AprilTagDetectionArray
-import math
-import time
 
 
 class MinimalPublisher(Node):
 
     def __init__(self):
-
-        # Initialization of publisher
         super().__init__('servo_controller')
         self.publisher_ = self.create_publisher(SetPosition, 'servo/set_position', 10)
-        timer_period = 0.02  # seconds
+        timer_period = 0.02
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
-        # Initialization of subscriber to encoder values
-        self.encoder_sub = self.create_subscription(
+        self.subscription = self.create_subscription(
             ServoData,
             '/servo/encoder_data',
-            self.encoder_callback,
-            10)
-        
-        # Subscription to april tag detection data
-        self.tag_sub = self.create_subscription(
-            AprilTagDetectionArray,
-            '/detections',
-            self.tag_callback,
+            self.listener_callback,
             10)
 
-        # Time tracker
+        self.gait_subscription = self.create_subscription(
+            String,
+            '/gait_command',
+            self.gait_callback,
+            10)
+
         self.start_time = time.time()
-
-        # Initial Servo positions
-        self.servo_1_init = 2500
-        self.servo_2_init = 2000
-        self.servo_3_init = 1900
-        self.servo_4_init = 1900
-
-        self.servo_1_position = self.servo_1_init
-        self.servo_2_position = self.servo_2_init
-        self.servo_3_position = self.servo_3_init
-        self.servo_4_position = self.servo_4_init
-
-        self.latest_positions = [0, 0, 0, 0] # change for 4 servos
-
-        # initialization for april tag detection values
-        self.tag_id = 0
-        self.cx = 0
-        self.cy = 0
-        self.corners = [[0, 0, 0, 0], [0, 0, 0, 0]]
-        self.size_x = 0
-        self.size_y = 0
-        self.size = 0
-
-        # Variables for linear servo movement
+        self.position = 2048.0
+        self.position2 = 2048
+        self.counter = 0
+        self.latest_positions = [0, 0]
         self.decreasing = True
         self.increasing = True
+        self.current_gait = "hover"
 
-
-        # Error margin for april tag localization
-        self.error = 80
-
-
-    # recieving encoder values and storing in class variable
-    def encoder_callback(self, msg):
-        # self.get_logger().info('I heard: "%s"' % str(msg.data))
+    def listener_callback(self, msg):
         self.latest_positions = list(msg.data)
 
-    # receiving april tag detection data
-    def tag_callback(self, msg):
-        if not msg.detections:
-            return
-        
-        detection = msg.detections[0]
+    def gait_callback(self, msg):
+        self.current_gait = msg.data
+        self.get_logger().info(f"Switching to gait: {self.current_gait}")
 
-        self.tag_id = detection.id
-        self.cx = detection.centre.x
-        self.cy = detection.centre.y
-        self.corners = np.array([
-            [c.x for c in detection.corners],
-            [c.y for c in detection.corners]
-        ])
+    # -----------------------------
+    # Gait functions
+    # each returns: roll_a, yaw_a, roll_b, yaw_b, roll_center, yaw_center
+    # A = flipper IDs 1,2 — B = flipper IDs 3,4
+    # -----------------------------
 
-        self.size_x = self.corners[0][1] - self.corners[0][0]
-        self.size_y = self.corners[1][0] - self.corners[1][1]
-        self.size = np.sqrt(self.size_x ** 2 + self.size_y ** 2)
+    def gait_up(self):
+        # power_fraction=0.7, yaw sinusoidal — primary force: UP
+        frequency = 0.5
+        roll_amplitude = 75
+        yaw_amplitude = 45
+        roll_center = 2048
+        yaw_center = 1000
+        power_fraction = 0.7
+
+        t = time.time() - self.start_time
+        u = (t % (1 / frequency)) / (1 / frequency)
+
+        if u < power_fraction:
+            s = u / power_fraction
+            roll_angle = -roll_amplitude * math.cos(math.pi * s)
+            yaw_angle  = -yaw_amplitude  * math.sin(math.pi * s)
+        else:
+            s = (u - power_fraction) / (1 - power_fraction)
+            roll_angle = roll_amplitude * math.cos(math.pi * s)
+            yaw_angle  = yaw_amplitude  * math.sin(math.pi * s)
+
+        # Both flippers run identically
+        return roll_angle, yaw_angle, roll_angle, yaw_angle, roll_center, yaw_center
+
+    def gait_forward(self):
+        # power_fraction=0.7, yaw flat — primary force: FORWARD
+        frequency = 0.5
+        roll_amplitude = 75
+        yaw_power    = 90
+        yaw_recovery = 5
+        roll_center = 2048
+        yaw_center = 1000
+        power_fraction = 0.7
+
+        t = time.time() - self.start_time
+        u = (t % (1 / frequency)) / (1 / frequency)
+
+        if u < power_fraction:
+            s = u / power_fraction
+            roll_angle = -roll_amplitude * math.cos(math.pi * s)
+            yaw_angle  = yaw_power
+        else:
+            s = (u - power_fraction) / (1 - power_fraction)
+            roll_angle = roll_amplitude * math.cos(math.pi * s)
+            yaw_angle  = yaw_recovery
+
+        # Both flippers run identically
+        return roll_angle, yaw_angle, roll_angle, yaw_angle, roll_center, yaw_center
+
+    def gait_strafe_left(self):
+        # power_fraction=0.5, yaw sinusoidal — primary force: SIDE
+        # Only flipper A (IDs 1,2) runs, flipper B (IDs 3,4) holds center
+        frequency = 0.5
+        roll_amplitude = 75
+        yaw_amplitude = 45
+        roll_center = 2048
+        yaw_center = 1000
+        power_fraction = 0.5
+
+        t = time.time() - self.start_time
+        u = (t % (1 / frequency)) / (1 / frequency)
+
+        if u < power_fraction:
+            s = u / power_fraction
+            roll_angle = -roll_amplitude * math.cos(math.pi * s)
+            yaw_angle  = -yaw_amplitude  * math.sin(math.pi * s)
+        else:
+            s = (u - power_fraction) / (1 - power_fraction)
+            roll_angle = roll_amplitude * math.cos(math.pi * s)
+            yaw_angle  = yaw_amplitude  * math.sin(math.pi * s)
+
+        # Flipper A moves, flipper B holds center (angle=0)
+        return roll_angle, yaw_angle, 0, 0, roll_center, yaw_center
+
+    def gait_strafe_right(self):
+        # power_fraction=0.5, yaw sinusoidal — primary force: SIDE
+        # Only flipper B (IDs 3,4) runs, flipper A (IDs 1,2) holds center
+        frequency = 0.5
+        roll_amplitude = 75
+        yaw_amplitude = 45
+        roll_center = 2048
+        yaw_center = 1000
+        power_fraction = 0.5
+
+        t = time.time() - self.start_time
+        u = (t % (1 / frequency)) / (1 / frequency)
+
+        if u < power_fraction:
+            s = u / power_fraction
+            roll_angle = -roll_amplitude * math.cos(math.pi * s)
+            yaw_angle  = -yaw_amplitude  * math.sin(math.pi * s)
+        else:
+            s = (u - power_fraction) / (1 - power_fraction)
+            roll_angle = roll_amplitude * math.cos(math.pi * s)
+            yaw_angle  = yaw_amplitude  * math.sin(math.pi * s)
+
+        # Flipper B moves, flipper A holds center (angle=0)
+        return 0, 0, roll_angle, yaw_angle, roll_center, yaw_center
+
+    def gait_hover(self):
+        # Both flippers hold center
+        return 0, 0, 0, 0, 2048, 1000
+
+    # -----------------------------
+    # Timer callback — runs at 50Hz
+    # -----------------------------
 
     def timer_callback(self):
+        counts_per_degree = 4096 / 360
 
-        # Defining servo messages and IDs
-        msg_1 = SetPosition()
-        msg_2 = SetPosition()
-        msg_3 = SetPosition()
-        msg_4 = SetPosition()
+        if self.current_gait == "gait_up":
+            roll_a, yaw_a, roll_b, yaw_b, roll_center, yaw_center = self.gait_up()
+        elif self.current_gait == "gait_forward":
+            roll_a, yaw_a, roll_b, yaw_b, roll_center, yaw_center = self.gait_forward()
+        elif self.current_gait == "gait_strafe_left":
+            roll_a, yaw_a, roll_b, yaw_b, roll_center, yaw_center = self.gait_strafe_left()
+        elif self.current_gait == "gait_strafe_right":
+            roll_a, yaw_a, roll_b, yaw_b, roll_center, yaw_center = self.gait_strafe_right()
+        else:  # hover
+            roll_a, yaw_a, roll_b, yaw_b, roll_center, yaw_center = self.gait_hover()
 
-        msg_1.id = 1
-        msg_2.id = 2
-        msg_3.id = 3
-        msg_4.id = 4
+        # Convert to encoder counts
+        pos_1 = int(roll_center + roll_a * counts_per_degree)
+        pos_2 = int(yaw_center  + yaw_a  * counts_per_degree)
+        pos_3 = int(roll_center + roll_b * counts_per_degree)
+        pos_4 = int(yaw_center  + yaw_b  * counts_per_degree)
 
-        msg_1.position = self.servo_1_position
-        msg_2.position = self.servo_2_position
-        msg_3.position = self.servo_3_position
-        msg_4.position = self.servo_4_position
-        
-        self.publisher_.publish(msg_1)
-        self.publisher_.publish(msg_2)
-        self.publisher_.publish(msg_3) # change for 4 servos
-        self.publisher_.publish(msg_4) # change for 4 servos
-        
+        # Clamp to safe range
+        pos_1 = max(0, min(4095, pos_1))
+        pos_2 = max(0, min(4095, pos_2))
+        pos_3 = max(0, min(4095, pos_3))
+        pos_4 = max(0, min(4095, pos_4))
 
-        # CURRENT SERVO MOVEMENT CODE
-        # FLAP_RANGE = 400
-        # self.servo_1_position = self.nestedsin_servo_move(self.servo_1_position, FLAP_RANGE, 0.7, self.servo_1_init, 1, 3)
-        # self.servo_3_position = self.nestedsin_servo_move(self.servo_3_position, FLAP_RANGE, 0.7, self.servo_3_init, -1, 3)
-
-        # self.servo_2_position = self.sin_servo_move(self.servo_2_position, 500, math.pi/2, self.servo_2_init - 500)
-        # self.servo_4_position = self.sin_servo_move(self.servo_4_position, 500, math.pi/2, self.servo_4_init + 500, -1)
-
-
-        # if self.latest_positions[0] > self.servo_1_init + FLAP_RANGE - 100:
-        #     self.servo_2_position = self.servo_2_init - 1000
-        # if self.latest_positions[0] < self.servo_1_init - FLAP_RANGE + 100:
-        #     self.servo_2_position = self.servo_2_init
-       # 
-        # if self.latest_positions[2] > self.servo_3_init + FLAP_RANGE - 150:
-        #     self.servo_4_position = self.servo_4_init
-        # if self.latest_positions[2] < self.servo_3_init - FLAP_RANGE + 150:
-        #     self.servo_4_position = self.servo_4_init + 1000
-        
-        FLAP_RANGE = 300
-
-        if not (640 - self.error < self.cx < 640 + self.error):
-
-            if self.cx < 640:
-                direction = 1000
-            else:
-                direction = 0
-            
-            self.servo_1_position = self.sin_servo_move(self.servo_1_position, FLAP_RANGE, math.pi, self.servo_1_init, 1)
-            self.servo_3_position = self.sin_servo_move(self.servo_3_position, FLAP_RANGE, math.pi, self.servo_3_init, 1)
-
-            if self.latest_positions[0] > self.servo_1_init + FLAP_RANGE - 100:
-                self.servo_2_position = self.servo_2_init - 1000 + direction
-            if self.latest_positions[0] < self.servo_1_init - FLAP_RANGE + 100:
-                self.servo_2_position = self.servo_2_init - direction
-        
-            if self.latest_positions[2] > self.servo_3_init + FLAP_RANGE - 150:
-                self.servo_4_position = self.servo_4_init - 1000 + direction
-            if self.latest_positions[2] < self.servo_3_init - FLAP_RANGE + 150:
-                self.servo_4_position = self.servo_4_init - direction
-
-        
-
-        self.get_logger().info('Publishing: "%s"' % str(self.cx))
+        # Publish all 4 servos
+        for servo_id, position in [(1, pos_1), (2, pos_2), (3, pos_3), (4, pos_4)]:
+            msg = SetPosition()
+            msg.id = servo_id
+            msg.position = position
+            self.publisher_.publish(msg)
 
 
-    # using the sum of sin functions to move back fast and forward slowly
-    def nestedsin_servo_move(self, servo_position=0, amp=1000, omega=0.6, offset=2048, direction=1, speed=1):
-        elapsed_time = (time.time() - self.start_time) * speed
-        servo_position = round(direction * amp * math.sin(elapsed_time + omega * math.sin(elapsed_time))) + offset
-        return servo_position
-    
-    def slowfast_servo_move(self, servo_position=0, amp=1000, omega=math.pi, offset=2048, direction=1):
-        elapsed_time = time.time() - self.start_time
-
-        n = np.arange(1, 100)
-        sin_series = amp * np.sin(n * elapsed_time * omega) / n
-        servo_position = round(np.sum(sin_series)/5) * 5 * direction + offset
-
-        return servo_position
-
-    # using Fourier series to define servo movement emulating piecewise on-off
-    def fourier_servo_move(self, servo_position=0,amp=1000, omega=math.pi, offset=2048, direction=1):
-
-        elapsed_time = time.time() - self.start_time
-
-        n = np.arange(1, 300) # creates array [1, 2, ... a]
-        signs = (-1) ** (n + 1)
-
-        # calculates terms of fourier series
-        fourier_series = signs * 4 / math.pi * amp * np.cos((2*n - 1) * omega * elapsed_time) / (2 * n + 1)
-        servo_position = round(np.sum(fourier_series)/5) * 5 * direction + offset
-
-        return servo_position
-
-    # using a sinusoidal function to define back and forth servo movement
-    def sin_servo_move(self, servo_position=0, amp=1000, omega=math.pi, offset=2048, direction=1):
-        
-        elapsed_time = time.time() - self.start_time
-
-        servo_position = round(direction * amp * math.cos(omega * elapsed_time) + offset)
-
-        return servo_position
-    
-    # using a linear addition to define back and forth servo momement
-    def linear_servo_movem(self, servo_position=0, steps=1000, start=0):
-
-        if servo_position >= steps + start:
-            self.increasing = False
-        elif servo_position <= start:
-            self.increasing = True
-        
-        if self.increasing:
-            servo_position += 3
-        else:
-            servo_position -= 5
-        
-        return servo_position
-
-# publishing messages to the servos
 def main(args=None):
     rclpy.init(args=args)
-
     node = MinimalPublisher()
-
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
         pass
-
     node.destroy_node()
     rclpy.shutdown()
 

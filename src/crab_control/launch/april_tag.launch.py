@@ -3,6 +3,7 @@ from launch_ros.actions import Node
 
 import os
 from ament_index_python.packages import get_package_share_directory
+from launch.actions import ExecuteProcess, DeclareLaunchArgument, TimerAction
 
 
 def generate_launch_description():
@@ -42,6 +43,28 @@ def generate_launch_description():
                 ("camera_info", "/camera/camera_info"),
 
             ],
+        ),
+
+        # Wait 5 seconds, then start everything else
+        TimerAction(
+            period=5.0,
+            actions=[
+                Node(
+                    package='crab_control',
+                    executable='servo_node',
+                    output='screen'
+                ),
+                Node(
+                    package='crab_control',
+                    executable='servo_controller',
+                    output='screen'
+                ),
+                Node(
+                    package='crab_control',
+                    executable='control_master_node',
+                    output='screen'
+                ),
+            ]
         ),
 
     ])

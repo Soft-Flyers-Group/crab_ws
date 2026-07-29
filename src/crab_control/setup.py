@@ -34,6 +34,7 @@ setup(
             'load_cell_node = crab_control.load_cell_node:main',
             'imu_node = crab_control.imu_node:main',
             'camera_node = crab_control.camera_node:main',
+            'control_master_node = crab_control.control_master_node:main'
         ],
     },
 )

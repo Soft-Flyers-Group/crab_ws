@@ -19,6 +19,8 @@
   <depend>rclpy</depend>
   <depend>camera_info_manager_py</depend>
   <depend>apriltag_ros</depend>
+  <depend>apriltag_msgs</depend>
+  <depend>std_msgs</depend>
 
 
   <exec_depend>launch</exec_depend>
