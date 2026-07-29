@@ -10,7 +10,7 @@ GAIT_DURATION = 2.0       # seconds to commit to a gait before re-evaluating
 DEADBAND      = 0.05      # if total error magnitude is below this, hover
 TARGET_X = 0.0
 TARGET_Y = 0.0
-TARGET_Z = 0.15
+TARGET_Z = 0.25
 
 # Force vectors [Fx, Fy, Fz] for each gait
 GAIT_FORCE_VECTORS = {
