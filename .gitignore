@@ -4,3 +4,4 @@ log/
 *.bag/
 *.html
 venv/
+bags/

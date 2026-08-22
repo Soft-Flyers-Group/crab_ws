@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<robot name="flipper_demo">
+
+  <!-- Stationary reference -->
+  <link name="base_link"/>
+
+  <!-- Yaw pivot -->
+  <link name="yaw_link"/>
+
+  <joint name="flipper_yaw_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="yaw_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14159" upper="3.14159"
+           effort="10" velocity="2"/>
+  </joint>
+
+  <!-- Roll pivot + mesh -->
+  <link name="flipper_link">
+    <visual>
+      <!-- Keep zero if STL origin is your desired pivot -->
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://crab_sim/meshes/flipper.stl"
+              scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0.15 0.45 0.95 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="flipper_roll_joint" type="revolute">
+    <parent link="yaw_link"/>
+    <child link="flipper_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-1.5708" upper="1.5708"
+           effort="10" velocity="2"/>
+  </joint>
+
+</robot>

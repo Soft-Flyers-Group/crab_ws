@@ -1,0 +1,5400 @@
+{
+  "metric": "largest absolute screened sustained force, signed value retained",
+  "peak_filter": {
+    "type": "time-based Hampel outlier rejection plus rolling median",
+    "hampel_seconds": 0.1,
+    "sustain_seconds": 0.25,
+    "trim_seconds": 0.5,
+    "sigma": 3.5,
+    "purpose": "reject noisy spikes and require a sustained force"
+  },
+  "units": "N",
+  "bag_directory": "/home/odinroast/crab_ws/bags",
+  "flippers": [
+    "control",
+    "fiberglass",
+    "petg_thin",
+    "rib_flipper",
+    "stripe_flipper"
+  ],
+  "gaits": [
+    "DOUBLESIN",
+    "experimental_sinusoidalYaw",
+    "FOURIER",
+    "NESTEDSIN",
+    "rollAmpAndFrequency",
+    "SIN",
+    "SINFOURIER",
+    "SINmiddle",
+    "SLOWFAST",
+    "yawPower"
+  ],
+  "completion_matrix": {
+    "control": {
+      "DOUBLESIN": false,
+      "experimental_sinusoidalYaw": true,
+      "FOURIER": false,
+      "NESTEDSIN": false,
+      "rollAmpAndFrequency": true,
+      "SIN": false,
+      "SINFOURIER": false,
+      "SINmiddle": false,
+      "SLOWFAST": false,
+      "yawPower": true
+    },
+    "fiberglass": {
+      "DOUBLESIN": true,
+      "experimental_sinusoidalYaw": false,
+      "FOURIER": true,
+      "NESTEDSIN": true,
+      "rollAmpAndFrequency": false,
+      "SIN": true,
+      "SINFOURIER": true,
+      "SINmiddle": true,
+      "SLOWFAST": true,
+      "yawPower": false
+    },
+    "petg_thin": {
+      "DOUBLESIN": false,
+      "experimental_sinusoidalYaw": true,
+      "FOURIER": false,
+      "NESTEDSIN": false,
+      "rollAmpAndFrequency": true,
+      "SIN": false,
+      "SINFOURIER": false,
+      "SINmiddle": false,
+      "SLOWFAST": false,
+      "yawPower": true
+    },
+    "rib_flipper": {
+      "DOUBLESIN": false,
+      "experimental_sinusoidalYaw": true,
+      "FOURIER": false,
+      "NESTEDSIN": false,
+      "rollAmpAndFrequency": true,
+      "SIN": false,
+      "SINFOURIER": false,
+      "SINmiddle": false,
+      "SLOWFAST": false,
+      "yawPower": true
+    },
+    "stripe_flipper": {
+      "DOUBLESIN": false,
+      "experimental_sinusoidalYaw": true,
+      "FOURIER": false,
+      "NESTEDSIN": false,
+      "rollAmpAndFrequency": true,
+      "SIN": false,
+      "SINFOURIER": false,
+      "SINmiddle": false,
+      "SLOWFAST": false,
+      "yawPower": true
+    }
+  },
+  "flipper_summaries": {
+    "control": {
+      "bag_count": 24,
+      "overall_max_abs_force_N": {
+        "Fx": {
+          "value": 2.6457958221435547,
+          "run": 3,
+          "bag": "control_vansh_experimental_sinusoidalYaw_3_control.bag",
+          "gait": "experimental_sinusoidalYaw"
+        },
+        "Fy": {
+          "value": 8.486865043640137,
+          "run": 2,
+          "bag": "control_vansh_experimental_sinusoidalYaw_2_control.bag",
+          "gait": "experimental_sinusoidalYaw"
+        },
+        "Fz": {
+          "value": -5.366912364959717,
+          "run": 3,
+          "bag": "control_vansh_experimental_sinusoidalYaw_3_control.bag",
+          "gait": "experimental_sinusoidalYaw"
+        }
+      },
+      "gaits": {
+        "experimental_sinusoidalYaw": {
+          "run_count": 8,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": 2.6457958221435547,
+              "run": 3,
+              "bag": "control_vansh_experimental_sinusoidalYaw_3_control.bag"
+            },
+            "Fy": {
+              "value": 8.486865043640137,
+              "run": 2,
+              "bag": "control_vansh_experimental_sinusoidalYaw_2_control.bag"
+            },
+            "Fz": {
+              "value": -5.366912364959717,
+              "run": 3,
+              "bag": "control_vansh_experimental_sinusoidalYaw_3_control.bag"
+            }
+          }
+        },
+        "rollAmpAndFrequency": {
+          "run_count": 12,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": -2.2687346935272217,
+              "run": 5,
+              "bag": "control_vansh_rollAmpAndFrequency_5_control.bag"
+            },
+            "Fy": {
+              "value": 4.6479411125183105,
+              "run": 10,
+              "bag": "control_vansh_rollAmpAndFrequency_10_control.bag"
+            },
+            "Fz": {
+              "value": -4.187121391296387,
+              "run": 10,
+              "bag": "control_vansh_rollAmpAndFrequency_10_control.bag"
+            }
+          }
+        },
+        "yawPower": {
+          "run_count": 4,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": -2.4194324016571045,
+              "run": 4,
+              "bag": "control_vansh_yawPower_4_control.bag"
+            },
+            "Fy": {
+              "value": -5.364846706390381,
+              "run": 4,
+              "bag": "control_vansh_yawPower_4_control.bag"
+            },
+            "Fz": {
+              "value": -4.840732097625732,
+              "run": 4,
+              "bag": "control_vansh_yawPower_4_control.bag"
+            }
+          }
+        }
+      }
+    },
+    "fiberglass": {
+      "bag_count": 13,
+      "overall_max_abs_force_N": {
+        "Fx": {
+          "value": -2.1737382411956787,
+          "run": 1,
+          "bag": "fiberglassSINmiddle.bag",
+          "gait": "SINmiddle"
+        },
+        "Fy": {
+          "value": 6.017210006713867,
+          "run": 2,
+          "bag": "fiberglassFOURIER2.bag",
+          "gait": "FOURIER"
+        },
+        "Fz": {
+          "value": -5.796438694000244,
+          "run": 2,
+          "bag": "fiberglassFOURIER2.bag",
+          "gait": "FOURIER"
+        }
+      },
+      "gaits": {
+        "DOUBLESIN": {
+          "run_count": 2,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": -2.0646417140960693,
+              "run": 2,
+              "bag": "fiberglassDOUBLESIN2.bag"
+            },
+            "Fy": {
+              "value": 3.8789851665496826,
+              "run": 2,
+              "bag": "fiberglassDOUBLESIN2.bag"
+            },
+            "Fz": {
+              "value": -2.7848870754241943,
+              "run": 2,
+              "bag": "fiberglassDOUBLESIN2.bag"
+            }
+          }
+        },
+        "FOURIER": {
+          "run_count": 2,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": 1.550167441368103,
+              "run": 1,
+              "bag": "fiberglassFOURIER.bag"
+            },
+            "Fy": {
+              "value": 6.017210006713867,
+              "run": 2,
+              "bag": "fiberglassFOURIER2.bag"
+            },
+            "Fz": {
+              "value": -5.796438694000244,
+              "run": 2,
+              "bag": "fiberglassFOURIER2.bag"
+            }
+          }
+        },
+        "NESTEDSIN": {
+          "run_count": 2,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": 1.6350328922271729,
+              "run": 2,
+              "bag": "fiberglassNESTEDSIN2.bag"
+            },
+            "Fy": {
+              "value": 4.209238052368164,
+              "run": 2,
+              "bag": "fiberglassNESTEDSIN2.bag"
+            },
+            "Fz": {
+              "value": -2.4552745819091797,
+              "run": 1,
+              "bag": "fiberglassNESTEDSIN.bag"
+            }
+          }
+        },
+        "SIN": {
+          "run_count": 2,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": 1.2154990434646606,
+              "run": 2,
+              "bag": "fiberglassSIN2.bag"
+            },
+            "Fy": {
+              "value": 4.415219306945801,
+              "run": 2,
+              "bag": "fiberglassSIN2.bag"
+            },
+            "Fz": {
+              "value": -4.336668014526367,
+              "run": 2,
+              "bag": "fiberglassSIN2.bag"
+            }
+          }
+        },
+        "SINFOURIER": {
+          "run_count": 2,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": -2.159714460372925,
+              "run": 1,
+              "bag": "fiberglassSINFOURIER.bag"
+            },
+            "Fy": {
+              "value": 3.9390106201171875,
+              "run": 2,
+              "bag": "fiberglassSINFOURIER2.bag"
+            },
+            "Fz": {
+              "value": -4.315334320068359,
+              "run": 2,
+              "bag": "fiberglassSINFOURIER2.bag"
+            }
+          }
+        },
+        "SINmiddle": {
+          "run_count": 1,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": -2.1737382411956787,
+              "run": 1,
+              "bag": "fiberglassSINmiddle.bag"
+            },
+            "Fy": {
+              "value": -5.733882904052734,
+              "run": 1,
+              "bag": "fiberglassSINmiddle.bag"
+            },
+            "Fz": {
+              "value": -3.9562573432922363,
+              "run": 1,
+              "bag": "fiberglassSINmiddle.bag"
+            }
+          }
+        },
+        "SLOWFAST": {
+          "run_count": 2,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": 1.7564105987548828,
+              "run": 2,
+              "bag": "fiberglassSLOWFAST2.bag"
+            },
+            "Fy": {
+              "value": 3.9901082515716553,
+              "run": 2,
+              "bag": "fiberglassSLOWFAST2.bag"
+            },
+            "Fz": {
+              "value": -2.1717870235443115,
+              "run": 1,
+              "bag": "fiberglassSLOWFAST.bag"
+            }
+          }
+        }
+      }
+    },
+    "petg_thin": {
+      "bag_count": 24,
+      "overall_max_abs_force_N": {
+        "Fx": {
+          "value": -3.113690137863159,
+          "run": 8,
+          "bag": "petg_thin_vansh_experimental_sinusoidalYaw_8_petg_thin.bag",
+          "gait": "experimental_sinusoidalYaw"
+        },
+        "Fy": {
+          "value": 12.596819877624512,
+          "run": 4,
+          "bag": "petg_thin_vansh_experimental_sinusoidalYaw_4_petg_thin.bag",
+          "gait": "experimental_sinusoidalYaw"
+        },
+        "Fz": {
+          "value": -4.968188762664795,
+          "run": 10,
+          "bag": "petg_thin_vansh_rollAmpAndFrequency_10_petg_thin.bag",
+          "gait": "rollAmpAndFrequency"
+        }
+      },
+      "gaits": {
+        "experimental_sinusoidalYaw": {
+          "run_count": 8,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": -3.113690137863159,
+              "run": 8,
+              "bag": "petg_thin_vansh_experimental_sinusoidalYaw_8_petg_thin.bag"
+            },
+            "Fy": {
+              "value": 12.596819877624512,
+              "run": 4,
+              "bag": "petg_thin_vansh_experimental_sinusoidalYaw_4_petg_thin.bag"
+            },
+            "Fz": {
+              "value": -4.32797384262085,
+              "run": 1,
+              "bag": "petg_thin_vansh_experimental_sinusoidalYaw_1_petg_thin.bag"
+            }
+          }
+        },
+        "rollAmpAndFrequency": {
+          "run_count": 12,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": -2.4226174354553223,
+              "run": 1,
+              "bag": "petg_thin_vansh_rollAmpAndFrequency_1_petg_thin.bag"
+            },
+            "Fy": {
+              "value": -6.447136402130127,
+              "run": 11,
+              "bag": "petg_thin_vansh_rollAmpAndFrequency_11_petg_thin.bag"
+            },
+            "Fz": {
+              "value": -4.968188762664795,
+              "run": 10,
+              "bag": "petg_thin_vansh_rollAmpAndFrequency_10_petg_thin.bag"
+            }
+          }
+        },
+        "yawPower": {
+          "run_count": 4,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": -2.640777349472046,
+              "run": 3,
+              "bag": "petg_thin_vansh_yawPower_3_petg_thin.bag"
+            },
+            "Fy": {
+              "value": -5.795039653778076,
+              "run": 4,
+              "bag": "petg_thin_vansh_yawPower_4_petg_thin.bag"
+            },
+            "Fz": {
+              "value": -4.763182640075684,
+              "run": 1,
+              "bag": "petg_thin_vansh_yawPower_1_petg_thin.bag"
+            }
+          }
+        }
+      }
+    },
+    "rib_flipper": {
+      "bag_count": 24,
+      "overall_max_abs_force_N": {
+        "Fx": {
+          "value": 7.598906993865967,
+          "run": 8,
+          "bag": "rib_flipper_vansh_experimental_sinusoidalYaw_8_rib_flipper.bag",
+          "gait": "experimental_sinusoidalYaw"
+        },
+        "Fy": {
+          "value": -13.739110946655273,
+          "run": 8,
+          "bag": "rib_flipper_vansh_experimental_sinusoidalYaw_8_rib_flipper.bag",
+          "gait": "experimental_sinusoidalYaw"
+        },
+        "Fz": {
+          "value": -12.360572814941406,
+          "run": 8,
+          "bag": "rib_flipper_vansh_experimental_sinusoidalYaw_8_rib_flipper.bag",
+          "gait": "experimental_sinusoidalYaw"
+        }
+      },
+      "gaits": {
+        "experimental_sinusoidalYaw": {
+          "run_count": 8,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": 7.598906993865967,
+              "run": 8,
+              "bag": "rib_flipper_vansh_experimental_sinusoidalYaw_8_rib_flipper.bag"
+            },
+            "Fy": {
+              "value": -13.739110946655273,
+              "run": 8,
+              "bag": "rib_flipper_vansh_experimental_sinusoidalYaw_8_rib_flipper.bag"
+            },
+            "Fz": {
+              "value": -12.360572814941406,
+              "run": 8,
+              "bag": "rib_flipper_vansh_experimental_sinusoidalYaw_8_rib_flipper.bag"
+            }
+          }
+        },
+        "rollAmpAndFrequency": {
+          "run_count": 12,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": -2.69695782661438,
+              "run": 10,
+              "bag": "rib_flipper_vansh_rollAmpAndFrequency_10_rib_flipper.bag"
+            },
+            "Fy": {
+              "value": -7.3590874671936035,
+              "run": 10,
+              "bag": "rib_flipper_vansh_rollAmpAndFrequency_10_rib_flipper.bag"
+            },
+            "Fz": {
+              "value": -5.498847961425781,
+              "run": 10,
+              "bag": "rib_flipper_vansh_rollAmpAndFrequency_10_rib_flipper.bag"
+            }
+          }
+        },
+        "yawPower": {
+          "run_count": 4,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": -2.4422662258148193,
+              "run": 4,
+              "bag": "rib_flipper_vansh_yawPower_4_rib_flipper.bag"
+            },
+            "Fy": {
+              "value": 6.788407802581787,
+              "run": 3,
+              "bag": "rib_flipper_vansh_yawPower_3_rib_flipper.bag"
+            },
+            "Fz": {
+              "value": -3.9011223316192627,
+              "run": 2,
+              "bag": "rib_flipper_vansh_yawPower_2_rib_flipper.bag"
+            }
+          }
+        }
+      }
+    },
+    "stripe_flipper": {
+      "bag_count": 24,
+      "overall_max_abs_force_N": {
+        "Fx": {
+          "value": 4.833168029785156,
+          "run": 10,
+          "bag": "stripe_flipper_vansh_rollAmpAndFrequency_10_stripe_flipper.bag",
+          "gait": "rollAmpAndFrequency"
+        },
+        "Fy": {
+          "value": 7.237217426300049,
+          "run": 4,
+          "bag": "stripe_flipper_vansh_yawPower_4_stripe_flipper.bag",
+          "gait": "yawPower"
+        },
+        "Fz": {
+          "value": -7.195249080657959,
+          "run": 4,
+          "bag": "stripe_flipper_vansh_yawPower_4_stripe_flipper.bag",
+          "gait": "yawPower"
+        }
+      },
+      "gaits": {
+        "experimental_sinusoidalYaw": {
+          "run_count": 8,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": 4.447208881378174,
+              "run": 5,
+              "bag": "stripe_flipper_vansh_experimental_sinusoidalYaw_5_stripe_flipper.bag"
+            },
+            "Fy": {
+              "value": 6.86602783203125,
+              "run": 7,
+              "bag": "stripe_flipper_vansh_experimental_sinusoidalYaw_7_stripe_flipper.bag"
+            },
+            "Fz": {
+              "value": -6.427882194519043,
+              "run": 4,
+              "bag": "stripe_flipper_vansh_experimental_sinusoidalYaw_4_stripe_flipper.bag"
+            }
+          }
+        },
+        "rollAmpAndFrequency": {
+          "run_count": 12,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": 4.833168029785156,
+              "run": 10,
+              "bag": "stripe_flipper_vansh_rollAmpAndFrequency_10_stripe_flipper.bag"
+            },
+            "Fy": {
+              "value": 5.592759609222412,
+              "run": 8,
+              "bag": "stripe_flipper_vansh_rollAmpAndFrequency_8_stripe_flipper.bag"
+            },
+            "Fz": {
+              "value": -6.152884483337402,
+              "run": 8,
+              "bag": "stripe_flipper_vansh_rollAmpAndFrequency_8_stripe_flipper.bag"
+            }
+          }
+        },
+        "yawPower": {
+          "run_count": 4,
+          "max_abs_force_N": {
+            "Fx": {
+              "value": 4.058169364929199,
+              "run": 1,
+              "bag": "stripe_flipper_vansh_yawPower_1_stripe_flipper.bag"
+            },
+            "Fy": {
+              "value": 7.237217426300049,
+              "run": 4,
+              "bag": "stripe_flipper_vansh_yawPower_4_stripe_flipper.bag"
+            },
+            "Fz": {
+              "value": -7.195249080657959,
+              "run": 4,
+              "bag": "stripe_flipper_vansh_yawPower_4_stripe_flipper.bag"
+            }
+          }
+        }
+      }
+    }
+  },
+  "runs": [
+    {
+      "flipper": "control",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 1,
+      "bag": "control_vansh_experimental_sinusoidalYaw_1_control.bag",
+      "force_peaks_N": {
+        "Fx": -1.7509982585906982,
+        "Fy": 8.355839729309082,
+        "Fz": -3.1995270252227783
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.4233014583587646,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 578,
+          "rejected_fraction": 0.010493827160493827,
+          "raw_value_at_peak_time": -1.0992095470428467,
+          "screened_value": -1.7509982585906982
+        },
+        "Fy": {
+          "peak_time_s": 2.1519837379455566,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 855,
+          "rejected_fraction": 0.015522875816993464,
+          "raw_value_at_peak_time": 8.297048568725586,
+          "screened_value": 8.355839729309082
+        },
+        "Fz": {
+          "peak_time_s": 0.729982852935791,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 621,
+          "rejected_fraction": 0.011274509803921568,
+          "raw_value_at_peak_time": -4.4606170654296875,
+          "screened_value": -3.1995270252227783
+        }
+      },
+      "load_sample_count": 55080
+    },
+    {
+      "flipper": "control",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 2,
+      "bag": "control_vansh_experimental_sinusoidalYaw_2_control.bag",
+      "force_peaks_N": {
+        "Fx": 1.7227298021316528,
+        "Fy": 8.486865043640137,
+        "Fz": -3.713768720626831
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 7.6237633228302,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 612,
+          "rejected_fraction": 0.007080055529847293,
+          "raw_value_at_peak_time": 1.1191905736923218,
+          "screened_value": 1.7227298021316528
+        },
+        "Fy": {
+          "peak_time_s": 2.8650078773498535,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 846,
+          "rejected_fraction": 0.00978713558537714,
+          "raw_value_at_peak_time": 11.337526321411133,
+          "screened_value": 8.486865043640137
+        },
+        "Fz": {
+          "peak_time_s": 7.322179079055786,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 822,
+          "rejected_fraction": 0.00950948634891254,
+          "raw_value_at_peak_time": -4.002663612365723,
+          "screened_value": -3.713768720626831
+        }
+      },
+      "load_sample_count": 86440
+    },
+    {
+      "flipper": "control",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 3,
+      "bag": "control_vansh_experimental_sinusoidalYaw_3_control.bag",
+      "force_peaks_N": {
+        "Fx": 2.6457958221435547,
+        "Fy": 6.292736053466797,
+        "Fz": -5.366912364959717
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.8284480571746826,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 461,
+          "rejected_fraction": 0.005249373718970622,
+          "raw_value_at_peak_time": 2.3775789737701416,
+          "screened_value": 2.6457958221435547
+        },
+        "Fy": {
+          "peak_time_s": 1.1662883758544922,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 578,
+          "rejected_fraction": 0.0065816442723753135,
+          "raw_value_at_peak_time": 6.720478057861328,
+          "screened_value": 6.292736053466797
+        },
+        "Fz": {
+          "peak_time_s": 3.505662441253662,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 590,
+          "rejected_fraction": 0.006718287406057845,
+          "raw_value_at_peak_time": -4.8517327308654785,
+          "screened_value": -5.366912364959717
+        }
+      },
+      "load_sample_count": 87820
+    },
+    {
+      "flipper": "control",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 4,
+      "bag": "control_vansh_experimental_sinusoidalYaw_4_control.bag",
+      "force_peaks_N": {
+        "Fx": -2.569916248321533,
+        "Fy": 6.755551338195801,
+        "Fz": -4.976179599761963
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 4.154039144515991,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 627,
+          "rejected_fraction": 0.00729918509895227,
+          "raw_value_at_peak_time": -2.0971009731292725,
+          "screened_value": -2.569916248321533
+        },
+        "Fy": {
+          "peak_time_s": 0.6080372333526611,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 453,
+          "rejected_fraction": 0.005273573923166472,
+          "raw_value_at_peak_time": 8.311322212219238,
+          "screened_value": 6.755551338195801
+        },
+        "Fz": {
+          "peak_time_s": 7.0846452713012695,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 573,
+          "rejected_fraction": 0.006670547147846333,
+          "raw_value_at_peak_time": -4.152088642120361,
+          "screened_value": -4.976179599761963
+        }
+      },
+      "load_sample_count": 85900
+    },
+    {
+      "flipper": "control",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 5,
+      "bag": "control_vansh_experimental_sinusoidalYaw_5_control.bag",
+      "force_peaks_N": {
+        "Fx": -1.6976380348205566,
+        "Fy": 2.447481870651245,
+        "Fz": -1.845069408416748
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 7.388235330581665,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 334,
+          "rejected_fraction": 0.003899136119542377,
+          "raw_value_at_peak_time": -1.6531890630722046,
+          "screened_value": -1.6976380348205566
+        },
+        "Fy": {
+          "peak_time_s": 6.735989809036255,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 534,
+          "rejected_fraction": 0.006233948167172543,
+          "raw_value_at_peak_time": 2.5970797538757324,
+          "screened_value": 2.447481870651245
+        },
+        "Fz": {
+          "peak_time_s": 5.392466068267822,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 603,
+          "rejected_fraction": 0.0070394583236049494,
+          "raw_value_at_peak_time": -1.8297109603881836,
+          "screened_value": -1.845069408416748
+        }
+      },
+      "load_sample_count": 85660
+    },
+    {
+      "flipper": "control",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 6,
+      "bag": "control_vansh_experimental_sinusoidalYaw_6_control.bag",
+      "force_peaks_N": {
+        "Fx": -1.5301098823547363,
+        "Fy": 2.875166654586792,
+        "Fz": -1.7537678480148315
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 7.309742450714111,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 567,
+          "rejected_fraction": 0.006617647058823529,
+          "raw_value_at_peak_time": -1.9317290782928467,
+          "screened_value": -1.5301098823547363
+        },
+        "Fy": {
+          "peak_time_s": 6.704537868499756,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 785,
+          "rejected_fraction": 0.009161998132586368,
+          "raw_value_at_peak_time": 3.297232151031494,
+          "screened_value": 2.875166654586792
+        },
+        "Fz": {
+          "peak_time_s": 3.341704845428467,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 1065,
+          "rejected_fraction": 0.012429971988795517,
+          "raw_value_at_peak_time": -2.0448172092437744,
+          "screened_value": -1.7537678480148315
+        }
+      },
+      "load_sample_count": 85680
+    },
+    {
+      "flipper": "control",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 7,
+      "bag": "control_vansh_experimental_sinusoidalYaw_7_control.bag",
+      "force_peaks_N": {
+        "Fx": -1.3000589609146118,
+        "Fy": 2.806711435317993,
+        "Fz": -1.495989441871643
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.9027214050292969,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 424,
+          "rejected_fraction": 0.004898336414048059,
+          "raw_value_at_peak_time": -0.460123747587204,
+          "screened_value": -1.3000589609146118
+        },
+        "Fy": {
+          "peak_time_s": 4.899862051010132,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 888,
+          "rejected_fraction": 0.010258780036968576,
+          "raw_value_at_peak_time": 3.460226535797119,
+          "screened_value": 2.806711435317993
+        },
+        "Fz": {
+          "peak_time_s": 5.487954616546631,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 1140,
+          "rejected_fraction": 0.013170055452865065,
+          "raw_value_at_peak_time": -0.36960017681121826,
+          "screened_value": -1.495989441871643
+        }
+      },
+      "load_sample_count": 86560
+    },
+    {
+      "flipper": "control",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 8,
+      "bag": "control_vansh_experimental_sinusoidalYaw_8_control.bag",
+      "force_peaks_N": {
+        "Fx": -1.3854984045028687,
+        "Fy": 2.581784963607788,
+        "Fz": -1.9200845956802368
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 7.313589096069336,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 512,
+          "rejected_fraction": 0.0059204440333024974,
+          "raw_value_at_peak_time": -1.2104663848876953,
+          "screened_value": -1.3854984045028687
+        },
+        "Fy": {
+          "peak_time_s": 0.6237196922302246,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 365,
+          "rejected_fraction": 0.004220629047178538,
+          "raw_value_at_peak_time": 2.0925872325897217,
+          "screened_value": 2.581784963607788
+        },
+        "Fz": {
+          "peak_time_s": 7.335047960281372,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 502,
+          "rejected_fraction": 0.005804810360777058,
+          "raw_value_at_peak_time": -2.6832292079925537,
+          "screened_value": -1.9200845956802368
+        }
+      },
+      "load_sample_count": 86480
+    },
+    {
+      "flipper": "control",
+      "gait": "rollAmpAndFrequency",
+      "run": 10,
+      "bag": "control_vansh_rollAmpAndFrequency_10_control.bag",
+      "force_peaks_N": {
+        "Fx": -1.5437896251678467,
+        "Fy": 4.6479411125183105,
+        "Fz": -4.187121391296387
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.9952943325042725,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 847,
+          "rejected_fraction": 0.009546889089269612,
+          "raw_value_at_peak_time": -1.8311269283294678,
+          "screened_value": -1.5437896251678467
+        },
+        "Fy": {
+          "peak_time_s": 7.198931455612183,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 922,
+          "rejected_fraction": 0.01039224526600541,
+          "raw_value_at_peak_time": 5.237121105194092,
+          "screened_value": 4.6479411125183105
+        },
+        "Fz": {
+          "peak_time_s": 6.8908140659332275,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 814,
+          "rejected_fraction": 0.009174932371505861,
+          "raw_value_at_peak_time": -3.5659408569335938,
+          "screened_value": -4.187121391296387
+        }
+      },
+      "load_sample_count": 88720
+    },
+    {
+      "flipper": "control",
+      "gait": "rollAmpAndFrequency",
+      "run": 11,
+      "bag": "control_vansh_rollAmpAndFrequency_11_control.bag",
+      "force_peaks_N": {
+        "Fx": -1.6484113931655884,
+        "Fy": 3.967609167098999,
+        "Fz": -3.6325058937072754
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 4.58109188079834,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 308,
+          "rejected_fraction": 0.00578078078078078,
+          "raw_value_at_peak_time": -1.3888963460922241,
+          "screened_value": -1.6484113931655884
+        },
+        "Fy": {
+          "peak_time_s": 4.042399883270264,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 327,
+          "rejected_fraction": 0.006137387387387387,
+          "raw_value_at_peak_time": 1.8373630046844482,
+          "screened_value": 3.967609167098999
+        },
+        "Fz": {
+          "peak_time_s": 1.2504792213439941,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 447,
+          "rejected_fraction": 0.008389639639639639,
+          "raw_value_at_peak_time": -4.087455749511719,
+          "screened_value": -3.6325058937072754
+        }
+      },
+      "load_sample_count": 53280
+    },
+    {
+      "flipper": "control",
+      "gait": "rollAmpAndFrequency",
+      "run": 12,
+      "bag": "control_vansh_rollAmpAndFrequency_12_control.bag",
+      "force_peaks_N": {
+        "Fx": -1.6435575485229492,
+        "Fy": 4.046799182891846,
+        "Fz": -2.806277275085449
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.3872673511505127,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 595,
+          "rejected_fraction": 0.006944444444444444,
+          "raw_value_at_peak_time": -0.07160334289073944,
+          "screened_value": -1.6435575485229492
+        },
+        "Fy": {
+          "peak_time_s": 5.175881862640381,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 779,
+          "rejected_fraction": 0.009091970121381887,
+          "raw_value_at_peak_time": 3.4831693172454834,
+          "screened_value": 4.046799182891846
+        },
+        "Fz": {
+          "peak_time_s": 6.249650239944458,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 708,
+          "rejected_fraction": 0.008263305322128852,
+          "raw_value_at_peak_time": -2.5058178901672363,
+          "screened_value": -2.806277275085449
+        }
+      },
+      "load_sample_count": 85680
+    },
+    {
+      "flipper": "control",
+      "gait": "rollAmpAndFrequency",
+      "run": 1,
+      "bag": "control_vansh_rollAmpAndFrequency_1_control.bag",
+      "force_peaks_N": {
+        "Fx": -1.4140243530273438,
+        "Fy": 2.833024740219116,
+        "Fz": -2.4454715251922607
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.2657256126403809,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 1001,
+          "rejected_fraction": 0.011666666666666667,
+          "raw_value_at_peak_time": -1.7113044261932373,
+          "screened_value": -1.4140243530273438
+        },
+        "Fy": {
+          "peak_time_s": 4.616009712219238,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 289,
+          "rejected_fraction": 0.0033682983682983684,
+          "raw_value_at_peak_time": 3.1422781944274902,
+          "screened_value": 2.833024740219116
+        },
+        "Fz": {
+          "peak_time_s": 4.338953495025635,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 513,
+          "rejected_fraction": 0.005979020979020979,
+          "raw_value_at_peak_time": -2.4772613048553467,
+          "screened_value": -2.4454715251922607
+        }
+      },
+      "load_sample_count": 85800
+    },
+    {
+      "flipper": "control",
+      "gait": "rollAmpAndFrequency",
+      "run": 2,
+      "bag": "control_vansh_rollAmpAndFrequency_2_control.bag",
+      "force_peaks_N": {
+        "Fx": -2.0871517658233643,
+        "Fy": 2.642279863357544,
+        "Fz": -2.813202142715454
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 0.7692968845367432,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 952,
+          "rejected_fraction": 0.010815723699159282,
+          "raw_value_at_peak_time": -2.4828555583953857,
+          "screened_value": -2.0871517658233643
+        },
+        "Fy": {
+          "peak_time_s": 4.343395471572876,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 602,
+          "rejected_fraction": 0.006839354692115428,
+          "raw_value_at_peak_time": 2.7814419269561768,
+          "screened_value": 2.642279863357544
+        },
+        "Fz": {
+          "peak_time_s": 2.928715944290161,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 727,
+          "rejected_fraction": 0.008259486480345376,
+          "raw_value_at_peak_time": -1.9110356569290161,
+          "screened_value": -2.813202142715454
+        }
+      },
+      "load_sample_count": 88020
+    },
+    {
+      "flipper": "control",
+      "gait": "rollAmpAndFrequency",
+      "run": 3,
+      "bag": "control_vansh_rollAmpAndFrequency_3_control.bag",
+      "force_peaks_N": {
+        "Fx": -1.506464958190918,
+        "Fy": 2.628450870513916,
+        "Fz": -2.5469045639038086
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.6661827564239502,
+          "sample_rate_hz": 9754.19534883721,
+          "hampel_window_samples": 975,
+          "sustain_window_samples": 2439,
+          "rejected_samples": 367,
+          "rejected_fraction": 0.0042378752886836025,
+          "raw_value_at_peak_time": -1.7681915760040283,
+          "screened_value": -1.506464958190918
+        },
+        "Fy": {
+          "peak_time_s": 2.1975250244140625,
+          "sample_rate_hz": 9754.19534883721,
+          "hampel_window_samples": 975,
+          "sustain_window_samples": 2439,
+          "rejected_samples": 643,
+          "rejected_fraction": 0.0074249422632794455,
+          "raw_value_at_peak_time": 2.592393398284912,
+          "screened_value": 2.628450870513916
+        },
+        "Fz": {
+          "peak_time_s": 5.236368894577026,
+          "sample_rate_hz": 9754.19534883721,
+          "hampel_window_samples": 975,
+          "sustain_window_samples": 2439,
+          "rejected_samples": 650,
+          "rejected_fraction": 0.007505773672055427,
+          "raw_value_at_peak_time": -2.3412845134735107,
+          "screened_value": -2.5469045639038086
+        }
+      },
+      "load_sample_count": 86600
+    },
+    {
+      "flipper": "control",
+      "gait": "rollAmpAndFrequency",
+      "run": 4,
+      "bag": "control_vansh_rollAmpAndFrequency_4_control.bag",
+      "force_peaks_N": {
+        "Fx": -1.3934338092803955,
+        "Fy": 2.952327251434326,
+        "Fz": -2.957474708557129
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 0.8852362632751465,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 661,
+          "rejected_fraction": 0.0076310320942045715,
+          "raw_value_at_peak_time": -0.114595927298069,
+          "screened_value": -1.3934338092803955
+        },
+        "Fy": {
+          "peak_time_s": 1.412292718887329,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 803,
+          "rejected_fraction": 0.009270376356499653,
+          "raw_value_at_peak_time": 2.4843621253967285,
+          "screened_value": 2.952327251434326
+        },
+        "Fz": {
+          "peak_time_s": 0.5000226497650146,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 1029,
+          "rejected_fraction": 0.011879473562687601,
+          "raw_value_at_peak_time": -3.0292134284973145,
+          "screened_value": -2.957474708557129
+        }
+      },
+      "load_sample_count": 86620
+    },
+    {
+      "flipper": "control",
+      "gait": "rollAmpAndFrequency",
+      "run": 5,
+      "bag": "control_vansh_rollAmpAndFrequency_5_control.bag",
+      "force_peaks_N": {
+        "Fx": -2.2687346935272217,
+        "Fy": 2.960068702697754,
+        "Fz": -2.8846418857574463
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 0.7660565376281738,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 770,
+          "rejected_fraction": 0.009007955077211043,
+          "raw_value_at_peak_time": -3.1735661029815674,
+          "screened_value": -2.2687346935272217
+        },
+        "Fy": {
+          "peak_time_s": 2.924752712249756,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 310,
+          "rejected_fraction": 0.0036265793167992513,
+          "raw_value_at_peak_time": 3.985684871673584,
+          "screened_value": 2.960068702697754
+        },
+        "Fz": {
+          "peak_time_s": 6.820140361785889,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 474,
+          "rejected_fraction": 0.0055451567618156295,
+          "raw_value_at_peak_time": -2.8562304973602295,
+          "screened_value": -2.8846418857574463
+        }
+      },
+      "load_sample_count": 85480
+    },
+    {
+      "flipper": "control",
+      "gait": "rollAmpAndFrequency",
+      "run": 6,
+      "bag": "control_vansh_rollAmpAndFrequency_6_control.bag",
+      "force_peaks_N": {
+        "Fx": -1.9666731357574463,
+        "Fy": 3.2083425521850586,
+        "Fz": -2.7632980346679688
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.3881046772003174,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 683,
+          "rejected_fraction": 0.007977108152300865,
+          "raw_value_at_peak_time": -1.6820399761199951,
+          "screened_value": -1.9666731357574463
+        },
+        "Fy": {
+          "peak_time_s": 4.692171812057495,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 445,
+          "rejected_fraction": 0.005197383788834385,
+          "raw_value_at_peak_time": 3.5698955059051514,
+          "screened_value": 3.2083425521850586
+        },
+        "Fz": {
+          "peak_time_s": 4.4630866050720215,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 501,
+          "rejected_fraction": 0.005851436580238262,
+          "raw_value_at_peak_time": -3.0234837532043457,
+          "screened_value": -2.7632980346679688
+        }
+      },
+      "load_sample_count": 85620
+    },
+    {
+      "flipper": "control",
+      "gait": "rollAmpAndFrequency",
+      "run": 7,
+      "bag": "control_vansh_rollAmpAndFrequency_7_control.bag",
+      "force_peaks_N": {
+        "Fx": -1.5818324089050293,
+        "Fy": 3.991562843322754,
+        "Fz": -3.5753285884857178
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.3649990558624268,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 615,
+          "rejected_fraction": 0.007262635805384979,
+          "raw_value_at_peak_time": -1.7560228109359741,
+          "screened_value": -1.5818324089050293
+        },
+        "Fy": {
+          "peak_time_s": 6.677205801010132,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 434,
+          "rejected_fraction": 0.005125177137458668,
+          "raw_value_at_peak_time": 4.843588352203369,
+          "screened_value": 3.991562843322754
+        },
+        "Fz": {
+          "peak_time_s": 6.366910457611084,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 440,
+          "rejected_fraction": 0.0051960321209258385,
+          "raw_value_at_peak_time": -3.812319278717041,
+          "screened_value": -3.5753285884857178
+        }
+      },
+      "load_sample_count": 84680
+    },
+    {
+      "flipper": "control",
+      "gait": "rollAmpAndFrequency",
+      "run": 8,
+      "bag": "control_vansh_rollAmpAndFrequency_8_control.bag",
+      "force_peaks_N": {
+        "Fx": -1.520419716835022,
+        "Fy": 3.2121686935424805,
+        "Fz": -3.3848538398742676
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.5381381511688232,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 224,
+          "rejected_fraction": 0.004197901049475262,
+          "raw_value_at_peak_time": -1.4872583150863647,
+          "screened_value": -1.520419716835022
+        },
+        "Fy": {
+          "peak_time_s": 2.3342888355255127,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 311,
+          "rejected_fraction": 0.005828335832083958,
+          "raw_value_at_peak_time": 3.8543753623962402,
+          "screened_value": 3.2121686935424805
+        },
+        "Fz": {
+          "peak_time_s": 2.230611562728882,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 366,
+          "rejected_fraction": 0.006859070464767616,
+          "raw_value_at_peak_time": -3.582855224609375,
+          "screened_value": -3.3848538398742676
+        }
+      },
+      "load_sample_count": 53360
+    },
+    {
+      "flipper": "control",
+      "gait": "rollAmpAndFrequency",
+      "run": 9,
+      "bag": "control_vansh_rollAmpAndFrequency_9_control.bag",
+      "force_peaks_N": {
+        "Fx": -1.4215784072875977,
+        "Fy": 3.477555274963379,
+        "Fz": -2.903285026550293
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 0.8594071865081787,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 338,
+          "rejected_fraction": 0.0038531691746466028,
+          "raw_value_at_peak_time": -1.7402514219284058,
+          "screened_value": -1.4215784072875977
+        },
+        "Fy": {
+          "peak_time_s": 1.3835995197296143,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 598,
+          "rejected_fraction": 0.006817145462836297,
+          "raw_value_at_peak_time": 3.180316686630249,
+          "screened_value": 3.477555274963379
+        },
+        "Fz": {
+          "peak_time_s": 2.4185779094696045,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 599,
+          "rejected_fraction": 0.006828545371637027,
+          "raw_value_at_peak_time": -2.418365240097046,
+          "screened_value": -2.903285026550293
+        }
+      },
+      "load_sample_count": 87720
+    },
+    {
+      "flipper": "control",
+      "gait": "yawPower",
+      "run": 1,
+      "bag": "control_vansh_yawPower_1_control.bag",
+      "force_peaks_N": {
+        "Fx": -1.8473429679870605,
+        "Fy": 3.7575221061706543,
+        "Fz": -3.410423994064331
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 7.507073640823364,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 638,
+          "rejected_fraction": 0.007463734206832008,
+          "raw_value_at_peak_time": -2.185302257537842,
+          "screened_value": -1.8473429679870605
+        },
+        "Fy": {
+          "peak_time_s": 4.791837692260742,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 324,
+          "rejected_fraction": 0.0037903603182030884,
+          "raw_value_at_peak_time": 4.403018951416016,
+          "screened_value": 3.7575221061706543
+        },
+        "Fz": {
+          "peak_time_s": 4.4848246574401855,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 813,
+          "rejected_fraction": 0.009510996724379972,
+          "raw_value_at_peak_time": -3.382686138153076,
+          "screened_value": -3.410423994064331
+        }
+      },
+      "load_sample_count": 85480
+    },
+    {
+      "flipper": "control",
+      "gait": "yawPower",
+      "run": 2,
+      "bag": "control_vansh_yawPower_2_control.bag",
+      "force_peaks_N": {
+        "Fx": 1.731002688407898,
+        "Fy": 2.102769613265991,
+        "Fz": -2.427445650100708
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.4965617656707764,
+          "sample_rate_hz": 9939.109004739337,
+          "hampel_window_samples": 995,
+          "sustain_window_samples": 2485,
+          "rejected_samples": 256,
+          "rejected_fraction": 0.0029836829836829837,
+          "raw_value_at_peak_time": 1.6939899921417236,
+          "screened_value": 1.731002688407898
+        },
+        "Fy": {
+          "peak_time_s": 4.787081480026245,
+          "sample_rate_hz": 9939.109004739337,
+          "hampel_window_samples": 995,
+          "sustain_window_samples": 2485,
+          "rejected_samples": 406,
+          "rejected_fraction": 0.004731934731934732,
+          "raw_value_at_peak_time": 2.251224994659424,
+          "screened_value": 2.102769613265991
+        },
+        "Fz": {
+          "peak_time_s": 2.446117877960205,
+          "sample_rate_hz": 9939.109004739337,
+          "hampel_window_samples": 995,
+          "sustain_window_samples": 2485,
+          "rejected_samples": 315,
+          "rejected_fraction": 0.0036713286713286712,
+          "raw_value_at_peak_time": -2.503037214279175,
+          "screened_value": -2.427445650100708
+        }
+      },
+      "load_sample_count": 85800
+    },
+    {
+      "flipper": "control",
+      "gait": "yawPower",
+      "run": 3,
+      "bag": "control_vansh_yawPower_3_control.bag",
+      "force_peaks_N": {
+        "Fx": 1.3848494291305542,
+        "Fy": 3.666980504989624,
+        "Fz": -3.974318742752075
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 4.826090574264526,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 213,
+          "rejected_fraction": 0.0039096916299559475,
+          "raw_value_at_peak_time": 1.3912922143936157,
+          "screened_value": 1.3848494291305542
+        },
+        "Fy": {
+          "peak_time_s": 1.4647622108459473,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 276,
+          "rejected_fraction": 0.005066079295154185,
+          "raw_value_at_peak_time": 4.58601188659668,
+          "screened_value": 3.666980504989624
+        },
+        "Fz": {
+          "peak_time_s": 3.1646721363067627,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 289,
+          "rejected_fraction": 0.005304698972099853,
+          "raw_value_at_peak_time": -4.300687789916992,
+          "screened_value": -3.974318742752075
+        }
+      },
+      "load_sample_count": 54480
+    },
+    {
+      "flipper": "control",
+      "gait": "yawPower",
+      "run": 4,
+      "bag": "control_vansh_yawPower_4_control.bag",
+      "force_peaks_N": {
+        "Fx": -2.4194324016571045,
+        "Fy": -5.364846706390381,
+        "Fz": -4.840732097625732
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.8394155502319336,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 613,
+          "rejected_fraction": 0.007121282527881041,
+          "raw_value_at_peak_time": -3.2783851623535156,
+          "screened_value": -2.4194324016571045
+        },
+        "Fy": {
+          "peak_time_s": 1.6899690628051758,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 634,
+          "rejected_fraction": 0.007365241635687732,
+          "raw_value_at_peak_time": -5.914508819580078,
+          "screened_value": -5.364846706390381
+        },
+        "Fz": {
+          "peak_time_s": 6.507894039154053,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 744,
+          "rejected_fraction": 0.008643122676579925,
+          "raw_value_at_peak_time": -4.729213237762451,
+          "screened_value": -4.840732097625732
+        }
+      },
+      "load_sample_count": 86080
+    },
+    {
+      "flipper": "fiberglass",
+      "gait": "DOUBLESIN",
+      "run": 1,
+      "bag": "fiberglassDOUBLESIN.bag",
+      "force_peaks_N": {
+        "Fx": -1.9318290948867798,
+        "Fy": 3.068230390548706,
+        "Fz": -2.056189775466919
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.0643858909606934,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 853,
+          "rejected_fraction": 0.004030809942349494,
+          "raw_value_at_peak_time": -2.055262327194214,
+          "screened_value": -1.9318290948867798
+        },
+        "Fy": {
+          "peak_time_s": 9.381712913513184,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 605,
+          "rejected_fraction": 0.0028588980247613647,
+          "raw_value_at_peak_time": 3.6933560371398926,
+          "screened_value": 3.068230390548706
+        },
+        "Fz": {
+          "peak_time_s": 1.8379902839660645,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 1102,
+          "rejected_fraction": 0.005207447311218221,
+          "raw_value_at_peak_time": -1.884482979774475,
+          "screened_value": -2.056189775466919
+        }
+      },
+      "load_sample_count": 211620
+    },
+    {
+      "flipper": "fiberglass",
+      "gait": "DOUBLESIN",
+      "run": 2,
+      "bag": "fiberglassDOUBLESIN2.bag",
+      "force_peaks_N": {
+        "Fx": -2.0646417140960693,
+        "Fy": 3.8789851665496826,
+        "Fz": -2.7848870754241943
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 0.500030517578125,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 630,
+          "rejected_fraction": 0.004726181545386347,
+          "raw_value_at_peak_time": -1.9673078060150146,
+          "screened_value": -2.0646417140960693
+        },
+        "Fy": {
+          "peak_time_s": 11.721077919006348,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 602,
+          "rejected_fraction": 0.004516129032258065,
+          "raw_value_at_peak_time": 4.045384883880615,
+          "screened_value": 3.8789851665496826
+        },
+        "Fz": {
+          "peak_time_s": 11.806378841400146,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 665,
+          "rejected_fraction": 0.004988747186796699,
+          "raw_value_at_peak_time": -3.345625638961792,
+          "screened_value": -2.7848870754241943
+        }
+      },
+      "load_sample_count": 133300
+    },
+    {
+      "flipper": "fiberglass",
+      "gait": "FOURIER",
+      "run": 1,
+      "bag": "fiberglassFOURIER.bag",
+      "force_peaks_N": {
+        "Fx": 1.550167441368103,
+        "Fy": 3.8080008029937744,
+        "Fz": -5.539875030517578
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 0.6135492324829102,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 978,
+          "rejected_fraction": 0.004304577464788732,
+          "raw_value_at_peak_time": 1.3300105333328247,
+          "screened_value": 1.550167441368103
+        },
+        "Fy": {
+          "peak_time_s": 2.3413593769073486,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 2110,
+          "rejected_fraction": 0.009286971830985915,
+          "raw_value_at_peak_time": 4.749988079071045,
+          "screened_value": 3.8080008029937744
+        },
+        "Fz": {
+          "peak_time_s": 5.034018278121948,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 2264,
+          "rejected_fraction": 0.009964788732394366,
+          "raw_value_at_peak_time": -5.0194010734558105,
+          "screened_value": -5.539875030517578
+        }
+      },
+      "load_sample_count": 227200
+    },
+    {
+      "flipper": "fiberglass",
+      "gait": "FOURIER",
+      "run": 2,
+      "bag": "fiberglassFOURIER2.bag",
+      "force_peaks_N": {
+        "Fx": 1.5231281518936157,
+        "Fy": 6.017210006713867,
+        "Fz": -5.796438694000244
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 8.50606656074524,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 1608,
+          "rejected_fraction": 0.00792664892043774,
+          "raw_value_at_peak_time": 3.7262344360351562,
+          "screened_value": 1.5231281518936157
+        },
+        "Fy": {
+          "peak_time_s": 2.950690984725952,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 986,
+          "rejected_fraction": 0.004860494922606724,
+          "raw_value_at_peak_time": 6.679043769836426,
+          "screened_value": 6.017210006713867
+        },
+        "Fz": {
+          "peak_time_s": 16.447129011154175,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 1789,
+          "rejected_fraction": 0.008818889874790495,
+          "raw_value_at_peak_time": -5.5234880447387695,
+          "screened_value": -5.796438694000244
+        }
+      },
+      "load_sample_count": 202860
+    },
+    {
+      "flipper": "fiberglass",
+      "gait": "NESTEDSIN",
+      "run": 1,
+      "bag": "fiberglassNESTEDSIN.bag",
+      "force_peaks_N": {
+        "Fx": -1.384047508239746,
+        "Fy": 3.2886903285980225,
+        "Fz": -2.4552745819091797
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.1311285495758057,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 499,
+          "rejected_fraction": 0.0022583272990586534,
+          "raw_value_at_peak_time": 1.1254216432571411,
+          "screened_value": -1.384047508239746
+        },
+        "Fy": {
+          "peak_time_s": 1.0809857845306396,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 411,
+          "rejected_fraction": 0.001860065170166546,
+          "raw_value_at_peak_time": 3.561269521713257,
+          "screened_value": 3.2886903285980225
+        },
+        "Fz": {
+          "peak_time_s": 21.05945920944214,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 703,
+          "rejected_fraction": 0.0031815713251267196,
+          "raw_value_at_peak_time": -2.563471794128418,
+          "screened_value": -2.4552745819091797
+        }
+      },
+      "load_sample_count": 220960
+    },
+    {
+      "flipper": "fiberglass",
+      "gait": "NESTEDSIN",
+      "run": 2,
+      "bag": "fiberglassNESTEDSIN2.bag",
+      "force_peaks_N": {
+        "Fx": 1.6350328922271729,
+        "Fy": 4.209238052368164,
+        "Fz": -1.6665732860565186
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 6.332001686096191,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 1038,
+          "rejected_fraction": 0.005312723922612345,
+          "raw_value_at_peak_time": 2.052988290786743,
+          "screened_value": 1.6350328922271729
+        },
+        "Fy": {
+          "peak_time_s": 14.094941854476929,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 431,
+          "rejected_fraction": 0.0022059576210461665,
+          "raw_value_at_peak_time": 5.127561569213867,
+          "screened_value": 4.209238052368164
+        },
+        "Fz": {
+          "peak_time_s": 6.5242650508880615,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 494,
+          "rejected_fraction": 0.002528406182823216,
+          "raw_value_at_peak_time": -1.8499219417572021,
+          "screened_value": -1.6665732860565186
+        }
+      },
+      "load_sample_count": 195380
+    },
+    {
+      "flipper": "fiberglass",
+      "gait": "SIN",
+      "run": 1,
+      "bag": "fiberglassSIN.bag",
+      "force_peaks_N": {
+        "Fx": 1.203708291053772,
+        "Fy": 3.8899612426757812,
+        "Fz": -3.2375845909118652
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.2605042457580566,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 615,
+          "rejected_fraction": 0.003213166144200627,
+          "raw_value_at_peak_time": 1.575975775718689,
+          "screened_value": 1.203708291053772
+        },
+        "Fy": {
+          "peak_time_s": 1.9443175792694092,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 359,
+          "rejected_fraction": 0.0018756530825496344,
+          "raw_value_at_peak_time": 4.49477481842041,
+          "screened_value": 3.8899612426757812
+        },
+        "Fz": {
+          "peak_time_s": 1.7423734664916992,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 453,
+          "rejected_fraction": 0.002366771159874608,
+          "raw_value_at_peak_time": -3.159719467163086,
+          "screened_value": -3.2375845909118652
+        }
+      },
+      "load_sample_count": 191400
+    },
+    {
+      "flipper": "fiberglass",
+      "gait": "SIN",
+      "run": 2,
+      "bag": "fiberglassSIN2.bag",
+      "force_peaks_N": {
+        "Fx": 1.2154990434646606,
+        "Fy": 4.415219306945801,
+        "Fz": -4.336668014526367
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.8623936176300049,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 308,
+          "rejected_fraction": 0.002393906420021763,
+          "raw_value_at_peak_time": 1.137230396270752,
+          "screened_value": 1.2154990434646606
+        },
+        "Fy": {
+          "peak_time_s": 2.738168716430664,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 234,
+          "rejected_fraction": 0.0018187470853412095,
+          "raw_value_at_peak_time": 4.872358798980713,
+          "screened_value": 4.415219306945801
+        },
+        "Fz": {
+          "peak_time_s": 10.582125663757324,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 360,
+          "rejected_fraction": 0.002798072438986476,
+          "raw_value_at_peak_time": -5.069862365722656,
+          "screened_value": -4.336668014526367
+        }
+      },
+      "load_sample_count": 128660
+    },
+    {
+      "flipper": "fiberglass",
+      "gait": "SINFOURIER",
+      "run": 1,
+      "bag": "fiberglassSINFOURIER.bag",
+      "force_peaks_N": {
+        "Fx": -2.159714460372925,
+        "Fy": 3.538295030593872,
+        "Fz": -2.9650590419769287
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 4.758060932159424,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 871,
+          "rejected_fraction": 0.005396530359355638,
+          "raw_value_at_peak_time": -2.0830886363983154,
+          "screened_value": -2.159714460372925
+        },
+        "Fy": {
+          "peak_time_s": 14.52835750579834,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 538,
+          "rejected_fraction": 0.0033333333333333335,
+          "raw_value_at_peak_time": 5.264388084411621,
+          "screened_value": 3.538295030593872
+        },
+        "Fz": {
+          "peak_time_s": 2.023045063018799,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 561,
+          "rejected_fraction": 0.0034758364312267656,
+          "raw_value_at_peak_time": -3.006373405456543,
+          "screened_value": -2.9650590419769287
+        }
+      },
+      "load_sample_count": 161400
+    },
+    {
+      "flipper": "fiberglass",
+      "gait": "SINFOURIER",
+      "run": 2,
+      "bag": "fiberglassSINFOURIER2.bag",
+      "force_peaks_N": {
+        "Fx": -1.7074278593063354,
+        "Fy": 3.9390106201171875,
+        "Fz": -4.315334320068359
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.697164535522461,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 494,
+          "rejected_fraction": 0.0036876679605852493,
+          "raw_value_at_peak_time": -2.1771037578582764,
+          "screened_value": -1.7074278593063354
+        },
+        "Fy": {
+          "peak_time_s": 1.0059399604797363,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 602,
+          "rejected_fraction": 0.004493878769782024,
+          "raw_value_at_peak_time": 4.4026007652282715,
+          "screened_value": 3.9390106201171875
+        },
+        "Fz": {
+          "peak_time_s": 0.9082624912261963,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 426,
+          "rejected_fraction": 0.0031800537473872796,
+          "raw_value_at_peak_time": -4.1291632652282715,
+          "screened_value": -4.315334320068359
+        }
+      },
+      "load_sample_count": 133960
+    },
+    {
+      "flipper": "fiberglass",
+      "gait": "SINmiddle",
+      "run": 1,
+      "bag": "fiberglassSINmiddle.bag",
+      "force_peaks_N": {
+        "Fx": -2.1737382411956787,
+        "Fy": -5.733882904052734,
+        "Fz": -3.9562573432922363
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 0.7495617866516113,
+          "sample_rate_hz": 10280.156862745098,
+          "hampel_window_samples": 1029,
+          "sustain_window_samples": 2571,
+          "rejected_samples": 686,
+          "rejected_fraction": 0.004206008583690987,
+          "raw_value_at_peak_time": -2.7308266162872314,
+          "screened_value": -2.1737382411956787
+        },
+        "Fy": {
+          "peak_time_s": 1.8530707359313965,
+          "sample_rate_hz": 10280.156862745098,
+          "hampel_window_samples": 1029,
+          "sustain_window_samples": 2571,
+          "rejected_samples": 612,
+          "rejected_fraction": 0.00375229920294298,
+          "raw_value_at_peak_time": -5.830526351928711,
+          "screened_value": -5.733882904052734
+        },
+        "Fz": {
+          "peak_time_s": 1.6545112133026123,
+          "sample_rate_hz": 10280.156862745098,
+          "hampel_window_samples": 1029,
+          "sustain_window_samples": 2571,
+          "rejected_samples": 548,
+          "rejected_fraction": 0.003359901900674433,
+          "raw_value_at_peak_time": -4.053157329559326,
+          "screened_value": -3.9562573432922363
+        }
+      },
+      "load_sample_count": 163100
+    },
+    {
+      "flipper": "fiberglass",
+      "gait": "SLOWFAST",
+      "run": 1,
+      "bag": "fiberglassSLOWFAST.bag",
+      "force_peaks_N": {
+        "Fx": 1.1041548252105713,
+        "Fy": 2.851250410079956,
+        "Fz": -2.1717870235443115
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 6.555111646652222,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 814,
+          "rejected_fraction": 0.005199948894851156,
+          "raw_value_at_peak_time": 1.426604151725769,
+          "screened_value": 1.1041548252105713
+        },
+        "Fy": {
+          "peak_time_s": 0.9712235927581787,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 779,
+          "rejected_fraction": 0.0049763638686597675,
+          "raw_value_at_peak_time": 2.131861448287964,
+          "screened_value": 2.851250410079956
+        },
+        "Fz": {
+          "peak_time_s": 0.5651919841766357,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 753,
+          "rejected_fraction": 0.004810272134917593,
+          "raw_value_at_peak_time": -2.3122360706329346,
+          "screened_value": -2.1717870235443115
+        }
+      },
+      "load_sample_count": 156540
+    },
+    {
+      "flipper": "fiberglass",
+      "gait": "SLOWFAST",
+      "run": 2,
+      "bag": "fiberglassSLOWFAST2.bag",
+      "force_peaks_N": {
+        "Fx": 1.7564105987548828,
+        "Fy": 3.9901082515716553,
+        "Fz": -1.9830710887908936
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 15.848834037780762,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 1082,
+          "rejected_fraction": 0.005651310978794526,
+          "raw_value_at_peak_time": 2.1046650409698486,
+          "screened_value": 1.7564105987548828
+        },
+        "Fy": {
+          "peak_time_s": 15.132625579833984,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 1077,
+          "rejected_fraction": 0.005625195863365716,
+          "raw_value_at_peak_time": 4.542581558227539,
+          "screened_value": 3.9901082515716553
+        },
+        "Fz": {
+          "peak_time_s": 16.032122135162354,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 1262,
+          "rejected_fraction": 0.006591455134231693,
+          "raw_value_at_peak_time": -2.18118953704834,
+          "screened_value": -1.9830710887908936
+        }
+      },
+      "load_sample_count": 191460
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 1,
+      "bag": "petg_thin_vansh_experimental_sinusoidalYaw_1_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -2.5298666954040527,
+        "Fy": -6.405340194702148,
+        "Fz": -4.32797384262085
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 5.570959568023682,
+          "sample_rate_hz": 9962.717339667459,
+          "hampel_window_samples": 997,
+          "sustain_window_samples": 2491,
+          "rejected_samples": 438,
+          "rejected_fraction": 0.005180979418026969,
+          "raw_value_at_peak_time": -2.9077823162078857,
+          "screened_value": -2.5298666954040527
+        },
+        "Fy": {
+          "peak_time_s": 1.6653821468353271,
+          "sample_rate_hz": 9962.717339667459,
+          "hampel_window_samples": 997,
+          "sustain_window_samples": 2491,
+          "rejected_samples": 545,
+          "rejected_fraction": 0.006446652472202508,
+          "raw_value_at_peak_time": -7.848102569580078,
+          "screened_value": -6.405340194702148
+        },
+        "Fz": {
+          "peak_time_s": 7.35276198387146,
+          "sample_rate_hz": 9962.717339667459,
+          "hampel_window_samples": 997,
+          "sustain_window_samples": 2491,
+          "rejected_samples": 451,
+          "rejected_fraction": 0.005334752779749231,
+          "raw_value_at_peak_time": -4.602318286895752,
+          "screened_value": -4.32797384262085
+        }
+      },
+      "load_sample_count": 84540
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 2,
+      "bag": "petg_thin_vansh_experimental_sinusoidalYaw_2_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -2.151521921157837,
+        "Fy": -5.9523396492004395,
+        "Fz": -4.161206245422363
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 4.494929790496826,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 408,
+          "rejected_fraction": 0.00782808902532617,
+          "raw_value_at_peak_time": -2.345170497894287,
+          "screened_value": -2.151521921157837
+        },
+        "Fy": {
+          "peak_time_s": 0.5607192516326904,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 1087,
+          "rejected_fraction": 0.02085571757482732,
+          "raw_value_at_peak_time": -6.19657039642334,
+          "screened_value": -5.9523396492004395
+        },
+        "Fz": {
+          "peak_time_s": 2.2821948528289795,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 385,
+          "rejected_fraction": 0.007386799693016117,
+          "raw_value_at_peak_time": -4.370603084564209,
+          "screened_value": -4.161206245422363
+        }
+      },
+      "load_sample_count": 52120
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 3,
+      "bag": "petg_thin_vansh_experimental_sinusoidalYaw_3_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -2.224449634552002,
+        "Fy": 11.10354995727539,
+        "Fz": -4.106029987335205
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.4855647087097168,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 1002,
+          "rejected_fraction": 0.01197704996414057,
+          "raw_value_at_peak_time": -2.469205856323242,
+          "screened_value": -2.224449634552002
+        },
+        "Fy": {
+          "peak_time_s": 2.707893133163452,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 719,
+          "rejected_fraction": 0.00859431030360985,
+          "raw_value_at_peak_time": 12.483545303344727,
+          "screened_value": 11.10354995727539
+        },
+        "Fz": {
+          "peak_time_s": 3.168522834777832,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 1090,
+          "rejected_fraction": 0.013028926607697824,
+          "raw_value_at_peak_time": -3.7209572792053223,
+          "screened_value": -4.106029987335205
+        }
+      },
+      "load_sample_count": 83660
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 4,
+      "bag": "petg_thin_vansh_experimental_sinusoidalYaw_4_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -2.208087682723999,
+        "Fy": 12.596819877624512,
+        "Fz": -4.014115810394287
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.9292428493499756,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 1294,
+          "rejected_fraction": 0.015426800190748689,
+          "raw_value_at_peak_time": -2.024815559387207,
+          "screened_value": -2.208087682723999
+        },
+        "Fy": {
+          "peak_time_s": 2.7743849754333496,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 880,
+          "rejected_fraction": 0.010491177873152123,
+          "raw_value_at_peak_time": 12.860326766967773,
+          "screened_value": 12.596819877624512
+        },
+        "Fz": {
+          "peak_time_s": 1.309885025024414,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 1013,
+          "rejected_fraction": 0.012076776347162614,
+          "raw_value_at_peak_time": -3.8924691677093506,
+          "screened_value": -4.014115810394287
+        }
+      },
+      "load_sample_count": 83880
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 5,
+      "bag": "petg_thin_vansh_experimental_sinusoidalYaw_5_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -2.7983438968658447,
+        "Fy": 4.613865375518799,
+        "Fz": -2.964177131652832
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 4.272032976150513,
+          "sample_rate_hz": 9686.614318706697,
+          "hampel_window_samples": 969,
+          "sustain_window_samples": 2423,
+          "rejected_samples": 328,
+          "rejected_fraction": 0.005830074653394952,
+          "raw_value_at_peak_time": -3.01255464553833,
+          "screened_value": -2.7983438968658447
+        },
+        "Fy": {
+          "peak_time_s": 3.5818369388580322,
+          "sample_rate_hz": 9686.614318706697,
+          "hampel_window_samples": 969,
+          "sustain_window_samples": 2423,
+          "rejected_samples": 442,
+          "rejected_fraction": 0.007856381087806612,
+          "raw_value_at_peak_time": 4.719700336456299,
+          "screened_value": 4.613865375518799
+        },
+        "Fz": {
+          "peak_time_s": 3.364522933959961,
+          "sample_rate_hz": 9686.614318706697,
+          "hampel_window_samples": 969,
+          "sustain_window_samples": 2423,
+          "rejected_samples": 316,
+          "rejected_fraction": 0.005616779239246356,
+          "raw_value_at_peak_time": -3.3285038471221924,
+          "screened_value": -2.964177131652832
+        }
+      },
+      "load_sample_count": 56260
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 6,
+      "bag": "petg_thin_vansh_experimental_sinusoidalYaw_6_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -3.0450589656829834,
+        "Fy": 3.989234209060669,
+        "Fz": -3.0265681743621826
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.623509168624878,
+          "sample_rate_hz": 10180.349514563106,
+          "hampel_window_samples": 1019,
+          "sustain_window_samples": 2545,
+          "rejected_samples": 831,
+          "rejected_fraction": 0.009878744650499286,
+          "raw_value_at_peak_time": -3.390995502471924,
+          "screened_value": -3.0450589656829834
+        },
+        "Fy": {
+          "peak_time_s": 4.904832363128662,
+          "sample_rate_hz": 10180.349514563106,
+          "hampel_window_samples": 1019,
+          "sustain_window_samples": 2545,
+          "rejected_samples": 810,
+          "rejected_fraction": 0.00962910128388017,
+          "raw_value_at_peak_time": 3.5643112659454346,
+          "screened_value": 3.989234209060669
+        },
+        "Fz": {
+          "peak_time_s": 4.745385408401489,
+          "sample_rate_hz": 10180.349514563106,
+          "hampel_window_samples": 1019,
+          "sustain_window_samples": 2545,
+          "rejected_samples": 448,
+          "rejected_fraction": 0.0053257251545411315,
+          "raw_value_at_peak_time": -3.0738601684570312,
+          "screened_value": -3.0265681743621826
+        }
+      },
+      "load_sample_count": 84120
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 7,
+      "bag": "petg_thin_vansh_experimental_sinusoidalYaw_7_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -2.6928422451019287,
+        "Fy": 5.152588367462158,
+        "Fz": -2.959616184234619
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 5.252304315567017,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 575,
+          "rejected_fraction": 0.0069293805736322005,
+          "raw_value_at_peak_time": -2.3845348358154297,
+          "screened_value": -2.6928422451019287
+        },
+        "Fy": {
+          "peak_time_s": 2.511610746383667,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 662,
+          "rejected_fraction": 0.007977825982164377,
+          "raw_value_at_peak_time": 5.486125469207764,
+          "screened_value": 5.152588367462158
+        },
+        "Fz": {
+          "peak_time_s": 5.212933540344238,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 551,
+          "rejected_fraction": 0.006640154254037117,
+          "raw_value_at_peak_time": -3.474658966064453,
+          "screened_value": -2.959616184234619
+        }
+      },
+      "load_sample_count": 82980
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 8,
+      "bag": "petg_thin_vansh_experimental_sinusoidalYaw_8_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -3.113690137863159,
+        "Fy": 5.870516777038574,
+        "Fz": -3.1214184761047363
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 5.1688573360443115,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 333,
+          "rejected_fraction": 0.0039558089807555236,
+          "raw_value_at_peak_time": -3.3954732418060303,
+          "screened_value": -3.113690137863159
+        },
+        "Fy": {
+          "peak_time_s": 0.5000400543212891,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 455,
+          "rejected_fraction": 0.005405084343074364,
+          "raw_value_at_peak_time": 6.273094177246094,
+          "screened_value": 5.870516777038574
+        },
+        "Fz": {
+          "peak_time_s": 3.0834126472473145,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 580,
+          "rejected_fraction": 0.00688999762413875,
+          "raw_value_at_peak_time": -2.86987042427063,
+          "screened_value": -3.1214184761047363
+        }
+      },
+      "load_sample_count": 84180
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "rollAmpAndFrequency",
+      "run": 10,
+      "bag": "petg_thin_vansh_rollAmpAndFrequency_10_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -2.3969056606292725,
+        "Fy": 6.056159496307373,
+        "Fz": -4.968188762664795
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 4.703049182891846,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 446,
+          "rejected_fraction": 0.008079710144927536,
+          "raw_value_at_peak_time": -2.5019545555114746,
+          "screened_value": -2.3969056606292725
+        },
+        "Fy": {
+          "peak_time_s": 1.927475929260254,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 320,
+          "rejected_fraction": 0.005797101449275362,
+          "raw_value_at_peak_time": 6.548645496368408,
+          "screened_value": 6.056159496307373
+        },
+        "Fz": {
+          "peak_time_s": 1.6318235397338867,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 287,
+          "rejected_fraction": 0.0051992753623188405,
+          "raw_value_at_peak_time": -5.164327144622803,
+          "screened_value": -4.968188762664795
+        }
+      },
+      "load_sample_count": 55200
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "rollAmpAndFrequency",
+      "run": 11,
+      "bag": "petg_thin_vansh_rollAmpAndFrequency_11_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -1.8602380752563477,
+        "Fy": -6.447136402130127,
+        "Fz": -4.51386022567749
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 0.9018113613128662,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 691,
+          "rejected_fraction": 0.007962664208342936,
+          "raw_value_at_peak_time": -2.197782039642334,
+          "screened_value": -1.8602380752563477
+        },
+        "Fy": {
+          "peak_time_s": 5.0260114669799805,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 476,
+          "rejected_fraction": 0.005485134823692095,
+          "raw_value_at_peak_time": -5.945735454559326,
+          "screened_value": -6.447136402130127
+        },
+        "Fz": {
+          "peak_time_s": 4.314124822616577,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 382,
+          "rejected_fraction": 0.0044019359299377735,
+          "raw_value_at_peak_time": -4.348498821258545,
+          "screened_value": -4.51386022567749
+        }
+      },
+      "load_sample_count": 86780
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "rollAmpAndFrequency",
+      "run": 12,
+      "bag": "petg_thin_vansh_rollAmpAndFrequency_12_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -2.0355300903320312,
+        "Fy": -5.38378381729126,
+        "Fz": -3.696389675140381
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 0.5838375091552734,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 441,
+          "rejected_fraction": 0.005085332103321033,
+          "raw_value_at_peak_time": -2.3638458251953125,
+          "screened_value": -2.0355300903320312
+        },
+        "Fy": {
+          "peak_time_s": 0.7325007915496826,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 382,
+          "rejected_fraction": 0.004404981549815498,
+          "raw_value_at_peak_time": -5.601691722869873,
+          "screened_value": -5.38378381729126
+        },
+        "Fz": {
+          "peak_time_s": 3.297614574432373,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 539,
+          "rejected_fraction": 0.0062154059040590405,
+          "raw_value_at_peak_time": -3.6927833557128906,
+          "screened_value": -3.696389675140381
+        }
+      },
+      "load_sample_count": 86720
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "rollAmpAndFrequency",
+      "run": 1,
+      "bag": "petg_thin_vansh_rollAmpAndFrequency_1_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -2.4226174354553223,
+        "Fy": -4.033914566040039,
+        "Fz": -2.429349899291992
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.062817096710205,
+          "sample_rate_hz": 9731.563805104408,
+          "hampel_window_samples": 973,
+          "sustain_window_samples": 2433,
+          "rejected_samples": 783,
+          "rejected_fraction": 0.014914285714285715,
+          "raw_value_at_peak_time": -2.9709339141845703,
+          "screened_value": -2.4226174354553223
+        },
+        "Fy": {
+          "peak_time_s": 2.1053342819213867,
+          "sample_rate_hz": 9731.563805104408,
+          "hampel_window_samples": 973,
+          "sustain_window_samples": 2433,
+          "rejected_samples": 405,
+          "rejected_fraction": 0.007714285714285714,
+          "raw_value_at_peak_time": -4.773332595825195,
+          "screened_value": -4.033914566040039
+        },
+        "Fz": {
+          "peak_time_s": 3.1485140323638916,
+          "sample_rate_hz": 9731.563805104408,
+          "hampel_window_samples": 973,
+          "sustain_window_samples": 2433,
+          "rejected_samples": 336,
+          "rejected_fraction": 0.0064,
+          "raw_value_at_peak_time": -2.576483726501465,
+          "screened_value": -2.429349899291992
+        }
+      },
+      "load_sample_count": 52500
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "rollAmpAndFrequency",
+      "run": 2,
+      "bag": "petg_thin_vansh_rollAmpAndFrequency_2_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -1.9844391345977783,
+        "Fy": 4.005862712860107,
+        "Fz": -3.4901280403137207
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.8096261024475098,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 1329,
+          "rejected_fraction": 0.0152864044168392,
+          "raw_value_at_peak_time": -1.906706690788269,
+          "screened_value": -1.9844391345977783
+        },
+        "Fy": {
+          "peak_time_s": 5.972309350967407,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 432,
+          "rejected_fraction": 0.004968944099378882,
+          "raw_value_at_peak_time": 5.280940532684326,
+          "screened_value": 4.005862712860107
+        },
+        "Fz": {
+          "peak_time_s": 1.8780815601348877,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 448,
+          "rejected_fraction": 0.0051529790660225444,
+          "raw_value_at_peak_time": -3.776278495788574,
+          "screened_value": -3.4901280403137207
+        }
+      },
+      "load_sample_count": 86940
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "rollAmpAndFrequency",
+      "run": 3,
+      "bag": "petg_thin_vansh_rollAmpAndFrequency_3_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -1.6495184898376465,
+        "Fy": 3.476062774658203,
+        "Fz": -3.3968448638916016
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 6.900025844573975,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 1151,
+          "rejected_fraction": 0.013318676232353622,
+          "raw_value_at_peak_time": -1.9624799489974976,
+          "screened_value": -1.6495184898376465
+        },
+        "Fy": {
+          "peak_time_s": 7.4834208488464355,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 343,
+          "rejected_fraction": 0.0039689886600324,
+          "raw_value_at_peak_time": 3.898054599761963,
+          "screened_value": 3.476062774658203
+        },
+        "Fz": {
+          "peak_time_s": 4.458904266357422,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 410,
+          "rejected_fraction": 0.0047442721592224025,
+          "raw_value_at_peak_time": -3.3500993251800537,
+          "screened_value": -3.3968448638916016
+        }
+      },
+      "load_sample_count": 86420
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "rollAmpAndFrequency",
+      "run": 4,
+      "bag": "petg_thin_vansh_rollAmpAndFrequency_4_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -1.5318454504013062,
+        "Fy": 4.160830974578857,
+        "Fz": -3.7365663051605225
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.11106276512146,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 581,
+          "rejected_fraction": 0.0070715676728334955,
+          "raw_value_at_peak_time": -2.675663471221924,
+          "screened_value": -1.5318454504013062
+        },
+        "Fy": {
+          "peak_time_s": 3.672297954559326,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 270,
+          "rejected_fraction": 0.0032862706913339827,
+          "raw_value_at_peak_time": 3.732229709625244,
+          "screened_value": 4.160830974578857
+        },
+        "Fz": {
+          "peak_time_s": 7.70001482963562,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 292,
+          "rejected_fraction": 0.0035540408958130475,
+          "raw_value_at_peak_time": -3.7000834941864014,
+          "screened_value": -3.7365663051605225
+        }
+      },
+      "load_sample_count": 82160
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "rollAmpAndFrequency",
+      "run": 5,
+      "bag": "petg_thin_vansh_rollAmpAndFrequency_5_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -2.1107475757598877,
+        "Fy": 4.977356433868408,
+        "Fz": -3.906864643096924
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 0.8070542812347412,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 1418,
+          "rejected_fraction": 0.01669806877060763,
+          "raw_value_at_peak_time": -2.930866241455078,
+          "screened_value": -2.1107475757598877
+        },
+        "Fy": {
+          "peak_time_s": 6.967607498168945,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 418,
+          "rejected_fraction": 0.004922279792746114,
+          "raw_value_at_peak_time": 5.312172889709473,
+          "screened_value": 4.977356433868408
+        },
+        "Fz": {
+          "peak_time_s": 2.8402206897735596,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 424,
+          "rejected_fraction": 0.0049929345266132834,
+          "raw_value_at_peak_time": -4.001606464385986,
+          "screened_value": -3.906864643096924
+        }
+      },
+      "load_sample_count": 84920
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "rollAmpAndFrequency",
+      "run": 6,
+      "bag": "petg_thin_vansh_rollAmpAndFrequency_6_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -2.3122899532318115,
+        "Fy": -4.274426460266113,
+        "Fz": -3.268045425415039
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.5614540576934814,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 1017,
+          "rejected_fraction": 0.011922626025791324,
+          "raw_value_at_peak_time": -1.726531744003296,
+          "screened_value": -2.3122899532318115
+        },
+        "Fy": {
+          "peak_time_s": 3.5328588485717773,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 492,
+          "rejected_fraction": 0.005767878077373974,
+          "raw_value_at_peak_time": -4.86961555480957,
+          "screened_value": -4.274426460266113
+        },
+        "Fz": {
+          "peak_time_s": 2.535083770751953,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 501,
+          "rejected_fraction": 0.005873388042203986,
+          "raw_value_at_peak_time": -2.949742317199707,
+          "screened_value": -3.268045425415039
+        }
+      },
+      "load_sample_count": 85300
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "rollAmpAndFrequency",
+      "run": 7,
+      "bag": "petg_thin_vansh_rollAmpAndFrequency_7_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -2.292156219482422,
+        "Fy": 5.01101541519165,
+        "Fz": -4.3579182624816895
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 7.434628963470459,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 757,
+          "rejected_fraction": 0.008994771863117871,
+          "raw_value_at_peak_time": -2.7438864707946777,
+          "screened_value": -2.292156219482422
+        },
+        "Fy": {
+          "peak_time_s": 4.660835027694702,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 320,
+          "rejected_fraction": 0.0038022813688212928,
+          "raw_value_at_peak_time": 4.609716415405273,
+          "screened_value": 5.01101541519165
+        },
+        "Fz": {
+          "peak_time_s": 4.401075839996338,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 465,
+          "rejected_fraction": 0.0055251901140684415,
+          "raw_value_at_peak_time": -4.282037734985352,
+          "screened_value": -4.3579182624816895
+        }
+      },
+      "load_sample_count": 84160
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "rollAmpAndFrequency",
+      "run": 8,
+      "bag": "petg_thin_vansh_rollAmpAndFrequency_8_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -1.7164744138717651,
+        "Fy": 5.468463897705078,
+        "Fz": -3.9582085609436035
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 4.704127311706543,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 302,
+          "rejected_fraction": 0.005389007851534618,
+          "raw_value_at_peak_time": -2.0291225910186768,
+          "screened_value": -1.7164744138717651
+        },
+        "Fy": {
+          "peak_time_s": 1.514758825302124,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 254,
+          "rejected_fraction": 0.004532476802284083,
+          "raw_value_at_peak_time": 6.44323205947876,
+          "screened_value": 5.468463897705078
+        },
+        "Fz": {
+          "peak_time_s": 2.7671220302581787,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 247,
+          "rejected_fraction": 0.00440756602426838,
+          "raw_value_at_peak_time": -3.9784579277038574,
+          "screened_value": -3.9582085609436035
+        }
+      },
+      "load_sample_count": 56040
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "rollAmpAndFrequency",
+      "run": 9,
+      "bag": "petg_thin_vansh_rollAmpAndFrequency_9_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -1.1968770027160645,
+        "Fy": 4.349853038787842,
+        "Fz": -3.8738255500793457
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 0.5210404396057129,
+          "sample_rate_hz": 9939.109004739337,
+          "hampel_window_samples": 995,
+          "sustain_window_samples": 2485,
+          "rejected_samples": 696,
+          "rejected_fraction": 0.012975391498881432,
+          "raw_value_at_peak_time": -1.1886454820632935,
+          "screened_value": -1.1968770027160645
+        },
+        "Fy": {
+          "peak_time_s": 2.0212109088897705,
+          "sample_rate_hz": 9939.109004739337,
+          "hampel_window_samples": 995,
+          "sustain_window_samples": 2485,
+          "rejected_samples": 265,
+          "rejected_fraction": 0.00494034302759135,
+          "raw_value_at_peak_time": 4.841833591461182,
+          "screened_value": 4.349853038787842
+        },
+        "Fz": {
+          "peak_time_s": 4.040192127227783,
+          "sample_rate_hz": 9939.109004739337,
+          "hampel_window_samples": 995,
+          "sustain_window_samples": 2485,
+          "rejected_samples": 241,
+          "rejected_fraction": 0.004492915734526473,
+          "raw_value_at_peak_time": -4.19669246673584,
+          "screened_value": -3.8738255500793457
+        }
+      },
+      "load_sample_count": 53640
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "yawPower",
+      "run": 1,
+      "bag": "petg_thin_vansh_yawPower_1_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -2.632725715637207,
+        "Fy": 5.203088760375977,
+        "Fz": -4.763182640075684
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.638242483139038,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 1127,
+          "rejected_fraction": 0.013162812427003037,
+          "raw_value_at_peak_time": -2.160792350769043,
+          "screened_value": -2.632725715637207
+        },
+        "Fy": {
+          "peak_time_s": 6.847310781478882,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 599,
+          "rejected_fraction": 0.006996028965195048,
+          "raw_value_at_peak_time": 5.4298906326293945,
+          "screened_value": 5.203088760375977
+        },
+        "Fz": {
+          "peak_time_s": 0.6071064472198486,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 306,
+          "rejected_fraction": 0.0035739313244569026,
+          "raw_value_at_peak_time": -4.892819881439209,
+          "screened_value": -4.763182640075684
+        }
+      },
+      "load_sample_count": 85620
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "yawPower",
+      "run": 2,
+      "bag": "petg_thin_vansh_yawPower_2_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -2.402317523956299,
+        "Fy": 5.084394931793213,
+        "Fz": -4.763028144836426
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.708528995513916,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 794,
+          "rejected_fraction": 0.00931924882629108,
+          "raw_value_at_peak_time": -2.076422691345215,
+          "screened_value": -2.402317523956299
+        },
+        "Fy": {
+          "peak_time_s": 6.862987041473389,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 419,
+          "rejected_fraction": 0.004917840375586855,
+          "raw_value_at_peak_time": 5.822843551635742,
+          "screened_value": 5.084394931793213
+        },
+        "Fz": {
+          "peak_time_s": 6.666235446929932,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 266,
+          "rejected_fraction": 0.0031220657276995307,
+          "raw_value_at_peak_time": -4.869027137756348,
+          "screened_value": -4.763028144836426
+        }
+      },
+      "load_sample_count": 85200
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "yawPower",
+      "run": 3,
+      "bag": "petg_thin_vansh_yawPower_3_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -2.640777349472046,
+        "Fy": -5.774019241333008,
+        "Fz": -3.9708073139190674
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.6167898178100586,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 295,
+          "rejected_fraction": 0.003403322565759114,
+          "raw_value_at_peak_time": -2.7156660556793213,
+          "screened_value": -2.640777349472046
+        },
+        "Fy": {
+          "peak_time_s": 1.6856868267059326,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 296,
+          "rejected_fraction": 0.0034148592524227044,
+          "raw_value_at_peak_time": -6.0661773681640625,
+          "screened_value": -5.774019241333008
+        },
+        "Fz": {
+          "peak_time_s": 2.6217899322509766,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 280,
+          "rejected_fraction": 0.003230272265805261,
+          "raw_value_at_peak_time": -3.2298853397369385,
+          "screened_value": -3.9708073139190674
+        }
+      },
+      "load_sample_count": 86680
+    },
+    {
+      "flipper": "petg_thin",
+      "gait": "yawPower",
+      "run": 4,
+      "bag": "petg_thin_vansh_yawPower_4_petg_thin.bag",
+      "force_peaks_N": {
+        "Fx": -2.581592082977295,
+        "Fy": -5.795039653778076,
+        "Fz": -2.3490264415740967
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.601356267929077,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 1156,
+          "rejected_fraction": 0.013435611343561134,
+          "raw_value_at_peak_time": -2.8376612663269043,
+          "screened_value": -2.581592082977295
+        },
+        "Fy": {
+          "peak_time_s": 3.6627111434936523,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 424,
+          "rejected_fraction": 0.004927940492794049,
+          "raw_value_at_peak_time": -6.070199012756348,
+          "screened_value": -5.795039653778076
+        },
+        "Fz": {
+          "peak_time_s": 1.5121490955352783,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 586,
+          "rejected_fraction": 0.006810785681078568,
+          "raw_value_at_peak_time": -3.5560684204101562,
+          "screened_value": -2.3490264415740967
+        }
+      },
+      "load_sample_count": 86040
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 1,
+      "bag": "rib_flipper_vansh_experimental_sinusoidalYaw_1_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -3.9834237098693848,
+        "Fy": -6.6181640625,
+        "Fz": -4.261916637420654
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.7282564640045166,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 781,
+          "rejected_fraction": 0.009041444778884002,
+          "raw_value_at_peak_time": -4.321321964263916,
+          "screened_value": -3.9834237098693848
+        },
+        "Fy": {
+          "peak_time_s": 5.618626832962036,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 1410,
+          "rejected_fraction": 0.016323222968279694,
+          "raw_value_at_peak_time": -7.027114391326904,
+          "screened_value": -6.6181640625
+        },
+        "Fz": {
+          "peak_time_s": 1.229060411453247,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 366,
+          "rejected_fraction": 0.004237091919425793,
+          "raw_value_at_peak_time": -4.430995941162109,
+          "screened_value": -4.261916637420654
+        }
+      },
+      "load_sample_count": 86380
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 2,
+      "bag": "rib_flipper_vansh_experimental_sinusoidalYaw_2_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -3.3817667961120605,
+        "Fy": -6.352370262145996,
+        "Fz": -3.9425957202911377
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 7.81242561340332,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 859,
+          "rejected_fraction": 0.009790289491679963,
+          "raw_value_at_peak_time": -3.6539783477783203,
+          "screened_value": -3.3817667961120605
+        },
+        "Fy": {
+          "peak_time_s": 1.6877079010009766,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 1395,
+          "rejected_fraction": 0.015899247777524505,
+          "raw_value_at_peak_time": -7.314766883850098,
+          "screened_value": -6.352370262145996
+        },
+        "Fz": {
+          "peak_time_s": 1.4136803150177002,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 443,
+          "rejected_fraction": 0.005049008434009574,
+          "raw_value_at_peak_time": -4.790891647338867,
+          "screened_value": -3.9425957202911377
+        }
+      },
+      "load_sample_count": 87740
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 3,
+      "bag": "rib_flipper_vansh_experimental_sinusoidalYaw_3_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -3.0289576053619385,
+        "Fy": 6.722201824188232,
+        "Fz": -4.330859184265137
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.1050546169281006,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 1009,
+          "rejected_fraction": 0.011494645705172021,
+          "raw_value_at_peak_time": -3.074861764907837,
+          "screened_value": -3.0289576053619385
+        },
+        "Fy": {
+          "peak_time_s": 7.160150766372681,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 679,
+          "rejected_fraction": 0.00773524720893142,
+          "raw_value_at_peak_time": 7.313574314117432,
+          "screened_value": 6.722201824188232
+        },
+        "Fz": {
+          "peak_time_s": 1.5797936916351318,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 975,
+          "rejected_fraction": 0.011107313738892685,
+          "raw_value_at_peak_time": -4.323334693908691,
+          "screened_value": -4.330859184265137
+        }
+      },
+      "load_sample_count": 87780
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 4,
+      "bag": "rib_flipper_vansh_experimental_sinusoidalYaw_4_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -2.490635871887207,
+        "Fy": -6.862186431884766,
+        "Fz": -4.082000255584717
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 6.358903408050537,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 2047,
+          "rejected_fraction": 0.02384669151910531,
+          "raw_value_at_peak_time": -2.0636558532714844,
+          "screened_value": -2.490635871887207
+        },
+        "Fy": {
+          "peak_time_s": 1.1967813968658447,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 509,
+          "rejected_fraction": 0.005929636533084809,
+          "raw_value_at_peak_time": -7.489846706390381,
+          "screened_value": -6.862186431884766
+        },
+        "Fz": {
+          "peak_time_s": 0.8378355503082275,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 892,
+          "rejected_fraction": 0.010391425908667288,
+          "raw_value_at_peak_time": -4.199793338775635,
+          "screened_value": -4.082000255584717
+        }
+      },
+      "load_sample_count": 85840
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 5,
+      "bag": "rib_flipper_vansh_experimental_sinusoidalYaw_5_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -4.067890644073486,
+        "Fy": 6.085360050201416,
+        "Fz": -4.211880207061768
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 5.553949594497681,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 374,
+          "rejected_fraction": 0.004296875,
+          "raw_value_at_peak_time": -4.213744163513184,
+          "screened_value": -4.067890644073486
+        },
+        "Fy": {
+          "peak_time_s": 4.660556077957153,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 275,
+          "rejected_fraction": 0.003159466911764706,
+          "raw_value_at_peak_time": 6.41560173034668,
+          "screened_value": 6.085360050201416
+        },
+        "Fz": {
+          "peak_time_s": 7.380316734313965,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 478,
+          "rejected_fraction": 0.00549172794117647,
+          "raw_value_at_peak_time": -4.157758712768555,
+          "screened_value": -4.211880207061768
+        }
+      },
+      "load_sample_count": 87040
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 6,
+      "bag": "rib_flipper_vansh_experimental_sinusoidalYaw_6_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -4.427630424499512,
+        "Fy": 5.871413707733154,
+        "Fz": -4.5162577629089355
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 5.502289533615112,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 448,
+          "rejected_fraction": 0.005128205128205128,
+          "raw_value_at_peak_time": -4.889988422393799,
+          "screened_value": -4.427630424499512
+        },
+        "Fy": {
+          "peak_time_s": 0.6149928569793701,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 421,
+          "rejected_fraction": 0.004819139194139194,
+          "raw_value_at_peak_time": 6.088280200958252,
+          "screened_value": 5.871413707733154
+        },
+        "Fz": {
+          "peak_time_s": 7.343140363693237,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 575,
+          "rejected_fraction": 0.006581959706959707,
+          "raw_value_at_peak_time": -4.428570747375488,
+          "screened_value": -4.5162577629089355
+        }
+      },
+      "load_sample_count": 87360
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 7,
+      "bag": "rib_flipper_vansh_experimental_sinusoidalYaw_7_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -4.255685806274414,
+        "Fy": -7.08014440536499,
+        "Fz": -4.215980052947998
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 5.523345470428467,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 930,
+          "rejected_fraction": 0.010633432426252,
+          "raw_value_at_peak_time": -5.006780624389648,
+          "screened_value": -4.255685806274414
+        },
+        "Fy": {
+          "peak_time_s": 3.7900402545928955,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 453,
+          "rejected_fraction": 0.005179510633432426,
+          "raw_value_at_peak_time": -7.926682949066162,
+          "screened_value": -7.08014440536499
+        },
+        "Fz": {
+          "peak_time_s": 3.33298397064209,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 826,
+          "rejected_fraction": 0.009444317402241024,
+          "raw_value_at_peak_time": -4.8561787605285645,
+          "screened_value": -4.215980052947998
+        }
+      },
+      "load_sample_count": 87460
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 8,
+      "bag": "rib_flipper_vansh_experimental_sinusoidalYaw_8_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 7.598906993865967,
+        "Fy": -13.739110946655273,
+        "Fz": -12.360572814941406
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.7625069618225098,
+          "sample_rate_hz": 9939.109004739337,
+          "hampel_window_samples": 995,
+          "sustain_window_samples": 2485,
+          "rejected_samples": 563,
+          "rejected_fraction": 0.01020297209133744,
+          "raw_value_at_peak_time": 7.598304271697998,
+          "screened_value": 7.598906993865967
+        },
+        "Fy": {
+          "peak_time_s": 5.017112731933594,
+          "sample_rate_hz": 9939.109004739337,
+          "hampel_window_samples": 995,
+          "sustain_window_samples": 2485,
+          "rejected_samples": 885,
+          "rejected_fraction": 0.016038419717288872,
+          "raw_value_at_peak_time": -13.835430145263672,
+          "screened_value": -13.739110946655273
+        },
+        "Fz": {
+          "peak_time_s": 5.017112731933594,
+          "sample_rate_hz": 9939.109004739337,
+          "hampel_window_samples": 995,
+          "sustain_window_samples": 2485,
+          "rejected_samples": 914,
+          "rejected_fraction": 0.016563972453787604,
+          "raw_value_at_peak_time": -12.232678413391113,
+          "screened_value": -12.360572814941406
+        }
+      },
+      "load_sample_count": 55180
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 10,
+      "bag": "rib_flipper_vansh_rollAmpAndFrequency_10_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -2.69695782661438,
+        "Fy": -7.3590874671936035,
+        "Fz": -5.498847961425781
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 5.442626953125,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 786,
+          "rejected_fraction": 0.009167249825052484,
+          "raw_value_at_peak_time": -3.0745956897735596,
+          "screened_value": -2.69695782661438
+        },
+        "Fy": {
+          "peak_time_s": 7.78959059715271,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 363,
+          "rejected_fraction": 0.004233729881035689,
+          "raw_value_at_peak_time": -7.490488052368164,
+          "screened_value": -7.3590874671936035
+        },
+        "Fz": {
+          "peak_time_s": 2.4354841709136963,
+          "sample_rate_hz": 9915.612293144208,
+          "hampel_window_samples": 993,
+          "sustain_window_samples": 2479,
+          "rejected_samples": 223,
+          "rejected_fraction": 0.0026008864007464427,
+          "raw_value_at_peak_time": -5.204380512237549,
+          "screened_value": -5.498847961425781
+        }
+      },
+      "load_sample_count": 85740
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 11,
+      "bag": "rib_flipper_vansh_rollAmpAndFrequency_11_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -2.3614661693573,
+        "Fy": -6.949983596801758,
+        "Fz": -3.6017372608184814
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 6.0947325229644775,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 753,
+          "rejected_fraction": 0.008770090845562543,
+          "raw_value_at_peak_time": -3.4193317890167236,
+          "screened_value": -2.3614661693573
+        },
+        "Fy": {
+          "peak_time_s": 1.001049280166626,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 763,
+          "rejected_fraction": 0.008886559515490333,
+          "raw_value_at_peak_time": -7.475015640258789,
+          "screened_value": -6.949983596801758
+        },
+        "Fz": {
+          "peak_time_s": 2.7359914779663086,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 530,
+          "rejected_fraction": 0.006172839506172839,
+          "raw_value_at_peak_time": -3.995511293411255,
+          "screened_value": -3.6017372608184814
+        }
+      },
+      "load_sample_count": 85860
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 12,
+      "bag": "rib_flipper_vansh_rollAmpAndFrequency_12_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -2.076603651046753,
+        "Fy": 6.52394962310791,
+        "Fz": -2.8441572189331055
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 6.577289342880249,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 474,
+          "rejected_fraction": 0.005449528627270637,
+          "raw_value_at_peak_time": -2.5934836864471436,
+          "screened_value": -2.076603651046753
+        },
+        "Fy": {
+          "peak_time_s": 2.2515780925750732,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 1448,
+          "rejected_fraction": 0.01664750517360313,
+          "raw_value_at_peak_time": 6.9208807945251465,
+          "screened_value": 6.52394962310791
+        },
+        "Fz": {
+          "peak_time_s": 7.119282245635986,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 395,
+          "rejected_fraction": 0.004541273856058864,
+          "raw_value_at_peak_time": -3.0831756591796875,
+          "screened_value": -2.8441572189331055
+        }
+      },
+      "load_sample_count": 86980
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 1,
+      "bag": "rib_flipper_vansh_rollAmpAndFrequency_1_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -1.7649635076522827,
+        "Fy": -5.627135753631592,
+        "Fz": -3.055720329284668
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 7.553534984588623,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 409,
+          "rejected_fraction": 0.004643505903723887,
+          "raw_value_at_peak_time": -1.4634294509887695,
+          "screened_value": -1.7649635076522827
+        },
+        "Fy": {
+          "peak_time_s": 7.785603761672974,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 731,
+          "rejected_fraction": 0.008299273387829246,
+          "raw_value_at_peak_time": -5.141722679138184,
+          "screened_value": -5.627135753631592
+        },
+        "Fz": {
+          "peak_time_s": 0.6730332374572754,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 738,
+          "rejected_fraction": 0.00837874659400545,
+          "raw_value_at_peak_time": -3.2520992755889893,
+          "screened_value": -3.055720329284668
+        }
+      },
+      "load_sample_count": 88080
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 2,
+      "bag": "rib_flipper_vansh_rollAmpAndFrequency_2_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -2.1044440269470215,
+        "Fy": 6.10457181930542,
+        "Fz": -3.011070728302002
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 0.772432804107666,
+          "sample_rate_hz": 9754.19534883721,
+          "hampel_window_samples": 975,
+          "sustain_window_samples": 2439,
+          "rejected_samples": 650,
+          "rejected_fraction": 0.007533611497450163,
+          "raw_value_at_peak_time": -1.9113950729370117,
+          "screened_value": -2.1044440269470215
+        },
+        "Fy": {
+          "peak_time_s": 1.584904432296753,
+          "sample_rate_hz": 9754.19534883721,
+          "hampel_window_samples": 975,
+          "sustain_window_samples": 2439,
+          "rejected_samples": 641,
+          "rejected_fraction": 0.007429299953639314,
+          "raw_value_at_peak_time": 6.5072832107543945,
+          "screened_value": 6.10457181930542
+        },
+        "Fz": {
+          "peak_time_s": 1.4140758514404297,
+          "sample_rate_hz": 9754.19534883721,
+          "hampel_window_samples": 975,
+          "sustain_window_samples": 2439,
+          "rejected_samples": 377,
+          "rejected_fraction": 0.004369494668521094,
+          "raw_value_at_peak_time": -3.1640548706054688,
+          "screened_value": -3.011070728302002
+        }
+      },
+      "load_sample_count": 86280
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 3,
+      "bag": "rib_flipper_vansh_rollAmpAndFrequency_3_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -1.6379961967468262,
+        "Fy": 6.4378437995910645,
+        "Fz": -2.7136757373809814
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.015132188796997,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 936,
+          "rejected_fraction": 0.010434782608695653,
+          "raw_value_at_peak_time": -0.1544930636882782,
+          "screened_value": -1.6379961967468262
+        },
+        "Fy": {
+          "peak_time_s": 2.639127254486084,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 737,
+          "rejected_fraction": 0.008216276477146043,
+          "raw_value_at_peak_time": 6.908902645111084,
+          "screened_value": 6.4378437995910645
+        },
+        "Fz": {
+          "peak_time_s": 5.530882835388184,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 1047,
+          "rejected_fraction": 0.011672240802675586,
+          "raw_value_at_peak_time": -3.0614185333251953,
+          "screened_value": -2.7136757373809814
+        }
+      },
+      "load_sample_count": 89700
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 4,
+      "bag": "rib_flipper_vansh_rollAmpAndFrequency_4_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -1.8710004091262817,
+        "Fy": 6.385037422180176,
+        "Fz": -2.6526987552642822
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.7352423667907715,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 482,
+          "rejected_fraction": 0.0054475587703435805,
+          "raw_value_at_peak_time": -3.8558762073516846,
+          "screened_value": -1.8710004091262817
+        },
+        "Fy": {
+          "peak_time_s": 2.3739118576049805,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 970,
+          "rejected_fraction": 0.010962929475587703,
+          "raw_value_at_peak_time": 6.4244232177734375,
+          "screened_value": 6.385037422180176
+        },
+        "Fz": {
+          "peak_time_s": 7.249561548233032,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 660,
+          "rejected_fraction": 0.007459312839059674,
+          "raw_value_at_peak_time": -3.052072286605835,
+          "screened_value": -2.6526987552642822
+        }
+      },
+      "load_sample_count": 88480
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 5,
+      "bag": "rib_flipper_vansh_rollAmpAndFrequency_5_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -1.5007504224777222,
+        "Fy": 7.112743377685547,
+        "Fz": -3.5488219261169434
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.7568283081054688,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 1038,
+          "rejected_fraction": 0.011825017088174983,
+          "raw_value_at_peak_time": -0.5956487655639648,
+          "screened_value": -1.5007504224777222
+        },
+        "Fy": {
+          "peak_time_s": 0.6555016040802002,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 556,
+          "rejected_fraction": 0.00633401686033265,
+          "raw_value_at_peak_time": 7.286054611206055,
+          "screened_value": 7.112743377685547
+        },
+        "Fz": {
+          "peak_time_s": 0.5000004768371582,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 677,
+          "rejected_fraction": 0.00771246297562087,
+          "raw_value_at_peak_time": -3.268301248550415,
+          "screened_value": -3.5488219261169434
+        }
+      },
+      "load_sample_count": 87780
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 6,
+      "bag": "rib_flipper_vansh_rollAmpAndFrequency_6_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -1.5353854894638062,
+        "Fy": 5.859127998352051,
+        "Fz": -3.3321027755737305
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.5703115463256836,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 676,
+          "rejected_fraction": 0.007539594021860362,
+          "raw_value_at_peak_time": -1.5653722286224365,
+          "screened_value": -1.5353854894638062
+        },
+        "Fy": {
+          "peak_time_s": 4.926592588424683,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 716,
+          "rejected_fraction": 0.007985723845639081,
+          "raw_value_at_peak_time": 6.9234442710876465,
+          "screened_value": 5.859127998352051
+        },
+        "Fz": {
+          "peak_time_s": 4.717212677001953,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 438,
+          "rejected_fraction": 0.00488512157037698,
+          "raw_value_at_peak_time": -3.422839641571045,
+          "screened_value": -3.3321027755737305
+        }
+      },
+      "load_sample_count": 89660
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 7,
+      "bag": "rib_flipper_vansh_rollAmpAndFrequency_7_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -1.5981355905532837,
+        "Fy": 6.473010063171387,
+        "Fz": -3.691563129425049
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 7.570732831954956,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 554,
+          "rejected_fraction": 0.00625,
+          "raw_value_at_peak_time": -1.6627106666564941,
+          "screened_value": -1.5981355905532837
+        },
+        "Fy": {
+          "peak_time_s": 1.0139894485473633,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 448,
+          "rejected_fraction": 0.005054151624548736,
+          "raw_value_at_peak_time": 6.554993629455566,
+          "screened_value": 6.473010063171387
+        },
+        "Fz": {
+          "peak_time_s": 0.7406210899353027,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 272,
+          "rejected_fraction": 0.0030685920577617327,
+          "raw_value_at_peak_time": -3.7818782329559326,
+          "screened_value": -3.691563129425049
+        }
+      },
+      "load_sample_count": 88640
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 8,
+      "bag": "rib_flipper_vansh_rollAmpAndFrequency_8_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -1.5921790599822998,
+        "Fy": 6.483942985534668,
+        "Fz": -3.032672882080078
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 0.9476578235626221,
+          "sample_rate_hz": 9754.19534883721,
+          "hampel_window_samples": 975,
+          "sustain_window_samples": 2439,
+          "rejected_samples": 842,
+          "rejected_fraction": 0.0095508166969147,
+          "raw_value_at_peak_time": -1.2878243923187256,
+          "screened_value": -1.5921790599822998
+        },
+        "Fy": {
+          "peak_time_s": 3.1906211376190186,
+          "sample_rate_hz": 9754.19534883721,
+          "hampel_window_samples": 975,
+          "sustain_window_samples": 2439,
+          "rejected_samples": 499,
+          "rejected_fraction": 0.00566016333938294,
+          "raw_value_at_peak_time": 6.615994453430176,
+          "screened_value": 6.483942985534668
+        },
+        "Fz": {
+          "peak_time_s": 2.9472219944000244,
+          "sample_rate_hz": 9754.19534883721,
+          "hampel_window_samples": 975,
+          "sustain_window_samples": 2439,
+          "rejected_samples": 583,
+          "rejected_fraction": 0.0066129764065335755,
+          "raw_value_at_peak_time": -3.4382987022399902,
+          "screened_value": -3.032672882080078
+        }
+      },
+      "load_sample_count": 88160
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 9,
+      "bag": "rib_flipper_vansh_rollAmpAndFrequency_9_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -1.7340013980865479,
+        "Fy": 6.335946083068848,
+        "Fz": -2.597468137741089
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.3859410285949707,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 695,
+          "rejected_fraction": 0.008006912442396314,
+          "raw_value_at_peak_time": -1.8485976457595825,
+          "screened_value": -1.7340013980865479
+        },
+        "Fy": {
+          "peak_time_s": 8.042773723602295,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 1738,
+          "rejected_fraction": 0.020023041474654377,
+          "raw_value_at_peak_time": 6.069416522979736,
+          "screened_value": 6.335946083068848
+        },
+        "Fz": {
+          "peak_time_s": 2.9391818046569824,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 1440,
+          "rejected_fraction": 0.016589861751152075,
+          "raw_value_at_peak_time": -2.8967413902282715,
+          "screened_value": -2.597468137741089
+        }
+      },
+      "load_sample_count": 86800
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "yawPower",
+      "run": 1,
+      "bag": "rib_flipper_vansh_yawPower_1_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -1.3704159259796143,
+        "Fy": 6.362363815307617,
+        "Fz": -3.583310842514038
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 4.251981019973755,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 369,
+          "rejected_fraction": 0.006524045261669024,
+          "raw_value_at_peak_time": -1.3565704822540283,
+          "screened_value": -1.3704159259796143
+        },
+        "Fy": {
+          "peak_time_s": 1.5629770755767822,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 486,
+          "rejected_fraction": 0.008592644978783592,
+          "raw_value_at_peak_time": 6.564373016357422,
+          "screened_value": 6.362363815307617
+        },
+        "Fz": {
+          "peak_time_s": 3.278073310852051,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 516,
+          "rejected_fraction": 0.009123055162659124,
+          "raw_value_at_peak_time": -3.9710235595703125,
+          "screened_value": -3.583310842514038
+        }
+      },
+      "load_sample_count": 56560
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "yawPower",
+      "run": 2,
+      "bag": "rib_flipper_vansh_yawPower_2_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -1.8588119745254517,
+        "Fy": 6.401776313781738,
+        "Fz": -3.9011223316192627
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 5.389752149581909,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 878,
+          "rejected_fraction": 0.01014091014091014,
+          "raw_value_at_peak_time": -2.392878532409668,
+          "screened_value": -1.8588119745254517
+        },
+        "Fy": {
+          "peak_time_s": 6.78577184677124,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 525,
+          "rejected_fraction": 0.006063756063756064,
+          "raw_value_at_peak_time": 6.661648273468018,
+          "screened_value": 6.401776313781738
+        },
+        "Fz": {
+          "peak_time_s": 4.528209209442139,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 287,
+          "rejected_fraction": 0.003314853314853315,
+          "raw_value_at_peak_time": -4.337410926818848,
+          "screened_value": -3.9011223316192627
+        }
+      },
+      "load_sample_count": 86580
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "yawPower",
+      "run": 3,
+      "bag": "rib_flipper_vansh_yawPower_3_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -1.162302851676941,
+        "Fy": 6.788407802581787,
+        "Fz": -3.594759225845337
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 5.715415954589844,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 606,
+          "rejected_fraction": 0.006902050113895216,
+          "raw_value_at_peak_time": -0.6024378538131714,
+          "screened_value": -1.162302851676941
+        },
+        "Fy": {
+          "peak_time_s": 1.0064947605133057,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 374,
+          "rejected_fraction": 0.004259681093394078,
+          "raw_value_at_peak_time": 6.822251796722412,
+          "screened_value": 6.788407802581787
+        },
+        "Fz": {
+          "peak_time_s": 2.7056996822357178,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 324,
+          "rejected_fraction": 0.0036902050113895215,
+          "raw_value_at_peak_time": -3.6505253314971924,
+          "screened_value": -3.594759225845337
+        }
+      },
+      "load_sample_count": 87800
+    },
+    {
+      "flipper": "rib_flipper",
+      "gait": "yawPower",
+      "run": 4,
+      "bag": "rib_flipper_vansh_yawPower_4_rib_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -2.4422662258148193,
+        "Fy": -6.044758319854736,
+        "Fz": -3.4248533248901367
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 0.6755416393280029,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 595,
+          "rejected_fraction": 0.0068359375,
+          "raw_value_at_peak_time": -3.158505916595459,
+          "screened_value": -2.4422662258148193
+        },
+        "Fy": {
+          "peak_time_s": 1.7037148475646973,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 299,
+          "rejected_fraction": 0.003435202205882353,
+          "raw_value_at_peak_time": -5.916771411895752,
+          "screened_value": -6.044758319854736
+        },
+        "Fz": {
+          "peak_time_s": 1.475588083267212,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 508,
+          "rejected_fraction": 0.0058363970588235295,
+          "raw_value_at_peak_time": -3.3367812633514404,
+          "screened_value": -3.4248533248901367
+        }
+      },
+      "load_sample_count": 87040
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 1,
+      "bag": "stripe_flipper_vansh_experimental_sinusoidalYaw_1_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -3.2821459770202637,
+        "Fy": 4.748422145843506,
+        "Fz": -4.878809928894043
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.3121280670166016,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 590,
+          "rejected_fraction": 0.007033857892226991,
+          "raw_value_at_peak_time": -2.4198060035705566,
+          "screened_value": -3.2821459770202637
+        },
+        "Fy": {
+          "peak_time_s": 2.6356894969940186,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 938,
+          "rejected_fraction": 0.011182641869337148,
+          "raw_value_at_peak_time": 5.2448954582214355,
+          "screened_value": 4.748422145843506
+        },
+        "Fz": {
+          "peak_time_s": 2.4473307132720947,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 856,
+          "rejected_fraction": 0.010205054840247973,
+          "raw_value_at_peak_time": -5.254308223724365,
+          "screened_value": -4.878809928894043
+        }
+      },
+      "load_sample_count": 83880
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 2,
+      "bag": "stripe_flipper_vansh_experimental_sinusoidalYaw_2_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -2.902130126953125,
+        "Fy": 4.675947189331055,
+        "Fz": -5.03135871887207
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.3138301372528076,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 417,
+          "rejected_fraction": 0.007713651498335183,
+          "raw_value_at_peak_time": -2.839207649230957,
+          "screened_value": -2.902130126953125
+        },
+        "Fy": {
+          "peak_time_s": 3.3072667121887207,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 664,
+          "rejected_fraction": 0.012282648908620053,
+          "raw_value_at_peak_time": 5.239986896514893,
+          "screened_value": 4.675947189331055
+        },
+        "Fz": {
+          "peak_time_s": 3.0593762397766113,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 300,
+          "rejected_fraction": 0.005549389567147614,
+          "raw_value_at_peak_time": -5.311267852783203,
+          "screened_value": -5.03135871887207
+        }
+      },
+      "load_sample_count": 54060
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 3,
+      "bag": "stripe_flipper_vansh_experimental_sinusoidalYaw_3_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -3.3126394748687744,
+        "Fy": 6.143170356750488,
+        "Fz": -6.060972690582275
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.2965641021728516,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 322,
+          "rejected_fraction": 0.003698598667585573,
+          "raw_value_at_peak_time": -3.4393653869628906,
+          "screened_value": -3.3126394748687744
+        },
+        "Fy": {
+          "peak_time_s": 6.5702064037323,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 673,
+          "rejected_fraction": 0.007730300941879164,
+          "raw_value_at_peak_time": 6.334331035614014,
+          "screened_value": 6.143170356750488
+        },
+        "Fz": {
+          "peak_time_s": 2.206198215484619,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 704,
+          "rejected_fraction": 0.008086377211118769,
+          "raw_value_at_peak_time": -6.303415775299072,
+          "screened_value": -6.060972690582275
+        }
+      },
+      "load_sample_count": 87060
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 4,
+      "bag": "stripe_flipper_vansh_experimental_sinusoidalYaw_4_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -3.3450355529785156,
+        "Fy": 6.396756172180176,
+        "Fz": -6.427882194519043
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.5188407897949219,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 505,
+          "rejected_fraction": 0.005660165882089218,
+          "raw_value_at_peak_time": -3.581740379333496,
+          "screened_value": -3.3450355529785156
+        },
+        "Fy": {
+          "peak_time_s": 4.860431671142578,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 836,
+          "rejected_fraction": 0.009370096390943735,
+          "raw_value_at_peak_time": 6.568960666656494,
+          "screened_value": 6.396756172180176
+        },
+        "Fz": {
+          "peak_time_s": 2.4626550674438477,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 400,
+          "rejected_fraction": 0.004483299708585519,
+          "raw_value_at_peak_time": -6.720958232879639,
+          "screened_value": -6.427882194519043
+        }
+      },
+      "load_sample_count": 89220
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 5,
+      "bag": "stripe_flipper_vansh_experimental_sinusoidalYaw_5_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 4.447208881378174,
+        "Fy": 4.716826438903809,
+        "Fz": -2.7092177867889404
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 0.5000689029693604,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 484,
+          "rejected_fraction": 0.005364664154289514,
+          "raw_value_at_peak_time": 4.563774585723877,
+          "screened_value": 4.447208881378174
+        },
+        "Fy": {
+          "peak_time_s": 1.449364423751831,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 1093,
+          "rejected_fraction": 0.01211483041454223,
+          "raw_value_at_peak_time": 4.853053569793701,
+          "screened_value": 4.716826438903809
+        },
+        "Fz": {
+          "peak_time_s": 4.772619724273682,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 664,
+          "rejected_fraction": 0.007359787186876524,
+          "raw_value_at_peak_time": -3.1035850048065186,
+          "screened_value": -2.7092177867889404
+        }
+      },
+      "load_sample_count": 90220
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 6,
+      "bag": "stripe_flipper_vansh_experimental_sinusoidalYaw_6_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 3.5944032669067383,
+        "Fy": 5.890352725982666,
+        "Fz": -3.285639524459839
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.4148061275482178,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 558,
+          "rejected_fraction": 0.006443418013856813,
+          "raw_value_at_peak_time": 4.132563591003418,
+          "screened_value": 3.5944032669067383
+        },
+        "Fy": {
+          "peak_time_s": 0.8159372806549072,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 1423,
+          "rejected_fraction": 0.016431870669745958,
+          "raw_value_at_peak_time": 5.936133861541748,
+          "screened_value": 5.890352725982666
+        },
+        "Fz": {
+          "peak_time_s": 4.154172658920288,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 706,
+          "rejected_fraction": 0.00815242494226328,
+          "raw_value_at_peak_time": -3.776794910430908,
+          "screened_value": -3.285639524459839
+        }
+      },
+      "load_sample_count": 86600
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 7,
+      "bag": "stripe_flipper_vansh_experimental_sinusoidalYaw_7_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -3.8115944862365723,
+        "Fy": 6.86602783203125,
+        "Fz": -4.044958114624023
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.273054838180542,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 734,
+          "rejected_fraction": 0.008415501031873423,
+          "raw_value_at_peak_time": -3.7809078693389893,
+          "screened_value": -3.8115944862365723
+        },
+        "Fy": {
+          "peak_time_s": 4.9617931842803955,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 1231,
+          "rejected_fraction": 0.014113735381793167,
+          "raw_value_at_peak_time": 7.016786098480225,
+          "screened_value": 6.86602783203125
+        },
+        "Fz": {
+          "peak_time_s": 4.24838399887085,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 528,
+          "rejected_fraction": 0.006053657418023389,
+          "raw_value_at_peak_time": -4.464818000793457,
+          "screened_value": -4.044958114624023
+        }
+      },
+      "load_sample_count": 87220
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "experimental_sinusoidalYaw",
+      "run": 8,
+      "bag": "stripe_flipper_vansh_experimental_sinusoidalYaw_8_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -4.299111843109131,
+        "Fy": 5.918323516845703,
+        "Fz": -5.7594380378723145
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.1327807903289795,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 547,
+          "rejected_fraction": 0.0063134810710988,
+          "raw_value_at_peak_time": -3.4031636714935303,
+          "screened_value": -4.299111843109131
+        },
+        "Fy": {
+          "peak_time_s": 2.6519486904144287,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 1240,
+          "rejected_fraction": 0.014312096029547553,
+          "raw_value_at_peak_time": 5.415506362915039,
+          "screened_value": 5.918323516845703
+        },
+        "Fz": {
+          "peak_time_s": 4.217537879943848,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 900,
+          "rejected_fraction": 0.01038781163434903,
+          "raw_value_at_peak_time": -6.02401876449585,
+          "screened_value": -5.7594380378723145
+        }
+      },
+      "load_sample_count": 86640
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 10,
+      "bag": "stripe_flipper_vansh_rollAmpAndFrequency_10_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 4.833168029785156,
+        "Fy": 5.076043128967285,
+        "Fz": -3.979294776916504
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.50015926361084,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 886,
+          "rejected_fraction": 0.010043074132849694,
+          "raw_value_at_peak_time": 4.715758323669434,
+          "screened_value": 4.833168029785156
+        },
+        "Fy": {
+          "peak_time_s": 2.696110248565674,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 377,
+          "rejected_fraction": 0.004273407390614373,
+          "raw_value_at_peak_time": 4.730772018432617,
+          "screened_value": 5.076043128967285
+        },
+        "Fz": {
+          "peak_time_s": 2.426698684692383,
+          "sample_rate_hz": 9868.950588235293,
+          "hampel_window_samples": 987,
+          "sustain_window_samples": 2467,
+          "rejected_samples": 793,
+          "rejected_fraction": 0.008988891407844027,
+          "raw_value_at_peak_time": -4.175126075744629,
+          "screened_value": -3.979294776916504
+        }
+      },
+      "load_sample_count": 88220
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 11,
+      "bag": "stripe_flipper_vansh_rollAmpAndFrequency_11_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 4.071974754333496,
+        "Fy": 4.902735233306885,
+        "Fz": -3.6725552082061768
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.7691586017608643,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 516,
+          "rejected_fraction": 0.00576536312849162,
+          "raw_value_at_peak_time": 4.95833683013916,
+          "screened_value": 4.071974754333496
+        },
+        "Fy": {
+          "peak_time_s": 2.105299472808838,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 1229,
+          "rejected_fraction": 0.013731843575418994,
+          "raw_value_at_peak_time": 4.822020530700684,
+          "screened_value": 4.902735233306885
+        },
+        "Fz": {
+          "peak_time_s": 7.1614720821380615,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 708,
+          "rejected_fraction": 0.007910614525139664,
+          "raw_value_at_peak_time": -4.046023368835449,
+          "screened_value": -3.6725552082061768
+        }
+      },
+      "load_sample_count": 89500
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 12,
+      "bag": "stripe_flipper_vansh_rollAmpAndFrequency_12_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 3.993985652923584,
+        "Fy": 4.451246738433838,
+        "Fz": -3.4875571727752686
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.1527786254882812,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 614,
+          "rejected_fraction": 0.0069300225733634315,
+          "raw_value_at_peak_time": 3.82973575592041,
+          "screened_value": 3.993985652923584
+        },
+        "Fy": {
+          "peak_time_s": 1.2603912353515625,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 589,
+          "rejected_fraction": 0.006647855530474041,
+          "raw_value_at_peak_time": 4.462968349456787,
+          "screened_value": 4.451246738433838
+        },
+        "Fz": {
+          "peak_time_s": 8.074558019638062,
+          "sample_rate_hz": 9822.72599531616,
+          "hampel_window_samples": 983,
+          "sustain_window_samples": 2457,
+          "rejected_samples": 442,
+          "rejected_fraction": 0.0049887133182844245,
+          "raw_value_at_peak_time": -3.760232925415039,
+          "screened_value": -3.4875571727752686
+        }
+      },
+      "load_sample_count": 88600
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 1,
+      "bag": "stripe_flipper_vansh_rollAmpAndFrequency_1_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 2.486828565597534,
+        "Fy": 1.6039961576461792,
+        "Fz": -1.6471476554870605
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 4.264869928359985,
+          "sample_rate_hz": 9754.19534883721,
+          "hampel_window_samples": 975,
+          "sustain_window_samples": 2439,
+          "rejected_samples": 169,
+          "rejected_fraction": 0.001948351394973484,
+          "raw_value_at_peak_time": 2.7147059440612793,
+          "screened_value": 2.486828565597534
+        },
+        "Fy": {
+          "peak_time_s": 2.529773473739624,
+          "sample_rate_hz": 9754.19534883721,
+          "hampel_window_samples": 975,
+          "sustain_window_samples": 2439,
+          "rejected_samples": 597,
+          "rejected_fraction": 0.006882637768042425,
+          "raw_value_at_peak_time": 1.888474464416504,
+          "screened_value": 1.6039961576461792
+        },
+        "Fz": {
+          "peak_time_s": 8.167884588241577,
+          "sample_rate_hz": 9754.19534883721,
+          "hampel_window_samples": 975,
+          "sustain_window_samples": 2439,
+          "rejected_samples": 478,
+          "rejected_fraction": 0.005510721697025594,
+          "raw_value_at_peak_time": -1.6000869274139404,
+          "screened_value": -1.6471476554870605
+        }
+      },
+      "load_sample_count": 86740
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 2,
+      "bag": "stripe_flipper_vansh_rollAmpAndFrequency_2_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 3.2510228157043457,
+        "Fy": 2.772205352783203,
+        "Fz": -2.9531168937683105
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.7526798248291016,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 401,
+          "rejected_fraction": 0.007360499265785609,
+          "raw_value_at_peak_time": 3.0577616691589355,
+          "screened_value": 3.2510228157043457
+        },
+        "Fy": {
+          "peak_time_s": 1.273055076599121,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 278,
+          "rejected_fraction": 0.005102790014684288,
+          "raw_value_at_peak_time": 2.903813600540161,
+          "screened_value": 2.772205352783203
+        },
+        "Fz": {
+          "peak_time_s": 3.754033327102661,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 236,
+          "rejected_fraction": 0.004331864904552129,
+          "raw_value_at_peak_time": -3.4882571697235107,
+          "screened_value": -2.9531168937683105
+        }
+      },
+      "load_sample_count": 54480
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 3,
+      "bag": "stripe_flipper_vansh_rollAmpAndFrequency_3_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 4.1018290519714355,
+        "Fy": 3.7621195316314697,
+        "Fz": -4.425301551818848
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.3815672397613525,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 236,
+          "rejected_fraction": 0.00265466816647919,
+          "raw_value_at_peak_time": 4.950748443603516,
+          "screened_value": 4.1018290519714355
+        },
+        "Fy": {
+          "peak_time_s": 1.4760785102844238,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 413,
+          "rejected_fraction": 0.0046456692913385824,
+          "raw_value_at_peak_time": 3.9212419986724854,
+          "screened_value": 3.7621195316314697
+        },
+        "Fz": {
+          "peak_time_s": 8.35684084892273,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 565,
+          "rejected_fraction": 0.006355455568053993,
+          "raw_value_at_peak_time": -4.401546478271484,
+          "screened_value": -4.425301551818848
+        }
+      },
+      "load_sample_count": 88900
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 4,
+      "bag": "stripe_flipper_vansh_rollAmpAndFrequency_4_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 4.22175931930542,
+        "Fy": 4.8355302810668945,
+        "Fz": -5.021143913269043
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.8812987804412842,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 510,
+          "rejected_fraction": 0.0059164733178654295,
+          "raw_value_at_peak_time": 3.3441715240478516,
+          "screened_value": 4.22175931930542
+        },
+        "Fy": {
+          "peak_time_s": 1.1457433700561523,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 600,
+          "rejected_fraction": 0.0069605568445475635,
+          "raw_value_at_peak_time": 4.758559226989746,
+          "screened_value": 4.8355302810668945
+        },
+        "Fz": {
+          "peak_time_s": 7.981428146362305,
+          "sample_rate_hz": 9799.775700934579,
+          "hampel_window_samples": 981,
+          "sustain_window_samples": 2451,
+          "rejected_samples": 1017,
+          "rejected_fraction": 0.011798143851508121,
+          "raw_value_at_peak_time": -5.052530288696289,
+          "screened_value": -5.021143913269043
+        }
+      },
+      "load_sample_count": 86200
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 5,
+      "bag": "stripe_flipper_vansh_rollAmpAndFrequency_5_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 3.8999319076538086,
+        "Fy": 4.254146575927734,
+        "Fz": -4.974724769592285
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.551570177078247,
+          "sample_rate_hz": 9731.563805104408,
+          "hampel_window_samples": 973,
+          "sustain_window_samples": 2433,
+          "rejected_samples": 291,
+          "rejected_fraction": 0.005053838138242445,
+          "raw_value_at_peak_time": 4.2629876136779785,
+          "screened_value": 3.8999319076538086
+        },
+        "Fy": {
+          "peak_time_s": 1.1977972984313965,
+          "sample_rate_hz": 9731.563805104408,
+          "hampel_window_samples": 973,
+          "sustain_window_samples": 2433,
+          "rejected_samples": 406,
+          "rejected_fraction": 0.00705105939562348,
+          "raw_value_at_peak_time": 4.609354496002197,
+          "screened_value": 4.254146575927734
+        },
+        "Fz": {
+          "peak_time_s": 3.659208297729492,
+          "sample_rate_hz": 9731.563805104408,
+          "hampel_window_samples": 973,
+          "sustain_window_samples": 2433,
+          "rejected_samples": 243,
+          "rejected_fraction": 0.00422021535255297,
+          "raw_value_at_peak_time": -4.885647773742676,
+          "screened_value": -4.974724769592285
+        }
+      },
+      "load_sample_count": 57580
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 6,
+      "bag": "stripe_flipper_vansh_rollAmpAndFrequency_6_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 3.025010108947754,
+        "Fy": 2.573995351791382,
+        "Fz": -2.8436388969421387
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.3426694869995117,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 141,
+          "rejected_fraction": 0.0024676233811690585,
+          "raw_value_at_peak_time": 3.239290952682495,
+          "screened_value": 3.025010108947754
+        },
+        "Fy": {
+          "peak_time_s": 3.5980541706085205,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 349,
+          "rejected_fraction": 0.006107805390269514,
+          "raw_value_at_peak_time": 3.397857666015625,
+          "screened_value": 2.573995351791382
+        },
+        "Fz": {
+          "peak_time_s": 3.34126353263855,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 256,
+          "rejected_fraction": 0.00448022401120056,
+          "raw_value_at_peak_time": -3.3739635944366455,
+          "screened_value": -2.8436388969421387
+        }
+      },
+      "load_sample_count": 57140
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 7,
+      "bag": "stripe_flipper_vansh_rollAmpAndFrequency_7_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 3.523481845855713,
+        "Fy": 3.630962610244751,
+        "Fz": -3.85526180267334
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.833871603012085,
+          "sample_rate_hz": 9709.037037037036,
+          "hampel_window_samples": 971,
+          "sustain_window_samples": 2427,
+          "rejected_samples": 489,
+          "rejected_fraction": 0.009465737514518003,
+          "raw_value_at_peak_time": 3.2090744972229004,
+          "screened_value": 3.523481845855713
+        },
+        "Fy": {
+          "peak_time_s": 3.2699975967407227,
+          "sample_rate_hz": 9709.037037037036,
+          "hampel_window_samples": 971,
+          "sustain_window_samples": 2427,
+          "rejected_samples": 483,
+          "rejected_fraction": 0.00934959349593496,
+          "raw_value_at_peak_time": 3.990926742553711,
+          "screened_value": 3.630962610244751
+        },
+        "Fz": {
+          "peak_time_s": 2.972222089767456,
+          "sample_rate_hz": 9709.037037037036,
+          "hampel_window_samples": 971,
+          "sustain_window_samples": 2427,
+          "rejected_samples": 483,
+          "rejected_fraction": 0.00934959349593496,
+          "raw_value_at_peak_time": -4.01660680770874,
+          "screened_value": -3.85526180267334
+        }
+      },
+      "load_sample_count": 51660
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 8,
+      "bag": "stripe_flipper_vansh_rollAmpAndFrequency_8_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 4.457675457000732,
+        "Fy": 5.592759609222412,
+        "Fz": -6.152884483337402
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.3752660751342773,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 524,
+          "rejected_fraction": 0.009109874826147427,
+          "raw_value_at_peak_time": 4.558571815490723,
+          "screened_value": 4.457675457000732
+        },
+        "Fy": {
+          "peak_time_s": 2.772387742996216,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 590,
+          "rejected_fraction": 0.01025730180806676,
+          "raw_value_at_peak_time": 5.780016899108887,
+          "screened_value": 5.592759609222412
+        },
+        "Fz": {
+          "peak_time_s": 3.8429501056671143,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 553,
+          "rejected_fraction": 0.00961404728789986,
+          "raw_value_at_peak_time": -6.36638069152832,
+          "screened_value": -6.152884483337402
+        }
+      },
+      "load_sample_count": 57520
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "rollAmpAndFrequency",
+      "run": 9,
+      "bag": "stripe_flipper_vansh_rollAmpAndFrequency_9_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 4.218025207519531,
+        "Fy": 5.406914234161377,
+        "Fz": -5.689740180969238
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 3.2461626529693604,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 497,
+          "rejected_fraction": 0.005627264492753623,
+          "raw_value_at_peak_time": 3.168436288833618,
+          "screened_value": 4.218025207519531
+        },
+        "Fy": {
+          "peak_time_s": 2.5278515815734863,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 472,
+          "rejected_fraction": 0.005344202898550724,
+          "raw_value_at_peak_time": 5.584383964538574,
+          "screened_value": 5.406914234161377
+        },
+        "Fz": {
+          "peak_time_s": 7.314836263656616,
+          "sample_rate_hz": 9845.784037558686,
+          "hampel_window_samples": 985,
+          "sustain_window_samples": 2461,
+          "rejected_samples": 391,
+          "rejected_fraction": 0.004427083333333333,
+          "raw_value_at_peak_time": -6.760830402374268,
+          "screened_value": -5.689740180969238
+        }
+      },
+      "load_sample_count": 88320
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "yawPower",
+      "run": 1,
+      "bag": "stripe_flipper_vansh_yawPower_1_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 4.058169364929199,
+        "Fy": 4.385345458984375,
+        "Fz": -5.006659507751465
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 0.8062734603881836,
+          "sample_rate_hz": 9731.563805104408,
+          "hampel_window_samples": 973,
+          "sustain_window_samples": 2433,
+          "rejected_samples": 634,
+          "rejected_fraction": 0.007041314971123945,
+          "raw_value_at_peak_time": 5.09526252746582,
+          "screened_value": 4.058169364929199
+        },
+        "Fy": {
+          "peak_time_s": 4.998178005218506,
+          "sample_rate_hz": 9731.563805104408,
+          "hampel_window_samples": 973,
+          "sustain_window_samples": 2433,
+          "rejected_samples": 564,
+          "rejected_fraction": 0.006263882718791648,
+          "raw_value_at_peak_time": 4.951902866363525,
+          "screened_value": 4.385345458984375
+        },
+        "Fz": {
+          "peak_time_s": 4.737681865692139,
+          "sample_rate_hz": 9731.563805104408,
+          "hampel_window_samples": 973,
+          "sustain_window_samples": 2433,
+          "rejected_samples": 530,
+          "rejected_fraction": 0.005886272767658818,
+          "raw_value_at_peak_time": -4.834277629852295,
+          "screened_value": -5.006659507751465
+        }
+      },
+      "load_sample_count": 90040
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "yawPower",
+      "run": 2,
+      "bag": "stripe_flipper_vansh_yawPower_2_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 3.719845771789551,
+        "Fy": 5.197394847869873,
+        "Fz": -2.7011284828186035
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 2.6161386966705322,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 594,
+          "rejected_fraction": 0.006724020828616708,
+          "raw_value_at_peak_time": 3.2041611671447754,
+          "screened_value": 3.719845771789551
+        },
+        "Fy": {
+          "peak_time_s": 1.2384536266326904,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 732,
+          "rejected_fraction": 0.00828616708172968,
+          "raw_value_at_peak_time": 5.59448766708374,
+          "screened_value": 5.197394847869873
+        },
+        "Fz": {
+          "peak_time_s": 2.650663137435913,
+          "sample_rate_hz": 9776.932400932401,
+          "hampel_window_samples": 979,
+          "sustain_window_samples": 2445,
+          "rejected_samples": 560,
+          "rejected_fraction": 0.006339144215530904,
+          "raw_value_at_peak_time": -2.6745450496673584,
+          "screened_value": -2.7011284828186035
+        }
+      },
+      "load_sample_count": 88340
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "yawPower",
+      "run": 3,
+      "bag": "stripe_flipper_vansh_yawPower_3_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": 3.249666929244995,
+        "Fy": 6.291478633880615,
+        "Fz": -6.129247188568115
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.6958096027374268,
+          "sample_rate_hz": 9731.563805104408,
+          "hampel_window_samples": 973,
+          "sustain_window_samples": 2433,
+          "rejected_samples": 164,
+          "rejected_fraction": 0.0028363887928052577,
+          "raw_value_at_peak_time": 3.537548303604126,
+          "screened_value": 3.249666929244995
+        },
+        "Fy": {
+          "peak_time_s": 1.9188861846923828,
+          "sample_rate_hz": 9731.563805104408,
+          "hampel_window_samples": 973,
+          "sustain_window_samples": 2433,
+          "rejected_samples": 501,
+          "rejected_fraction": 0.00866482186094777,
+          "raw_value_at_peak_time": 5.985923767089844,
+          "screened_value": 6.291478633880615
+        },
+        "Fz": {
+          "peak_time_s": 1.5913176536560059,
+          "sample_rate_hz": 9731.563805104408,
+          "hampel_window_samples": 973,
+          "sustain_window_samples": 2433,
+          "rejected_samples": 517,
+          "rejected_fraction": 0.008941542718782428,
+          "raw_value_at_peak_time": -6.312289714813232,
+          "screened_value": -6.129247188568115
+        }
+      },
+      "load_sample_count": 57820
+    },
+    {
+      "flipper": "stripe_flipper",
+      "gait": "yawPower",
+      "run": 4,
+      "bag": "stripe_flipper_vansh_yawPower_4_stripe_flipper.bag",
+      "force_peaks_N": {
+        "Fx": -1.7409225702285767,
+        "Fy": 7.237217426300049,
+        "Fz": -7.195249080657959
+      },
+      "force_peak_diagnostics": {
+        "Fx": {
+          "peak_time_s": 1.1068339347839355,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 344,
+          "rejected_fraction": 0.004194099000243843,
+          "raw_value_at_peak_time": -1.541985034942627,
+          "screened_value": -1.7409225702285767
+        },
+        "Fy": {
+          "peak_time_s": 2.5089797973632812,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 468,
+          "rejected_fraction": 0.0057059253840526705,
+          "raw_value_at_peak_time": 7.5042033195495605,
+          "screened_value": 7.237217426300049
+        },
+        "Fz": {
+          "peak_time_s": 5.985480546951294,
+          "sample_rate_hz": 9892.22641509434,
+          "hampel_window_samples": 989,
+          "sustain_window_samples": 2473,
+          "rejected_samples": 321,
+          "rejected_fraction": 0.003913679590343819,
+          "raw_value_at_peak_time": -7.8880462646484375,
+          "screened_value": -7.195249080657959
+        }
+      },
+      "load_sample_count": 82020
+    }
+  ],
+  "errors": []
+}
