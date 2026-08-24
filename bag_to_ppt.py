@@ -6,8 +6,11 @@ Deck order:
     overview -> flipper -> gait -> run
 
 Each run gets a full-screen 16:9 graph slide containing:
-    1. Flattened load-cell Fx/Fy/Fz/Tx/Ty/Tz
-    2. Servo 1 and Servo 2 commands/encoders only
+    1. Smoothed flattened load-cell Fx/Fy/Fz (torques are not plotted)
+    2. Repaired and smoothed Servo 1 and Servo 2 commands/encoders only
+
+Smoothing uses time-based Hampel outlier rejection followed by a rolling
+median. This removes isolated spikes before smoothing the remaining variation.
 """
 
 import argparse
@@ -24,6 +27,7 @@ from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN
 from pptx.util import Inches, Pt
+from scipy.ndimage import median_filter
 
 import rosbag2_py
 from rclpy.serialization import deserialize_message
@@ -36,8 +40,8 @@ TOPICS = {
     "/servo/position_data": ServoData,
     "/servo/encoder_data": ServoData,
 }
-LOAD_LABELS = ("Fx", "Fy", "Fz", "Tx", "Ty", "Tz")
-LOAD_COLORS = ("#d62728", "#2ca02c", "#1f77b4", "#ff7f0e", "#9467bd", "#111111")
+LOAD_LABELS = ("Fx", "Fy", "Fz")
+LOAD_COLORS = ("#d62728", "#2ca02c", "#1f77b4")
 SERVO_COLORS = ("#1f77b4", "#ff7f0e")
 MAX_PLOT_POINTS = 15_000
 
@@ -51,8 +55,10 @@ GRAY = RGBColor(92, 101, 114)
 
 
 def natural_key(value):
-    return [int(part) if part.isdigit() else part.lower()
-            for part in re.split(r"(\d+)", str(value))]
+    return [
+        int(part) if part.isdigit() else part.lower()
+        for part in re.split(r"(\d+)", str(value))
+    ]
 
 
 def identify_flipper(filename):
@@ -68,19 +74,29 @@ def parse_gait_and_run(path, flipper):
     if flipper == "fiberglass":
         experiment = stem[len("fiberglass"):].lstrip("_")
         match = re.match(r"^(.*?)(\d+)$", experiment)
-        return ((match.group(1), int(match.group(2))) if match
-                else (experiment or "unknown", 1))
+        return (
+            (match.group(1), int(match.group(2)))
+            if match
+            else (experiment or "unknown", 1)
+        )
 
     prefix = f"{flipper}_"
     suffix = f"_{flipper}"
-    experiment = stem[len(prefix):] if stem.lower().startswith(prefix.lower()) else stem
+    experiment = (
+        stem[len(prefix):]
+        if stem.lower().startswith(prefix.lower())
+        else stem
+    )
     if experiment.lower().endswith(suffix.lower()):
         experiment = experiment[:-len(suffix)]
     if experiment.lower().startswith("vansh_"):
         experiment = experiment[len("vansh_"):]
     match = re.match(r"^(.*)_(\d+)$", experiment)
-    return ((match.group(1), int(match.group(2))) if match
-            else (experiment or "unknown", 1))
+    return (
+        (match.group(1), int(match.group(2)))
+        if match
+        else (experiment or "unknown", 1)
+    )
 
 
 def friendly(value):
@@ -116,11 +132,16 @@ def flatten_load_batches(batch_times, batches):
     positive_periods = np.diff(times)
     positive_periods = positive_periods[positive_periods > 0]
     fallback = float(np.median(positive_periods)) if positive_periods.size else 0.0
-    expanded_times, expanded_values = [], []
+    expanded_times = []
+    expanded_values = []
 
     for index, batch in enumerate(batches):
         rows = batch.shape[0]
-        period = times[index + 1] - times[index] if index + 1 < len(times) else fallback
+        period = (
+            times[index + 1] - times[index]
+            if index + 1 < len(times)
+            else fallback
+        )
         if period > 0:
             row_times = times[index] + np.arange(rows) * (period / rows)
         else:
@@ -128,7 +149,10 @@ def flatten_load_batches(batch_times, batches):
         expanded_times.append(row_times)
         expanded_values.append(batch)
 
-    return np.concatenate(expanded_times), np.concatenate(expanded_values, axis=0)
+    return (
+        np.concatenate(expanded_times),
+        np.concatenate(expanded_values, axis=0),
+    )
 
 
 def read_bag(path):
@@ -137,13 +161,21 @@ def read_bag(path):
         rosbag2_py.StorageOptions(uri=str(path), storage_id="mcap"),
         rosbag2_py.ConverterOptions("cdr", "cdr"),
     )
-    values = {"load_t": [], "load": [], "cmd_t": [], "cmd": [], "enc_t": [], "enc": []}
+    values = {
+        "load_t": [],
+        "load": [],
+        "cmd_t": [],
+        "cmd": [],
+        "enc_t": [],
+        "enc": [],
+    }
 
     while reader.has_next():
         topic, raw, _ = reader.read_next()
         message_type = TOPICS.get(topic)
         if message_type is None:
             continue
+
         msg = deserialize_message(raw, message_type)
         time = stamp_to_sec(msg.header.stamp)
 
@@ -151,7 +183,9 @@ def read_bag(path):
             matrix = np.asarray(msg.data, dtype=np.float32)
             expected = msg.rows * msg.cols
             if matrix.size != expected:
-                raise ValueError(f"LoadCell has {matrix.size} values; expected {expected}")
+                raise ValueError(
+                    f"LoadCell has {matrix.size} values; expected {expected}"
+                )
             values["load_t"].append(time)
             values["load"].append(matrix.reshape(msg.rows, msg.cols))
         elif topic == "/servo/position_data":
@@ -168,10 +202,10 @@ def read_bag(path):
     return {
         "load_t": load_t - time_zero,
         "load": load,
-        "cmd_t": np.asarray(values["cmd_t"]) - time_zero,
-        "cmd": np.asarray(values["cmd"]),
-        "enc_t": np.asarray(values["enc_t"]) - time_zero,
-        "enc": np.asarray(values["enc"]),
+        "cmd_t": np.asarray(values["cmd_t"], dtype=np.float64) - time_zero,
+        "cmd": np.asarray(values["cmd"], dtype=np.float32),
+        "enc_t": np.asarray(values["enc_t"], dtype=np.float64) - time_zero,
+        "enc": np.asarray(values["enc"], dtype=np.float32),
     }
 
 
@@ -182,27 +216,176 @@ def downsample(time, values, maximum=MAX_PLOT_POINTS):
     return time[::step], values[::step]
 
 
-def save_run_graph(data, path, flipper, gait, run):
+def odd_window(seconds, sample_rate, minimum=3):
+    """Convert a time duration to an odd number of samples."""
+    samples = max(minimum, int(round(seconds * sample_rate)))
+    return samples if samples % 2 else samples + 1
+
+
+def smooth_traces(times, values, hampel_seconds=0.10,
+                  smooth_seconds=0.25, sigma=3.5):
+    """Hampel-clean and rolling-median smooth one or more signal columns."""
+    times = np.asarray(times, dtype=np.float64)
+    values = np.asarray(values, dtype=np.float64)
+
+    was_1d = values.ndim == 1
+    if was_1d:
+        values = values[:, np.newaxis]
+
+    if values.ndim != 2:
+        raise ValueError(f"Expected 1-D or 2-D trace data, got shape {values.shape}")
+    if len(times) != values.shape[0]:
+        raise ValueError(
+            f"Timestamp count {len(times)} does not match sample count "
+            f"{values.shape[0]}"
+        )
+    if len(times) < 3:
+        return values[:, 0] if was_1d else values.copy()
+
+    positive_dt = np.diff(times)
+    positive_dt = positive_dt[positive_dt > 0]
+    if not positive_dt.size:
+        return values[:, 0] if was_1d else values.copy()
+
+    sample_rate = 1.0 / float(np.median(positive_dt))
+    hampel_n = odd_window(hampel_seconds, sample_rate)
+    smooth_n = odd_window(smooth_seconds, sample_rate)
+    result = values.copy()
+
+    for column in range(values.shape[1]):
+        signal = values[:, column].copy()
+        valid = np.isfinite(signal)
+        if np.count_nonzero(valid) < 3:
+            continue
+
+        if not np.all(valid):
+            valid_indices = np.flatnonzero(valid)
+            missing_indices = np.flatnonzero(~valid)
+            signal[~valid] = np.interp(
+                missing_indices,
+                valid_indices,
+                signal[valid],
+            )
+
+        local_median = median_filter(signal, size=hampel_n, mode="nearest")
+        deviation = np.abs(signal - local_median)
+        local_mad = median_filter(deviation, size=hampel_n, mode="nearest")
+        robust_sigma = 1.4826 * local_mad
+
+        global_mad = np.median(np.abs(signal - np.median(signal)))
+        sigma_floor = max(1e-9, 0.01 * 1.4826 * global_mad)
+        threshold = sigma * np.maximum(robust_sigma, sigma_floor)
+
+        outliers = deviation > threshold
+        signal[outliers] = local_median[outliers]
+        result[:, column] = median_filter(
+            signal,
+            size=smooth_n,
+            mode="nearest",
+        )
+
+    return result[:, 0] if was_1d else result
+
+
+def repair_servo_zeros(values):
+    """Replace invalid zero servo samples using neighboring valid samples.
+
+    Interior runs of zeros are linearly interpolated between the closest
+    nonzero samples on each side. Leading and trailing zeros are filled with
+    the nearest available nonzero value. Each servo column is repaired
+    independently.
+    """
+    values = np.asarray(values, dtype=np.float64)
+    was_1d = values.ndim == 1
+    if was_1d:
+        values = values[:, np.newaxis]
+
+    if values.ndim != 2:
+        raise ValueError(f"Expected 1-D or 2-D servo data, got shape {values.shape}")
+
+    repaired = values.copy()
+    sample_indices = np.arange(repaired.shape[0])
+
+    for column in range(repaired.shape[1]):
+        signal = repaired[:, column]
+        valid = np.isfinite(signal) & (signal != 0.0)
+
+        if not np.any(valid):
+            # There is no trustworthy value from which to reconstruct this
+            # channel, so leave the all-zero channel unchanged.
+            continue
+
+        invalid = ~valid
+        if np.any(invalid):
+            signal[invalid] = np.interp(
+                sample_indices[invalid],
+                sample_indices[valid],
+                signal[valid],
+            )
+
+    return repaired[:, 0] if was_1d else repaired
+
+
+def save_run_graph(data, path, flipper, gait, run,
+                   hampel_seconds=0.10, smooth_seconds=0.25,
+                   hampel_sigma=3.5):
     fig, axes = plt.subplots(
-        2, 1, figsize=(16, 9), dpi=160, sharex=True,
+        2,
+        1,
+        figsize=(16, 9),
+        dpi=160,
+        sharex=True,
         gridspec_kw={"height_ratios": [1.12, 1], "hspace": 0.14},
     )
     fig.patch.set_facecolor("white")
     fig.suptitle(
         f"{friendly(flipper)}  |  {friendly(gait)}  |  Run {run}",
-        x=0.055, y=0.975, ha="left", fontsize=22, fontweight="bold", color="#121F35",
+        x=0.055,
+        y=0.975,
+        ha="left",
+        fontsize=22,
+        fontweight="bold",
+        color="#121F35",
     )
-    fig.text(0.945, 0.972, path.name, ha="right", va="top", fontsize=9, color="#68707D")
+    fig.text(
+        0.945,
+        0.972,
+        path.name,
+        ha="right",
+        va="top",
+        fontsize=9,
+        color="#68707D",
+    )
 
     load = data["load"]
-    if load.size and load.ndim == 2:
-        t, plotted = downsample(data["load_t"], load)
-        for index in range(min(6, plotted.shape[1])):
-            axes[0].plot(t, plotted[:, index], label=LOAD_LABELS[index],
-                         color=LOAD_COLORS[index], linewidth=1.25)
+    if load.size and load.ndim == 2 and load.shape[1] >= 3:
+        forces = smooth_traces(
+            data["load_t"],
+            load[:, :3],
+            hampel_seconds,
+            smooth_seconds,
+            hampel_sigma,
+        )
+        t, plotted = downsample(data["load_t"], forces)
+        for index in range(3):
+            axes[0].plot(
+                t,
+                plotted[:, index],
+                label=LOAD_LABELS[index],
+                color=LOAD_COLORS[index],
+                linewidth=1.35,
+            )
     else:
-        axes[0].text(0.5, 0.5, "No load-cell data", transform=axes[0].transAxes,
-                     ha="center", va="center", fontsize=18, color="#68707D")
+        axes[0].text(
+            0.5,
+            0.5,
+            "No Fx/Fy/Fz load-cell data",
+            transform=axes[0].transAxes,
+            ha="center",
+            va="center",
+            fontsize=18,
+            color="#68707D",
+        )
 
     for key, time_key, suffix, linestyle in (
         ("cmd", "cmd_t", "Command", "-"),
@@ -210,16 +393,41 @@ def save_run_graph(data, path, flipper, gait, run):
     ):
         servo = data[key]
         if servo.size and servo.ndim == 2:
-            t, plotted = downsample(data[time_key], servo)
+            # Zero values in the recorded servo streams are invalid dropouts.
+            # Repair them before outlier rejection and smoothing so they do
+            # not create sharp downward spikes in the graph.
+            servo_1_2 = repair_servo_zeros(servo[:, :2])
+            servo_1_2 = smooth_traces(
+                data[time_key],
+                servo_1_2,
+                hampel_seconds,
+                smooth_seconds,
+                hampel_sigma,
+            )
+            t, plotted = downsample(data[time_key], servo_1_2)
             for index in range(min(2, plotted.shape[1])):
-                axes[1].plot(t, plotted[:, index],
-                             label=f"Servo {index + 1} {suffix}",
-                             color=SERVO_COLORS[index], linestyle=linestyle,
-                             linewidth=1.35)
+                axes[1].plot(
+                    t,
+                    plotted[:, index],
+                    label=f"Servo {index + 1} {suffix}",
+                    color=SERVO_COLORS[index],
+                    linestyle=linestyle,
+                    linewidth=1.35,
+                )
 
-    axes[0].set_title("Load-cell forces and torques", loc="left", fontsize=13, fontweight="bold")
-    axes[0].set_ylabel("Force / Torque")
-    axes[1].set_title("Servo 1–2 commands and encoders", loc="left", fontsize=13, fontweight="bold")
+    axes[0].set_title(
+        "Smoothed load-cell forces (Fx, Fy, Fz)",
+        loc="left",
+        fontsize=13,
+        fontweight="bold",
+    )
+    axes[0].set_ylabel("Force (N)")
+    axes[1].set_title(
+        "Repaired and smoothed Servo 1–2 commands and encoders",
+        loc="left",
+        fontsize=13,
+        fontweight="bold",
+    )
     axes[1].set_ylabel("Servo Position")
     axes[1].set_xlabel("Time from bag start (s)")
 
@@ -227,13 +435,16 @@ def save_run_graph(data, path, flipper, gait, run):
         axis.grid(True, color="#D9DDE3", linewidth=0.65, alpha=0.9)
         axis.spines[["top", "right"]].set_visible(False)
         axis.spines[["left", "bottom"]].set_color("#AEB5BF")
-        axis.legend(loc="upper right", ncol=6, fontsize=9, frameon=False)
+        handles, labels = axis.get_legend_handles_labels()
+        if handles:
+            axis.legend(loc="upper right", ncol=6, fontsize=9, frameon=False)
         axis.margins(x=0)
 
     fig.subplots_adjust(left=0.065, right=0.97, top=0.90, bottom=0.075)
-    fig.savefig(path.with_suffix(".png"), facecolor="white")
+    image_path = path.with_suffix(".png")
+    fig.savefig(image_path, facecolor="white")
     plt.close(fig)
-    return path.with_suffix(".png")
+    return image_path
 
 
 def set_background(slide, color):
@@ -244,7 +455,9 @@ def set_background(slide, color):
 
 def add_text(slide, text, left, top, width, height, size, color, bold=False,
              align=PP_ALIGN.LEFT):
-    box = slide.shapes.add_textbox(Inches(left), Inches(top), Inches(width), Inches(height))
+    box = slide.shapes.add_textbox(
+        Inches(left), Inches(top), Inches(width), Inches(height)
+    )
     frame = box.text_frame
     frame.clear()
     frame.margin_left = frame.margin_right = 0
@@ -263,12 +476,49 @@ def add_text(slide, text, left, top, width, height, size, color, bold=False,
 def add_title_slide(prs, total_bags, group_count):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_background(slide, NAVY)
-    add_text(slide, "CRAB FLIPPER TESTING", 0.65, 0.45, 5.5, 0.35, 15, LIGHT_BLUE, True)
-    add_text(slide, "Flipper gait and run graphs", 0.65, 2.15, 11.8, 0.85, 38, WHITE, True)
-    add_text(slide, f"{total_bags} ROS bags • {len(FLIPPERS)} flipper types • {group_count} gait families",
-             0.65, 3.15, 11.8, 0.45, 20, WHITE)
-    add_text(slide, "Each run shows flattened load-cell data and Servo 1–2 tracking.",
-             0.65, 5.95, 11.8, 0.4, 17, LIGHT_BLUE)
+    add_text(
+        slide,
+        "CRAB FLIPPER TESTING",
+        0.65,
+        0.45,
+        5.5,
+        0.35,
+        15,
+        LIGHT_BLUE,
+        True,
+    )
+    add_text(
+        slide,
+        "Flipper gait and run graphs",
+        0.65,
+        2.15,
+        11.8,
+        0.85,
+        38,
+        WHITE,
+        True,
+    )
+    add_text(
+        slide,
+        f"{total_bags} ROS bags • {len(FLIPPERS)} flipper types • "
+        f"{group_count} gait families",
+        0.65,
+        3.15,
+        11.8,
+        0.45,
+        20,
+        WHITE,
+    )
+    add_text(
+        slide,
+        "Each run shows smoothed Fx/Fy/Fz and repaired Servo 1–2 tracking.",
+        0.65,
+        5.95,
+        11.8,
+        0.4,
+        17,
+        LIGHT_BLUE,
+    )
 
 
 def add_section_slide(prs, label, eyebrow, detail):
@@ -277,7 +527,13 @@ def add_section_slide(prs, label, eyebrow, detail):
     add_text(slide, eyebrow.upper(), 0.65, 0.5, 8.5, 0.35, 14, BLUE, True)
     add_text(slide, label, 0.65, 2.2, 11.8, 0.85, 38, NAVY, True)
     add_text(slide, detail, 0.65, 3.25, 11.8, 0.5, 19, GRAY)
-    line = slide.shapes.add_shape(1, Inches(0.65), Inches(5.95), Inches(12.0), Inches(0.08))
+    line = slide.shapes.add_shape(
+        1,
+        Inches(0.65),
+        Inches(5.95),
+        Inches(12.0),
+        Inches(0.08),
+    )
     line.fill.solid()
     line.fill.fore_color.rgb = LIGHT_BLUE
     line.line.fill.background()
@@ -285,7 +541,9 @@ def add_section_slide(prs, label, eyebrow, detail):
 
 def add_graph_slide(prs, image_path):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
-    slide.shapes.add_picture(str(image_path), 0, 0, width=SLIDE_W, height=SLIDE_H)
+    slide.shapes.add_picture(
+        str(image_path), 0, 0, width=SLIDE_W, height=SLIDE_H
+    )
 
 
 def discover_groups(bag_dir):
@@ -296,6 +554,7 @@ def discover_groups(bag_dir):
             continue
         gait, run = parse_gait_and_run(path, flipper)
         groups[flipper][gait].append((run, path))
+
     for gait_map in groups.values():
         for entries in gait_map.values():
             entries.sort(key=lambda item: (item[0], natural_key(item[1].name)))
@@ -304,19 +563,56 @@ def discover_groups(bag_dir):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--bag-dir", type=Path,
-                        default=Path("/home/odinroast/crab_ws/bags"))
-    parser.add_argument("--output", type=Path,
-                        default=Path("flipper_all_run_graphs.pptx"))
-    parser.add_argument("--keep-plots", type=Path,
-                        help="Optional directory in which generated PNG graphs are retained")
+    parser.add_argument(
+        "--bag-dir",
+        type=Path,
+        default=Path("/home/odinroast/crab_ws/bags"),
+        help="Directory containing .bag MCAP files",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=Path("flipper_all_run_graphs_smoothed.pptx"),
+        help="Output PowerPoint path",
+    )
+    parser.add_argument(
+        "--keep-plots",
+        type=Path,
+        help="Optional directory in which generated PNG graphs are retained",
+    )
+    parser.add_argument(
+        "--hampel-seconds",
+        type=float,
+        default=0.10,
+        help="Local Hampel outlier window in seconds (default: 0.10)",
+    )
+    parser.add_argument(
+        "--smooth-seconds",
+        type=float,
+        default=0.25,
+        help="Rolling-median smoothing window in seconds (default: 0.25)",
+    )
+    parser.add_argument(
+        "--hampel-sigma",
+        type=float,
+        default=3.5,
+        help="Hampel rejection threshold in robust sigma (default: 3.5)",
+    )
     args = parser.parse_args()
 
     if not args.bag_dir.is_dir():
         raise SystemExit(f"Bag directory does not exist: {args.bag_dir}")
+    if args.hampel_seconds <= 0 or args.smooth_seconds <= 0:
+        raise SystemExit("Hampel and smoothing windows must be greater than zero")
+    if args.hampel_sigma <= 0:
+        raise SystemExit("Hampel sigma must be greater than zero")
 
     groups = discover_groups(args.bag_dir)
-    total_bags = sum(len(entries) for gait_map in groups.values() for entries in gait_map.values())
+    total_bags = sum(
+        len(entries)
+        for gait_map in groups.values()
+        for entries in gait_map.values()
+    )
     gait_count = sum(len(gait_map) for gait_map in groups.values())
     if total_bags == 0:
         raise SystemExit(f"No recognized .bag files found in {args.bag_dir}")
@@ -340,25 +636,39 @@ def main():
             gait_map = groups.get(flipper, {})
             if not gait_map:
                 continue
+
             flipper_bags = sum(len(entries) for entries in gait_map.values())
             add_section_slide(
-                prs, friendly(flipper), "Flipper type",
+                prs,
+                friendly(flipper),
+                "Flipper type",
                 f"{flipper_bags} runs across {len(gait_map)} gait families",
             )
 
             for gait in sorted(gait_map, key=natural_key):
                 entries = gait_map[gait]
                 add_section_slide(
-                    prs, friendly(gait), f"{friendly(flipper)} • Gait",
-                    f"{len(entries)} recorded run{'s' if len(entries) != 1 else ''}",
+                    prs,
+                    friendly(gait),
+                    f"{friendly(flipper)} • Gait",
+                    f"{len(entries)} recorded run"
+                    f"{'s' if len(entries) != 1 else ''}",
                 )
+
                 for run, bag_path in entries:
                     print(f"Reading {bag_path.name}")
                     try:
                         bag_data = read_bag(bag_path)
                         graph_base = plot_dir / f"{flipper}__{gait}__run_{run}"
                         graph_path = save_run_graph(
-                            bag_data, graph_base, flipper, gait, run
+                            bag_data,
+                            graph_base,
+                            flipper,
+                            gait,
+                            run,
+                            hampel_seconds=args.hampel_seconds,
+                            smooth_seconds=args.smooth_seconds,
+                            hampel_sigma=args.hampel_sigma,
                         )
                         add_graph_slide(prs, graph_path)
                     except Exception as exc:
@@ -372,7 +682,10 @@ def main():
             temporary.cleanup()
 
     print(f"\nSaved {args.output.resolve()}")
-    print(f"Slides: {len(prs.slides)} | Bags graphed: {total_bags - len(errors)} | Errors: {len(errors)}")
+    print(
+        f"Slides: {len(prs.slides)} | "
+        f"Bags graphed: {total_bags - len(errors)} | Errors: {len(errors)}"
+    )
     if errors:
         print("Bags skipped:")
         for name, error in errors:

@@ -3,3 +3,6 @@ pyYAML
 numpy
 adafruit-blinka
 adafruit-circuitpython-icm20x
+matplotlib
+python-pptx
+scipy
