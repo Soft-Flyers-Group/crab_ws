@@ -102,7 +102,7 @@ class MinimalPublisher(Node):
                 new_roll = max(0, min(4095, new_roll))
 
                 # Update your tracking array
-                self.servo_commands = [new_yaw, new_roll, 0, 0]
+                self.servo_commands = [2048, 2048, 2048, 2048]
         
         # Defining servo messages and IDs
         msg = SetPosition()
