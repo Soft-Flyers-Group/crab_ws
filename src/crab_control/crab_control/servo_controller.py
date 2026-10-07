@@ -1,130 +1,117 @@
-# imports
+import time
+
 import rclpy
 from rclpy.node import Node
-import math
-from std_msgs.msg import Int32MultiArray
-import numpy as np
-import time
 from dynamixel_sdk_custom_interfaces.msg import SetPosition
-from crab_interfaces.msg import ServoData
 from apriltag_msgs.msg import AprilTagDetectionArray
-import math
-import time
 
 
 class MinimalPublisher(Node):
-
     def __init__(self):
-
-        # Initialization of publisher
         super().__init__('servo_controller')
-        self.publisher_ = self.create_publisher(SetPosition, 'servo/set_position', 10)
-        timer_period = 0.02  # seconds
-        self.timer = self.create_timer(timer_period, self.timer_callback)
 
-        # Initialization of subscriber to encoder values
-        self.encoder_sub = self.create_subscription(
-            ServoData,
-            '/servo/encoder_data',
-            self.encoder_callback,
-            10)
-        
-        # Subscription to april tag detection data
+        self.publisher_ = self.create_publisher(
+            SetPosition, 'servo/set_position', 10
+        )
+
         self.tag_sub = self.create_subscription(
             AprilTagDetectionArray,
             '/detections',
             self.tag_callback,
-            10)
+            10
+        )
 
-        # Time tracker
-        self.start_time = time.time()
+        # Servo order: left yaw, left roll, right yaw, right roll.
+        # Both yaw servos start forward; roll stays fixed.
+        self.servo_commands = [3140, 2974, 660, 2924]
 
-        # Initial Servo 
-        self.servo_init = [2048, 2048, 2048, 2048] 
-        self.servo_commands = [x for x in self.servo_init]
-        self.latest_positions = [0, 0, 0, 0] # change for 4 servos
+        # Your calibrated yaw limits.
+        self.left_yaw_min = 1950       # Sideways
+        self.left_yaw_max = 3140       # Forward: 1950 + 1190
 
-        # Initialization for april tag detection values
-        self.tag_id = 0
-        self.cx = 0
-        self.cy = 0
-        self.corners = [[0, 0, 0, 0], [0, 0, 0, 0]]
-        self.size_x = 0
-        self.size_y = 0
-        self.size = 0
+        self.right_yaw_min = 660       # Forward: 1850 - 1190
+        self.right_yaw_max = 1850      # Sideways
 
+        # Camera and tracking settings.
+        self.center_x = 640            # Half of 1280-pixel image width
+        self.yaw_gain = 0.05
+        self.yaw_direction = 1         # Change to -1 to reverse tracking
+        self.deadband = 10             # Ignore small pixel errors
 
-    # recieving encoder values and storing in class variable
-    def encoder_callback(self, msg):
-        # self.get_logger().info('I heard: "%s"' % str(msg.data))
-        self.latest_positions = list(msg.data)
+        self.target_id = 1
+        self.tag_visible = False
+        self.cx = self.center_x
+        self.last_tag_time = None
+        self.tag_timeout = 0.5         # Hold position if detection goes stale
 
-    # receiving april tag detection data
+        self.timer = self.create_timer(0.02, self.timer_callback)
+
     def tag_callback(self, msg):
-        if not msg.detections:
-            return
-        
-        detection = msg.detections[0]
+        # Look for tag 1, even if other tags appear before it.
+        self.tag_visible = False
 
-        self.tag_id = detection.id
-        self.cx = detection.centre.x
-        self.cy = detection.centre.y
-        self.corners = np.array([
-            [c.x for c in detection.corners],
-            [c.y for c in detection.corners]
-        ])
-
-        self.size_x = self.corners[0][1] - self.corners[0][0]
-        self.size_y = self.corners[1][0] - self.corners[1][1]
-        self.size = np.sqrt(self.size_x ** 2 + self.size_y ** 2)
+        for detection in msg.detections:
+            if detection.id == self.target_id:
+                self.cx = detection.centre.x
+                self.last_tag_time = time.monotonic()
+                self.tag_visible = True
+                break
 
     def timer_callback(self):
-        # Video Width = 1280
-        # Video Height = 720
+        tag_is_fresh = (
+            self.tag_visible
+            and self.last_tag_time is not None
+            and time.monotonic() - self.last_tag_time < self.tag_timeout
+        )
 
-        if self.tag_id == 1:
-                # 1. Calculate how far the tag is from the center pixel (-640 to +640, -360 to +360)
-                error_x = self.cx - 640
-                error_y = self.cy - 360
+        if tag_is_fresh:
+            error_x = (self.cx - self.center_x) * self.yaw_direction
 
-                # 2. Convert pixel error to a small servo step (Tweak the 0.05/0.08 "gain" multipliers to change speed)
-                # If tag is to the right (+X), yaw needs to turn right. If tag is down (+Y), roll needs to tilt down.
-                yaw_step = round(error_x * 0.05)
-                roll_step = round(error_y * 0.08)
+            # Tag near the center: both flippers point forward.
+            if abs(error_x) <= self.deadband:
+                error_x = 0
 
-                # 3. Nudge the CURRENT position instead of snapping to an absolute one
-                # Assuming index 0 is Yaw and index 1 is Roll. Keeping indices 2 and 3 at 0 or unchanged.
-                new_yaw = self.servo_commands[0] + yaw_step
-                new_roll = self.servo_commands[1] + roll_step
+            # Map image position to yaw:
+            # center = 0, left edge = -1, right edge = +1.
+            offset = max(-1.0, min(1.0, error_x / self.center_x))
 
-                # 4. Constrain (clip) the values so they stay within the safe 0-4095 Dynamixel limits
-                new_yaw = max(0, min(4095, new_yaw))
-                new_roll = max(0, min(4095, new_roll))
+            # Left tag: left flipper turns from forward toward sideways.
+            # Right tag: right flipper turns from forward toward sideways.
+            self.servo_commands[0] = round(
+                self.left_yaw_max
+                - max(0.0, -offset)
+                * (self.left_yaw_max - self.left_yaw_min)
+            )
 
-                # Update your tracking array
-                self.servo_commands = [2048, 2048, 2048, 2048]
-        
-        # Defining servo messages and IDs
-        msg = SetPosition()
-        # Publish the data
-        for idx, command in enumerate(self.servo_commands):
-            msg.id = idx + 1
-            msg.position = command
+            self.servo_commands[2] = round(
+                self.right_yaw_min
+                + max(0.0, offset)
+                * (self.right_yaw_max - self.right_yaw_min)
+            )
+
+        # Keep roll fixed.
+        self.servo_commands[1] = 2974
+        self.servo_commands[3] = 2924
+
+        for servo_id, command in enumerate(self.servo_commands, start=1):
+            msg = SetPosition()
+            msg.id = servo_id
+            msg.position = int(command)
             self.publisher_.publish(msg)
 
-# publishing messages to the servos
 def main(args=None):
     rclpy.init(args=args)
-
     node = MinimalPublisher()
 
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
         pass
+    finally:
+        node.destroy_node()
+        if rclpy.ok():
+            rclpy.shutdown()
 
-    node.destroy_node()
-    rclpy.shutdown()
 
 if __name__ == '__main__':
     main()
