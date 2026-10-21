@@ -35,6 +35,7 @@ ADDR_TORQUE_ENABLE = 64
 ADDR_GOAL_POSITION = 116
 ADDR_PRESENT_POSITION = 132
 ADDR_HOMING_OFFSET = 20
+ADDR_PRESENT_CURRENT = 126
 
 # Protocol version
 PROTOCOL_VERSION = 2.0  # Default Protocol version of DYNAMIXEL X series.
@@ -48,6 +49,7 @@ TORQUE_DISABLE = 0  # Value for disabling the torque
 # 4096 pulses per revolution
 POSITION_CONTROL = 3  # Value 4 for Extended position control mode, 3 for normal position control
 DATA_LENGTH_4BYTE = 4
+DATA_LENGTH_2BYTE = 2
 
 # Amount of servos to init on the bus (MAX 4)
 NUM_SERVOS = 4
@@ -61,6 +63,8 @@ class ReadWriteNode(Node):
         # List of servo goals and positions
         self.servo_goals = [0,0,0,0]
         self.servo_positions = [0,0,0,0]
+        self.servo_currents = [0,0,0,0]
+
 
         
         self.port_handler = PortHandler(DEVICE_NAME)
@@ -79,14 +83,17 @@ class ReadWriteNode(Node):
         # Create group sync read and write objects
         self.groupSyncWrite = GroupSyncWrite(self.port_handler, self.packet_handler, ADDR_GOAL_POSITION, DATA_LENGTH_4BYTE)
         self.groupSyncRead = GroupSyncRead(self.port_handler, self.packet_handler, ADDR_PRESENT_POSITION, DATA_LENGTH_4BYTE)
-
+        self.groupSyncReadCurrent = GroupSyncRead(self.port_handler, self.packet_handler, ADDR_PRESENT_CURRENT, DATA_LENGTH_2BYTE)
+        
         # Setup N Servos (4 Max for this project)
         for i in range(1, NUM_SERVOS+1):
             self.setup_dynamixel(i)
-        
+        # Setup Reading Position, Current
         for dxl_id in range(1, NUM_SERVOS + 1):
             if not self.groupSyncRead.addParam(dxl_id):
                 self.get_logger().error(f"Failed to add servo {dxl_id} to GroupSyncRead")
+            if not self.groupSyncReadCurrent.addParam(dxl_id):
+                self.get_logger().error(f"Failed to add servo {dxl_id} to GroupSyncReadCurrent")
 
         # Setup the subscriber for servo goals along with the service to get feedback
         qos = QoSProfile(depth=10)
@@ -96,9 +103,11 @@ class ReadWriteNode(Node):
             self.set_position_callback,
             qos
         )
-        self.timer = self.create_timer(0.05, self.get_position_callback)
+        self.timer = self.create_timer(0.05, self.get_feedback_callback)
+
         self.pospub = self.create_publisher(ServoData, '/servo/position_data', qos)
         self.encpub = self.create_publisher(ServoData, '/servo/encoder_data', qos)
+        self.curpub = self.create_publisher(ServoData, '/servo/current_data', qos)
         
 
     def setup_dynamixel(self, dxl_id):
@@ -162,8 +171,8 @@ class ReadWriteNode(Node):
         self.pospub.publish(log)
     
 
-    def get_position_callback(self):
-        
+    def get_feedback_callback(self):
+        # Position
         msg = ServoData()
         
         dxl_comm_result = self.groupSyncRead.txRxPacket()
@@ -176,6 +185,20 @@ class ReadWriteNode(Node):
         msg.header.stamp = self.get_clock().now().to_msg()
         msg.data = self.servo_positions
         self.encpub.publish(msg)
+
+        # Current 
+        msg1 = ServoData()
+        
+        dxl_comm_result = self.groupSyncReadCurrent.txRxPacket()
+        if dxl_comm_result != COMM_SUCCESS:
+            self.get_logger().error("%s" % self.packet_handler.getTxRxResult(dxl_comm_result))
+        
+        for idx, current in enumerate(self.servo_currents):
+            self.servo_currents[idx] = self.groupSyncReadCurrent.getData(idx+1, ADDR_PRESENT_CURRENT, DATA_LENGTH_2BYTE)
+        
+        msg1.header.stamp = self.get_clock().now().to_msg()
+        msg1.data = self.servo_currents
+        self.curpub.publish(msg1)
 
 
     def __del__(self):

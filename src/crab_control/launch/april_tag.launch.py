@@ -15,7 +15,17 @@ def generate_launch_description():
 
 
     return LaunchDescription([
+        Node(
+            package='crab_control',
+            executable='servo_node',
+            output='screen'
+        ),
 
+        Node(
+            package='crab_control',
+            executable='servo_controller',
+            output='screen'
+        ),
 
         Node(
             package="crab_control",
