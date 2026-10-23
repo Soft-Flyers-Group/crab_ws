@@ -10,88 +10,30 @@ class MinimalPublisher(Node):
     def __init__(self):
         super().__init__('servo_controller')
 
+        # Publish to Servo Node to move the servo
         self.publisher_ = self.create_publisher(
             SetPosition, 'servo/set_position', 10
         )
+        # Servo 1 is YAW, Servo 2 is ROLL
+        self.servo_commands = [0,0]
 
-        self.tag_sub = self.create_subscription(
-            AprilTagDetectionArray,
-            '/detections',
-            self.tag_callback,
-            10
-        )
-
-        # Servo order: left yaw, left roll, right yaw, right roll.
-        # Both yaw servos start forward; roll stays fixed.
-        self.servo_commands = [3140, 2974, 660, 2924]
-
-        # Your calibrated yaw limits.
-        self.left_yaw_min = 1950       # Sideways
-        self.left_yaw_max = 3140       # Forward: 1950 + 1190
-
-        self.right_yaw_min = 660       # Forward: 1850 - 1190
-        self.right_yaw_max = 1850      # Sideways
-
-        # Camera and tracking settings.
-        self.center_x = 640            # Half of 1280-pixel image width
-        self.yaw_gain = 0.05
-        self.yaw_direction = 1         # Change to -1 to reverse tracking
-        self.deadband = 10             # Ignore small pixel errors
-
-        self.target_id = 1
-        self.tag_visible = False
-        self.cx = self.center_x
-        self.last_tag_time = None
-        self.tag_timeout = 0.5         # Hold position if detection goes stale
-
+        # Timer Call Back at 200 Hz
         self.timer = self.create_timer(0.02, self.timer_callback)
 
-    def tag_callback(self, msg):
-        # Look for tag 1, even if other tags appear before it.
-        self.tag_visible = False
-
-        for detection in msg.detections:
-            if detection.id == self.target_id:
-                self.cx = detection.centre.x
-                self.last_tag_time = time.monotonic()
-                self.tag_visible = True
-                break
 
     def timer_callback(self):
-        tag_is_fresh = (
-            self.tag_visible
-            and self.last_tag_time is not None
-            and time.monotonic() - self.last_tag_time < self.tag_timeout
-        )
 
-        if tag_is_fresh:
-            error_x = (self.cx - self.center_x) * self.yaw_direction
+        # 0-4096 Range from 0 to 360 degrees
+        # Travel full range for both servos
+        if self.servo_commands[0] >= 4069:
+            self.servo_commands[0] = 0
+        else:
+            self.servo_commands[0] += 10
 
-            # Tag near the center: both flippers point forward.
-            if abs(error_x) <= self.deadband:
-                error_x = 0
-
-            # Map image position to yaw:
-            # center = 0, left edge = -1, right edge = +1.
-            offset = max(-1.0, min(1.0, error_x / self.center_x))
-
-            # Left tag: left flipper turns from forward toward sideways.
-            # Right tag: right flipper turns from forward toward sideways.
-            self.servo_commands[0] = round(
-                self.left_yaw_max
-                - max(0.0, -offset)
-                * (self.left_yaw_max - self.left_yaw_min)
-            )
-
-            self.servo_commands[2] = round(
-                self.right_yaw_min
-                + max(0.0, offset)
-                * (self.right_yaw_max - self.right_yaw_min)
-            )
-
-        # Keep roll fixed.
-        self.servo_commands[1] = 2974
-        self.servo_commands[3] = 2924
+        if self.servo_commands[1] >= 4069:
+            self.servo_commands[1] = 0
+        else:
+            self.servo_commands[1] += 10
 
         for servo_id, command in enumerate(self.servo_commands, start=1):
             msg = SetPosition()
