@@ -52,8 +52,8 @@ DATA_LENGTH_4BYTE = 4
 DATA_LENGTH_2BYTE = 2
 
 # Amount of servos to init on the bus (MAX 4)
-NUM_SERVOS = 4
-HOMING_OFFSET = 410
+NUM_SERVOS = 2
+HOMING_OFFSET = 0
 
 
 class ReadWriteNode(Node):
