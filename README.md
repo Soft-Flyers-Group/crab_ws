@@ -32,3 +32,14 @@ April tag detection:
 source install/setup.bash
 ros2 launch crab_control april_tag.launch.py
 ros2 topic echo /detections
+
+
+terminal1:
+colcon build
+source install/setup.bash
+ros2 run crab_control servo_node
+
+terminal2:
+colcon build
+source install/setup.bash
+ros2 run crab_control servo_controller
