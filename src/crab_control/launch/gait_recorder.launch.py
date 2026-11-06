@@ -30,7 +30,8 @@ def generate_launch_description():
                         '-o', bag_name,
                         '/load_cell_data',
                         '/servo/encoder_data',
-                        '/servo/position_data'
+                        '/servo/position_data',
+                        '/servo/current_data'
                     ],
                     output='screen'
                 ),
